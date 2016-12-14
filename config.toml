@@ -1,4 +1,4 @@
-baseurl = ""
+baseurl = "MongoKittenDocumentation"
 languageCode = "en-us"
 title = "MongoDB Swift Driver"
 theme = "mongodb"
