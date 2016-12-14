@@ -25,7 +25,7 @@ canonifyurls = false
 
 [[menu.main]]
     name = ""
-    pre = "<img src='http://vapor.team/badge.svg'/>"
+    pre = ""
     weight = 150
-    identifier = "slackLink"
-    url = "http://slack.qutheory.io/"
+    identifier = ""
+    url = ""
