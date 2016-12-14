@@ -1,0 +1,31 @@
+baseurl = ""
+languageCode = "en-us"
+title = "MongoDB Swift Driver"
+theme = "mongodb"
+canonifyurls = false
+
+[blackfriday]
+  plainIdAnchors = true
+
+
+# Update versions in mongodb.toml as well
+[[menu.main]]
+    name = "API Documentation"
+    pre = "<i class='fa fa-file-text-o'></i>"
+    weight = 90
+    identifier = "apiDocs"
+    url = "http://mongokitten.openkitten.org"
+
+[[menu.main]]
+    name = "Source Code"
+    pre = "<i class='fa fa-github'></i>"
+    weight = 90
+    identifier = "githubLink"
+    url = "https://github.com/OpenKitten/MongoKitten"
+
+[[menu.main]]
+    name = ""
+    pre = "<img src='http://vapor.team/badge.svg'/>"
+    weight = 150
+    identifier = "slackLink"
+    url = "http://slack.qutheory.io/"
