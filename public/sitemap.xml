@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tutorials/aggregation/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tutorials/connect/authenticating/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tutorials/crud/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tutorials/collections/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tutorials/connect/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/reference/connecting/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/reference/faq/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tutorials/gridfs/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/installation-guide/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/issues-help/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tutorials/QueryBuilder/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/quick-start/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/reference/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tutorials/connect/ssl/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tutorials/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/upgrade-migration/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tutorials/Administration/</loc>
+    <lastmod>2016-12-14T12:57:41+01:00</lastmod>
+  </url>
+  
+</urlset>

@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MongoDB Swift Driver</title>
+    <link>/index.xml</link>
+    <description>Recent content on MongoDB Swift Driver</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 14 Dec 2016 12:36:56 +0000</lastBuildDate>
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Aggregation</title>
+      <link>/tutorials/aggregation/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/tutorials/aggregation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Authentication</title>
+      <link>/tutorials/connect/authenticating/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/tutorials/connect/authenticating/</guid>
+      <description>
+
+&lt;h1 id=&#34;authentication&#34;&gt;Authentication&lt;/h1&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CRUD Operations</title>
+      <link>/tutorials/crud/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/tutorials/crud/</guid>
+      <description>
+
+&lt;h1 id=&#34;crud&#34;&gt;CRUD&lt;/h1&gt;
+
+&lt;p&gt;In &lt;a href=&#34;Setup.md&#34;&gt;the setup guide&lt;/a&gt; we&amp;rsquo;ve covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.&lt;/p&gt;
+
+&lt;p&gt;From a collection object we can start interacting with our data. From here we&amp;rsquo;ll cover all parts of CRUD.
+(Create, Read, Update, Delete). And we&amp;rsquo;ll assume you have a Collection available as the variable &lt;code&gt;collection&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;creation&#34;&gt;Creation&lt;/h2&gt;
+
+&lt;p&gt;You can create an entry in MongoDB by &lt;code&gt;insert&lt;/code&gt;ing a Document into a Collection.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;let identifier = try collection.insert(document)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The returned identifier is the &lt;code&gt;_id&lt;/code&gt; field in the Document. If no &lt;code&gt;_id&lt;/code&gt; exists in the provided Document parameter an ObjectId will be generated. The &lt;code&gt;_id&lt;/code&gt; field can be of almost any value.&lt;/p&gt;
+
+&lt;p&gt;ObjectId keeps track of the creation date and is unique. Int32 and Int64 can be used incrementally like is usual in SQL. Strings can also be used. When you&amp;rsquo;re inserting a Document which primarily contains a unique String (like a database migration&amp;rsquo;s description) this description can be the &lt;code&gt;_id&lt;/code&gt; of the Document.&lt;/p&gt;
+
+&lt;p&gt;No two Documents can exist in the same collection with the same &lt;code&gt;_id&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can also insert an array of Documents which will all be inserted. MongoKitten will return an array of identifiers for each inserted Document.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;let identifiers = try collection.insert([document0, document1, document2])&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;reading-finding&#34;&gt;Reading/finding&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;find&lt;/code&gt; can be ran without arguments to fetch every Document in the collection.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;try collection.find()&lt;/code&gt; will return a &lt;a href=&#34;Cursor.md&#34;&gt;Cursor&lt;/a&gt; containing all Documents. Cursors are an important part of the MongoKitten flow but we&amp;rsquo;ll cover them in short here.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;try collection.findOne()&lt;/code&gt; will return a single &lt;code&gt;Document?&lt;/code&gt;. Which is nil if no Document could be found.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;Array&lt;/code&gt; initializer can be used on the Cursor to create an &lt;code&gt;Array&amp;lt;Document&amp;gt;&lt;/code&gt; containing all results.
+This is recommended when you definitely need all results. Looping over a Cursor is recommended when you don&amp;rsquo;t necessarily need all results and might stop in the middle of the process. &lt;code&gt;Array&lt;/code&gt; isn&amp;rsquo;t any better than Cursor other than providing the ability to count the results without an extra query. However, it does use more RAM.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let documentArray = Array(try collection.find())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can specify 6 parameters which we&amp;rsquo;ll all cover underneath which, of course, can be combined.&lt;/p&gt;
+
+&lt;h3 id=&#34;matching&#34;&gt;matching&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;find&lt;/code&gt; accepts a Query that Documents are matched against. You can create a Query from a Document or using operators.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document = [
+  &amp;quot;username&amp;quot;: &amp;quot;bob&amp;quot;
+]
+let query = Query(document)
+
+try collection.find(matching: query)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let query: Query = &amp;quot;username&amp;quot; == &amp;quot;bob&amp;quot;
+
+try collection.find(matching: query)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;sortedby&#34;&gt;sortedBy&lt;/h3&gt;
+
+&lt;p&gt;This accepts a &lt;code&gt;Sort&lt;/code&gt; object which can be created with a Dictionary literal.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let sort: Sort = [
+  &amp;quot;integer&amp;quot;: .ascending,
+  &amp;quot;date&amp;quot;: .descending
+]
+
+try collection.find(sortedBy: sort)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;projecting&#34;&gt;projecting&lt;/h3&gt;
+
+&lt;p&gt;Accepts a projection that projects the fields that should be returned. The &lt;code&gt;_id&lt;/code&gt; key will be included unless specifically disabled.&lt;/p&gt;
+
+&lt;p&gt;Suppose the following Document resides in the database:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
+  &amp;quot;_id&amp;quot;: ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;),
+  &amp;quot;key0&amp;quot;: &amp;quot;henk&amp;quot;,
+  &amp;quot;key1&amp;quot;: true,
+  &amp;quot;key2&amp;quot;: 3,
+  &amp;quot;key3&amp;quot;: [
+    &amp;quot;key4&amp;quot;: &amp;quot;value0&amp;quot;
+  ]
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following projection will return the keys &lt;code&gt;_id&lt;/code&gt;, &lt;code&gt;key1&lt;/code&gt; and &lt;code&gt;key2&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let projection: Projection = [&amp;quot;key1&amp;quot;, &amp;quot;key2&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following projections will return &lt;code&gt;key2&lt;/code&gt; and &lt;code&gt;key3&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let projection0: Projection = [
+  &amp;quot;_id&amp;quot;: false,
+  &amp;quot;key2&amp;quot;: true,
+  &amp;quot;key3&amp;quot;: true
+]
+
+let projection1: Projection = [
+  &amp;quot;_id&amp;quot;: .excluded,
+  &amp;quot;key2&amp;quot;: .included,
+  &amp;quot;key3&amp;quot;: .included
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Applying this projection to limit the returned fields is simple:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.find(projecting: projection)
+try collection.find(projecting: [&amp;quot;_id&amp;quot;: false, &amp;quot;key0&amp;quot;: true])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;skipping&#34;&gt;skipping&lt;/h3&gt;
+
+&lt;p&gt;Accepts an Int32 that skips the first X results where X is the provided number. If 5 documents match the find query and the skip is set so 4, the last Document is returned. If the skip is set to 2, the last 3 documents will be returned. If the skip is set to 5, no Documents will be returned.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.find(skipping: 3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;limitedto&#34;&gt;limitedTo&lt;/h3&gt;
+
+&lt;p&gt;Accepts an Int32 that limits the returned results to be less or equal to the limit. If 5 documents match the find query and the limit is set to 7, 5 Documents will be returned. If the limit is set to 3, the first 3 Documents will be returned.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.find(limitedTo: 3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;withbatchsize&#34;&gt;withBatchSize&lt;/h3&gt;
+
+&lt;p&gt;The batch size is important with respect to efficiency and performance. Cursors return &lt;code&gt;batchSize&lt;/code&gt; of Documents with every fetch. And a fetch is done whenever more Documents are required. When looping over a cursor containing 100 Documents with a batchSize of 10, 10 queries will be done to fetch all results. The default value is 10 Documents per query because a Document can be up to 16 MB and MongoDB usually only communicates 48 MB per message.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;rsquo;re fetching a lot of small Documents a higher batchSize is useful. If you&amp;rsquo;re fetching a lot of big Documents, a smaller batchSize is necessary. And if you&amp;rsquo;re fetching and processing all Documents like &lt;code&gt;Array(collection.find(...))&lt;/code&gt; or a &lt;code&gt;for document in collection.find(...)&lt;/code&gt; that doesn&amp;rsquo;t break out of the loop it&amp;rsquo;s generally better to fetch more Documents per query to reduce the amount of communication and delay.&lt;/p&gt;
+
+&lt;p&gt;Most MongoDB servers don&amp;rsquo;t accept values over 1000.&lt;/p&gt;
+
+&lt;h2 id=&#34;updating&#34;&gt;Updating&lt;/h2&gt;
+
+&lt;p&gt;Update comes in two forms. Bulk and single updates.&lt;/p&gt;
+
+&lt;h3 id=&#34;single-updates&#34;&gt;Single updates&lt;/h3&gt;
+
+&lt;p&gt;Single updates are formed using a single filter (&lt;a href=&#34;QueryBuilder.md&#34;&gt;Query&lt;/a&gt; object) and a single update document.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;QueryBuilder.md&#34;&gt;Queries are covered here.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Update finds already existing Documents in the collection that match the query/filter and updates them to the &lt;code&gt;to&lt;/code&gt; Document and will overwrite the existing Document with the new Document.&lt;/p&gt;
+
+&lt;p&gt;Assuming the following Document resides in the database:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
+  &amp;quot;_id&amp;quot;: ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;),
+  &amp;quot;key0&amp;quot;: &amp;quot;henk&amp;quot;,
+  &amp;quot;key1&amp;quot;: true,
+  &amp;quot;key2&amp;quot;: 3,
+  &amp;quot;key3&amp;quot;: [
+    &amp;quot;key4&amp;quot;: &amp;quot;value0&amp;quot;
+  ]
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Executing the following query:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document = [
+  &amp;quot;key0&amp;quot;: &amp;quot;bob&amp;quot;,
+  &amp;quot;key1&amp;quot;: false
+]
+
+try collection.update(matching: &amp;quot;_id&amp;quot; == ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;), to: document)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Will result in the following database Document:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document = [
+  &amp;quot;_id&amp;quot;: ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;),
+  &amp;quot;key0&amp;quot;: &amp;quot;bob&amp;quot;,
+  &amp;quot;key1&amp;quot;: false
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However the following query:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document = [
+  &amp;quot;$set&amp;quot;: [
+    &amp;quot;key0&amp;quot;: &amp;quot;bob&amp;quot;,
+    &amp;quot;key1&amp;quot;: false
+  ]
+]
+
+try collection.update(matching: &amp;quot;_id&amp;quot; == ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;), to: document)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Will result in the following Document.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
+  &amp;quot;_id&amp;quot;: ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;),
+  &amp;quot;key0&amp;quot;: &amp;quot;bob&amp;quot;,
+  &amp;quot;key1&amp;quot;: false,
+  &amp;quot;key2&amp;quot;: 3,
+  &amp;quot;key3&amp;quot;: [
+    &amp;quot;key4&amp;quot;: &amp;quot;value0&amp;quot;
+  ]
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;upserting&#34;&gt;upserting&lt;/h3&gt;
+
+&lt;p&gt;If &lt;code&gt;true&lt;/code&gt;, the &lt;code&gt;to&lt;/code&gt; Document will be inserted if no matching Documents were found to update.&lt;/p&gt;
+
+&lt;h3 id=&#34;multiple&#34;&gt;multiple&lt;/h3&gt;
+
+&lt;p&gt;If &lt;code&gt;true&lt;/code&gt;, this operation will update &lt;em&gt;all&lt;/em&gt; Documents matching the filter to the &lt;code&gt;to&lt;/code&gt; Document. If &lt;code&gt;$set&lt;/code&gt; is used to overwrite only the &lt;code&gt;$set&lt;/code&gt; key-value pairs, all Documents matching will have the keys overridden. Otherwise the new &lt;code&gt;to&lt;/code&gt; Document will be used for all matching Documents and all non-matching keys will be removed.&lt;/p&gt;
+
+&lt;h3 id=&#34;multiple-updates&#34;&gt;Multiple updates&lt;/h3&gt;
+
+&lt;p&gt;TODO for signature&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;public func update(_ updates: [(filter: Query, to: Document, upserting: Bool, multiple: Bool)], stoppingOnError ordered: Bool? = nil) throws -&amp;gt; Int {&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;counting&#34;&gt;Counting&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;count&lt;/code&gt; can be used on a collection to count all Documents matching the provided requirements. If no requirements are provided, all documents will be counted.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;count&lt;/code&gt; will return the amount of updated matches.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count() // returns 5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;matching-1&#34;&gt;matching&lt;/h3&gt;
+
+&lt;p&gt;Count accepts the parameter &lt;code&gt;matching&lt;/code&gt; which requires a Query to be provided.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count(matching: &amp;quot;first_name&amp;quot; == &amp;quot;Joannis&amp;quot;) // returns 1 if only one user is named Joannis
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;limitedto-1&#34;&gt;limitedTo&lt;/h3&gt;
+
+&lt;p&gt;Limits the results that will be counted.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count(limitedTo: 4) // returns 4, even if 5 users reside in the database
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;skipping-1&#34;&gt;skipping&lt;/h3&gt;
+
+&lt;p&gt;Skips X matching documents before counting.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count(skipping: 3) // returns 2, even if 5 users reside in the database
+try collection.count(limitedTo: 2, skipping: 4) // Will return 1 in this scenario. 4 will be skipped and only 1 remains to be counted.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;removing&#34;&gt;Removing&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;remove&lt;/code&gt; removes all Documents matching the query but can be limited in the amount of removals. It will return the amount of objects that have been removed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove() // returns 5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above example will remove all Documents.&lt;/p&gt;
+
+&lt;h3 id=&#34;matching-2&#34;&gt;matching&lt;/h3&gt;
+
+&lt;p&gt;Acts like all other matchers and expects a Query object. Only Documents matching the Query will be removed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove(matching: &amp;quot;first_name&amp;quot; == &amp;quot;Joannis&amp;quot;) // Returns 1, only one user named &amp;quot;Joannis&amp;quot; exists
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;limitedto-2&#34;&gt;limitedTo&lt;/h3&gt;
+
+&lt;p&gt;Will not return more than X Documents from the collection, even if more Documents match. Will return the first created Documents first.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove(limitedTo: 3) // returns 3, even if 5 or more Documents exist
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Collections</title>
+      <link>/tutorials/collections/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/tutorials/collections/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Connect to MongoDB</title>
+      <link>/tutorials/connect/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/tutorials/connect/</guid>
+      <description>
+
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;MongoKitten is initializable on Server or Database level. Server objects allow access to every database - if the account you use to authenticate has the permissions to - and is generally not used.&lt;/p&gt;
+
+&lt;p&gt;Database is initializable separately and allows access to a single database on a MongoDB server. You can still access the server object from the Database and access other parts of the server via there if this is necessary.&lt;/p&gt;
+
+&lt;p&gt;Before you create your own connection URL it&amp;rsquo;s recommended to &lt;a href=&#34;URL.md&#34;&gt;read this&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You can instantiate a Server using a MongoDB connection URL/String:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let server = try Server(mongoURL: &amp;quot;mongodb://localhost&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The database also has two initializers. One accepts a connection URL as String. The database which is accessed is equal to the authentication database in this case.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(mongoURL: &amp;quot;mongodb://kitten:kitten@ds125078-a0.mlab.com:25078,ds125078-a1.mlab.com:25078/kitten?replicaSet=rs-ds125078&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternatively you can create a server object and select the database from there:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let server = try Server(mongoURL: &amp;quot;mongodb://localhost&amp;quot;)
+
+let database = server[&amp;quot;my-database-name&amp;quot;]
+let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: server)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Last but not least you can select a collection/table within a database:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let usersCollection = database[&amp;quot;users&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;From here you can interact with every part of MongoKitten.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Connection Options</title>
+      <link>/reference/connecting/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/reference/connecting/</guid>
+      <description>
+
+&lt;h1 id=&#34;url&#34;&gt;URL&lt;/h1&gt;
+
+&lt;p&gt;Before we go into much further detail we&amp;rsquo;ll cover the concept and structure of a MongoDB connection URL.&lt;/p&gt;
+
+&lt;p&gt;The most basic example of this would be &lt;code&gt;mongodb://localhost&lt;/code&gt;. This consists of the schema (&lt;code&gt;mongodb://&lt;/code&gt; which is required in all MongoDB connection URLs) as well as the hostname, in this case, &lt;code&gt;localhost&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The hostname can be either an IP address or a full address like &lt;code&gt;example.com&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Hostnames can be succeeded by a semicolon &lt;code&gt;:&lt;/code&gt; and a port. A port is a number between 0 and 66535. By default MongoDB is hosted on 27017 which is used by default.&lt;/p&gt;
+
+&lt;p&gt;In the URL you can also add the username and password and authentication database.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;mongodb://usern4m3:p455word@example.com:12345/admin&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;In this example the hostname is &lt;code&gt;example.com&lt;/code&gt;. The instance should be hosted at port &lt;code&gt;12345&lt;/code&gt; and we&amp;rsquo;re authenticating at the username &lt;code&gt;usern4m3&lt;/code&gt; and the password &lt;code&gt;p455word&lt;/code&gt;. The username and password should be URL percent encoded and the authentication database is &lt;code&gt;admin&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Last but not least we can specify multiple hosts in the case of a replica set.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;mongodb://username:password@host0.example.com:12345,host1.example.com:54321,host2.example.com:27017/admin&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;In this example we&amp;rsquo;re connecting to a replica set of 3 hosts.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;host0.example.com:12345&lt;/li&gt;
+&lt;li&gt;host1.example.com:54321&lt;/li&gt;
+&lt;li&gt;host2.example.com:27017&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;query-parameters&#34;&gt;Query parameters&lt;/h3&gt;
+
+&lt;p&gt;After the URL&amp;rsquo;s path (the database) you can optionally add Query parameters.&lt;/p&gt;
+
+&lt;p&gt;These are started with a question mark (&lt;code&gt;?&lt;/code&gt;) and have key-value pairs. Pairs are separated by an ampersand (&lt;code&gt;&amp;amp;&lt;/code&gt;). Every key-value pair has a key which is a string &lt;em&gt;without&lt;/em&gt; &lt;code&gt;&amp;amp;&lt;/code&gt;, &lt;code&gt;?&lt;/code&gt; or &lt;code&gt;=&lt;/code&gt; characters (unless percent encoded) which is then followed by an equals sign (&lt;code&gt;=&lt;/code&gt;), followed by a value. The &lt;code&gt;=&lt;/code&gt; and value are optional for some parameters.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;mongodb://localhost?ssl&amp;amp;authSource=admin&amp;amp;authMechanism=MONGODB-CR&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This URL has three keys:
+- ssl
+- authSource
+- authMechanism&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ssl&lt;/code&gt; doesn&amp;rsquo;t have a value&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;authSource&lt;/code&gt; has the value &lt;code&gt;admin&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;authMechanism&lt;/code&gt; has the value &lt;code&gt;MONGODB-CR&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ssl&#34;&gt;SSL&lt;/h3&gt;
+
+&lt;p&gt;SSL is enabled for a server by adding the query parameter key &lt;code&gt;ssl&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;mongodb://mongodb.example.com:12345/myDatabase?ssl&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;authsource&#34;&gt;authSource&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;authSource&lt;/code&gt; indicates that the authentication database differs from the default (admin) or the selected database in the path.&lt;/p&gt;
+
+&lt;p&gt;Where &lt;code&gt;mongodb://mongodb.example.com:12345/myDatabase&lt;/code&gt; will use &lt;code&gt;myDatabase&lt;/code&gt; for authentication and &lt;code&gt;mongodb://mongodb.example.com:12345&lt;/code&gt; will use &lt;code&gt;admin&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;mongodb://mongodb.example.com:12345/myDatabase?authSource=test&lt;/code&gt; will use &lt;code&gt;admin&lt;/code&gt; for authentication. This is also useful for databases where the user logs in against &lt;code&gt;admin&lt;/code&gt; but the path is used for selecting a database, for example, in the Database initializer.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;mongodb://mongodb.example.com:12345/myDatabase?authSource=admin&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;authmechanism&#34;&gt;authMechanism&lt;/h3&gt;
+
+&lt;p&gt;Selects a mechanism that will be used for authentication to the MongoDB server.&lt;/p&gt;
+
+&lt;p&gt;MongoDB supports the following mechanisms:
+- SCRAM_SHA_1
+- MONGODB-CR
+- MONGODB-X509
+- GSSAP
+- PLAIN&lt;/p&gt;
+
+&lt;p&gt;MongoKitten only supports &lt;code&gt;SCRAM_SHA_1&lt;/code&gt; and &lt;code&gt;MONGODB-CR&lt;/code&gt;, currently.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Frequently Asked Questions</title>
+      <link>/reference/faq/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/reference/faq/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GridFS</title>
+      <link>/tutorials/gridfs/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/tutorials/gridfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Installation Guide</title>
+      <link>/installation-guide/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/installation-guide/</guid>
+      <description>
+
+&lt;h1 id=&#34;installation&#34;&gt;Installation&lt;/h1&gt;
+
+&lt;p&gt;The recommended way to get started using the Swift driver is by using &lt;code&gt;SPM&lt;/code&gt; (Swift Package Manager) to install the dependency in your project.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Issues &amp; Help</title>
+      <link>/issues-help/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/issues-help/</guid>
+      <description>
+
+&lt;h1 id=&#34;issues-help&#34;&gt;Issues &amp;amp; Help&lt;/h1&gt;
+
+&lt;h2 id=&#34;bugs-feature-requests&#34;&gt;Bugs / Feature Requests&lt;/h2&gt;
+
+&lt;p&gt;To report a bug or to request a new feature in the Swift driver,
+please open an issue on the GitHub project:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com&#34;&gt;Create an account and login&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Navigate to &lt;a href=&#34;https://github.com/OpenKitten/MongoKitten/issues&#34;&gt;the MongoKitten project&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Click &lt;strong&gt;New Issue&lt;/strong&gt;. Provide as much information as possible about the
+issue and the steps to reproduce it.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;pull-requests&#34;&gt;Pull Requests&lt;/h2&gt;
+
+&lt;p&gt;We are happy to accept contributions to help improve the driver.
+We will review user contributions to ensure they meet the standards of the codebase.
+Pull requests must pass the travis.ci checks as well as include documentation
+and tests.&lt;/p&gt;
+
+&lt;p&gt;To get started check out the source and work on a branch:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone https://github.com/OpenKitten/MongoKitten.git
+$ cd https://github.com/OpenKitten/MongoKitten.gite
+$ swift build 
+$ git checkout -b myNewFeature
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>QueryBuilder</title>
+      <link>/tutorials/QueryBuilder/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/tutorials/QueryBuilder/</guid>
+      <description>
+
+&lt;h1 id=&#34;querybuilder&#34;&gt;QueryBuilder&lt;/h1&gt;
+
+&lt;p&gt;Query is the object that will find data for you. It&amp;rsquo;s used in all CRUD operations except insert. It&amp;rsquo;s used for finding the Document you want to fetch/modify/delete.&lt;/p&gt;
+
+&lt;p&gt;There are two method of creating a Query. You can create a Query manually from a Document or you can use the operators. Operator based queries are means for simple queries only.&lt;/p&gt;
+
+&lt;p&gt;This would be an example of an operator based query&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let firstName = &amp;quot;Bob&amp;quot;
+let surName = &amp;quot;de Boer&amp;quot;
+let query: Query = &amp;quot;name_first&amp;quot; == firstName
+
+try usersCollection.findOne(matching: &amp;quot;name_first&amp;quot; == firstName &amp;amp;&amp;amp; &amp;quot;name_last&amp;quot; == surName &amp;amp;&amp;amp; &amp;quot;age&amp;quot; &amp;lt; 24)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you&amp;rsquo;re in need for more advanced MongoDB queries you can create one from a Document.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
+  &amp;quot;name_first&amp;quot;: firstName,
+  &amp;quot;name_last&amp;quot;: surName,
+  &amp;quot;age&amp;quot;: [ &amp;quot;$lt&amp;quot;: 24]
+]
+
+try usersCollection.findOne(matching: Query(document))
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Quick Start</title>
+      <link>/quick-start/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/quick-start/</guid>
+      <description>
+
+&lt;h1 id=&#34;quick-start&#34;&gt;Quick Start&lt;/h1&gt;
+
+&lt;p&gt;This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the &lt;a href=&#34;/reference/&#34;&gt;tutorials&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;create-the-package-swift-file&#34;&gt;Create the package.swift file&lt;/h2&gt;
+
+&lt;p&gt;First, create a directory where your application will live.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mkdir myproject
+cd myproject
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Enter the following command and answer the questions to create the initial structure for your new project:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;swift package init --type executable
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next, install the driver dependency.&lt;/p&gt;
+
+&lt;p&gt;Add this to your &lt;code&gt;Package.swift&lt;/code&gt; for the stable&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;.Package(url: &amp;quot;https://github.com/OpenKitten/MongoKitten.git&amp;quot;, majorVersion: 2)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Or add this to your &lt;code&gt;Package.swift&lt;/code&gt; for the beta of MongoKitten 3&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;.Package(url: &amp;quot;https://github.com/OpenKitten/MongoKitten.git&amp;quot;, &amp;quot;3.0.0-beta&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;And &lt;code&gt;import MongoKitten&lt;/code&gt; in your project.&lt;/p&gt;
+
+&lt;p&gt;You should see &lt;strong&gt;SPM&lt;/strong&gt; download a lot of files. Once it&amp;rsquo;s done you&amp;rsquo;ll find all the downloaded packages under the &lt;strong&gt;Packages&lt;/strong&gt; directory.&lt;/p&gt;
+
+&lt;h2 id=&#34;start-a-mongodb-server&#34;&gt;Start a MongoDB Server&lt;/h2&gt;
+
+&lt;p&gt;For complete MongoDB installation instructions, see &lt;a href=&#34;https://docs.mongodb.org/manual/installation/&#34;&gt;the manual&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Download the right MongoDB version from &lt;a href=&#34;https://www.mongodb.org/downloads&#34;&gt;MongoDB&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Create a database directory (in this case under &lt;strong&gt;/data&lt;/strong&gt;).&lt;/li&gt;
+&lt;li&gt;Install and start a &lt;code&gt;mongod&lt;/code&gt; process.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;mongod --dbpath=/data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You should see the &lt;strong&gt;mongod&lt;/strong&gt; process start up and print some status information.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Reference</title>
+      <link>/reference/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/reference/</guid>
+      <description>
+
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+
+&lt;p&gt;The reference documentation for the swift driver driver focuses on high-level documentation and use-cases.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>SSL Settings</title>
+      <link>/tutorials/connect/ssl/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/tutorials/connect/ssl/</guid>
+      <description>
+
+&lt;h1 id=&#34;tls-ssl&#34;&gt;TLS/SSL&lt;/h1&gt;
+
+&lt;p&gt;The Swift driver supports TLS/SSL connections to MongoDB that support TLS/SSL support.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tutorials</title>
+      <link>/tutorials/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/tutorials/</guid>
+      <description>
+
+&lt;h1 id=&#34;tutorials&#34;&gt;Tutorials&lt;/h1&gt;
+
+&lt;p&gt;The tutorials in this section provide examples of some frequently used operations. This section is not meant to be an exhaustive list of all operations available in the Node.js driver.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;/tutorials/connect/&#34;&gt;Connect to MongoDB&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;/tutorials/collections/&#34;&gt;Collections&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;/tutorials/crud/&#34;&gt;CRUD Operations&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;/tutorials/QueryBuilder/&#34;&gt;Query Builder&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;/tutorials/aggregation/&#34;&gt;Aggregation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;/tutorials/Administration/&#34;&gt;Administration&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;/tutorials/gridfs/&#34;&gt;GridFS&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
