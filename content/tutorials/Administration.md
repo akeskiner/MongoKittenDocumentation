@@ -32,5 +32,3 @@ All available flags can be found [here.](https://docs.mongodb.com/manual/referen
 ## Renaming collections
 
 `try collection.rename(to: "newCollectionName")`
-
-

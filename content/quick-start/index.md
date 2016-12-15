@@ -9,7 +9,7 @@ title = "Quick Start"
 
 Quick Start
 ===========
-This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the [tutorials]({{< relref "reference/index.md" >}}).
+This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the [tutorials]({{< relref "tutorials/index.md" >}}).
 
 Create the package.swift file
 ----------------------------
@@ -53,4 +53,3 @@ mongod --dbpath=/data
 ```
 
 You should see the **mongod** process start up and print some status information.
-

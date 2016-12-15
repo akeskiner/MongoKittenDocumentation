@@ -10,4 +10,12 @@ title = "SSL Settings"
 
 # TLS/SSL
 
-The Swift driver supports TLS/SSL connections to MongoDB that support TLS/SSL support.
+MongoKitten supports TLS/SSL connections to MongoDB that support TLS/SSL support.
+
+You can add the query parameter "ssl" to your connection string `mongodb://.....?ssl` or enable SSL in the ClientSettings when initializing a Server. SSLSettings are an immutable part of the ClientSettings, so any configuration will have to be done prior to initializing a ClientSettings object with SSLSettings. SSL configuration be done using secure defaults by initializing it with a `true` literal.
+
+```swift
+var sslSettings: SSLSettings = true
+```
+
+These sslSettings can then be modified to accept a specific certificate or even allow unverified hostnames and/or certificates.

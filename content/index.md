@@ -4,17 +4,14 @@ title = "index"
 type = "index"
 +++
 
-# MongoDB Swift Driver Documentation
+# MongoKitten Documentation
 
-Welcome to the MongoDB Swift 3.x driver documentation.
+Welcome to the MongoKitten 3.x driver documentation.
 
+## Migrating to MongoKitten 3
 
-## What's New
-
-The [What's New]({{< relref "upgrade-migration/index.md" >}}) guide explains the major new features of the driver.
-
-If you are upgrading from the 1.x series of the driver, consult the [Upgrading]({{< relref "upgrade-migration/upgrading.md" >}}) documentation for
-information on recent changes.
+If you are upgrading from a previous MongoKitten version (2.x or 3.x), consult the [migration guide]({{< relref "upgrade-migration/index.md" >}}) for
+information on updating your code to MongoKitten 3.
 
 ## Starting points
 
@@ -23,24 +20,13 @@ information on recent changes.
 * [CRUD operations]({{< relref "tutorials/crud.md" >}})
 * [Connect]({{< relref "tutorials/connect/index.md" >}})
 
-## Developing with ECMAScript 6
-
-If you'd like to use the MongoDB driver with ES6 features such as Promises and Generators, here are some good starting points.
-
-* [Connecting]({{< relref "reference/ecmascript6/connecting.md" >}})
-* [CRUD operations]({{< relref "reference/ecmascript6/crud.md" >}})
-
 ## Next steps
 
-* [Authentication]({{< relref "tutorials/connect/authenticating.md" >}})
 * [Grid FS]({{< relref "tutorials/gridfs/streaming.md" >}})
 
 ## Advanced topics
 
-Advanced features for the driver.
+Advanced configuration and features for the driver.
 
+* [Authentication]({{< relref "tutorials/connect/authenticating.md" >}})
 * [SSL]({{< relref "tutorials/connect/ssl.md" >}})
-* [Logging]({{< relref "reference/management/logging.md" >}})
-* [APM]({{< relref "reference/management/apm.md" >}})
-* [Topology monitoring]({{< relref "reference/management/sdam-monitoring.md" >}})
-* [FAQ]({{< relref "reference/faq/index.md" >}})

@@ -10,4 +10,3 @@ title = "Installation Guide"
 # Installation
 
 The recommended way to get started using the Swift driver is by using `SPM` (Swift Package Manager) to install the dependency in your project.
-

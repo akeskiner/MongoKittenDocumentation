@@ -22,10 +22,3 @@ canonifyurls = false
     weight = 90
     identifier = "githubLink"
     url = "https://github.com/OpenKitten/MongoKitten"
-
-[[menu.main]]
-    name = ""
-    pre = "<img src='http://vapor.team/badge.svg'/>"
-    weight = 150
-    identifier = "slackLink"
-    url = "http://slack.qutheory.io/"

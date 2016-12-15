@@ -19,18 +19,6 @@
     </item>
     
     <item>
-      <title>Authentication</title>
-      <link>/MongoKittenDocumentation/tutorials/connect/authenticating/</link>
-      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
-      
-      <guid>/MongoKittenDocumentation/tutorials/connect/authenticating/</guid>
-      <description>
-
-&lt;h1 id=&#34;authentication&#34;&gt;Authentication&lt;/h1&gt;
-</description>
-    </item>
-    
-    <item>
       <title>CRUD Operations</title>
       <link>/MongoKittenDocumentation/tutorials/crud/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
@@ -333,8 +321,6 @@ try collection.count(limitedTo: 2, skipping: 4) // Will return 1 in this scenari
 
 &lt;p&gt;Database is initializable separately and allows access to a single database on a MongoDB server. You can still access the server object from the Database and access other parts of the server via there if this is necessary.&lt;/p&gt;
 
-&lt;p&gt;Before you create your own connection URL it&amp;rsquo;s recommended to &lt;a href=&#34;URL.md&#34;&gt;read this&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;You can instantiate a Server using a MongoDB connection URL/String:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let server = try Server(mongoURL: &amp;quot;mongodb://localhost&amp;quot;)
@@ -368,7 +354,95 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
       <guid>/MongoKittenDocumentation/tutorials/gridfs/</guid>
-      <description></description>
+      <description>
+
+&lt;h1 id=&#34;gridfs&#34;&gt;GridFS&lt;/h1&gt;
+
+&lt;p&gt;GridFS is a standard for using MongoDB as file storage through the MongoDB binary type. MongoDB allows you to store documents up to 16MB in size, which is useful for storing PDFs, profile pictures and other binary data. But if you want to store bigger data than 16MB you&amp;rsquo;ll need to store it over multiple documents. GridFS fulfills that task.&lt;/p&gt;
+
+&lt;h3 id=&#34;setup&#34;&gt;Setup&lt;/h3&gt;
+
+&lt;p&gt;GridFS is a bucket consisting of two collections. This means that two collections have the same prefix separating their own bucket name with a dot (&lt;code&gt;.&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;GridFS uses the &lt;code&gt;fs&lt;/code&gt; prefix by default and then appends the bucket names &lt;code&gt;files&lt;/code&gt; and &lt;code&gt;chunks&lt;/code&gt; to create a &lt;code&gt;fs.files&lt;/code&gt; collection and &lt;code&gt;fs.chunks&lt;/code&gt; collection. Files stores the metadata, chunks stores the binary information for the files.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;let fs = db.makeGridFS()&lt;/code&gt; will get you the GridFS instance.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-gridfs&#34;&gt;Using GridFS&lt;/h2&gt;
+
+&lt;p&gt;MongoKitten&amp;rsquo;s GridFS supports three methods of mutation.&lt;/p&gt;
+
+&lt;p&gt;Create/store, Read/find and Remove/delete.&lt;/p&gt;
+
+&lt;h3 id=&#34;storing-files&#34;&gt;Storing files&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let data: [UInt8] = []
+let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;removing-files&#34;&gt;Removing files&lt;/h3&gt;
+
+&lt;p&gt;Files can only be removed by their identifier because you wouldn&amp;rsquo;t want to remove all files accidentally. For that we have &lt;code&gt;try fs.drop()&lt;/code&gt; which drops the collections.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try fs.remove(byId: fileID)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;finding-files&#34;&gt;Finding files&lt;/h3&gt;
+
+&lt;p&gt;This functions similarly to Collection. But instead of returning a cursor containing Documents it returns a &lt;code&gt;GridFS.File&lt;/code&gt; cursor.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let allFiles = try fs.find()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can find single files using findOne similarly to Collection.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let file: GridFS.File? = try fs.findOne(byID: fileID)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;reading-files&#34;&gt;Reading files&lt;/h3&gt;
+
+&lt;p&gt;Once you&amp;rsquo;ve obtained an instance of &lt;code&gt;GridFS.File&lt;/code&gt; you&amp;rsquo;ve only fetched the metadata. Meaning the filename, mime type, MD5 checksum and any other metadata that this file contains.&lt;/p&gt;
+
+&lt;p&gt;You can use this file instance to fetch either all or specific sets of bytes. In the case of a smaller download, or a download that&amp;rsquo;ll need to be served in it&amp;rsquo;s entirely.&lt;/p&gt;
+
+&lt;p&gt;To fetch all bytes you&amp;rsquo;ll need to iterate over the chunks and send those chunks over the socket stream chunk-by-chunk.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;for chunk in file {
+  socket.send(chunk.data)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can interrupt this process at any time efficiently without fetching extra data from MongoDB.&lt;/p&gt;
+
+&lt;p&gt;MongoKitten will not throw an error when an error occurs when iterating over the file chunks using this method and will instead return no (additional) chunks. This may not always cause harm. In some situations it will result in an aborted or corrupted download which may or may not be a problem. In an image it&amp;rsquo;ll result in a partially loaded image, in a video it&amp;rsquo;ll result in the inability to load some parts of the movie and some file formats like PDF may be unable to open and need to be re-downloaded.&lt;/p&gt;
+
+&lt;p&gt;If you want to set up a failsafe for these scenarios you&amp;rsquo;ll need to use the &lt;code&gt;try file.chunked()&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;for chunk in try file.chunked() {
+  socket.send(chunk.data)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By default most frameworks will be unable to serve the file properly which results in the same situation as above. But if you catch the error manually you may be able to fetch the remaining data by re-trying to fetch the remaining chunks. This can be useful when the used replica set or sharded cluster has had a failure because it&amp;rsquo;s been disabled for maintainance or another reason, or simply to log the problem.&lt;/p&gt;
+
+&lt;h3 id=&#34;resumed-downloads&#34;&gt;Resumed downloads&lt;/h3&gt;
+
+&lt;p&gt;Some larger files and web-browsers may use a functionality that allows resuming downloads. Videos use them for buffering, by downloading the relevant parts of the videos when required allowing you to start watching the first bit whilst the rest is still buffering. Other big files may use this web-feature for resuming big downloads after a connection problem has occurred. Or you may have another use case scenario.&lt;/p&gt;
+
+&lt;p&gt;MongoKitten allows you to fetch specific subsets of information from GridFS.&lt;/p&gt;
+
+&lt;p&gt;You can request all bytes after byte 1 million (1MB) for example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try file.read(from: 1_000_000)`
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can request a limited subset of bytes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try file.read(from: 1_000_000, to: 2_500_000)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This would fetch 1.5MB of data starting after 1MB.&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -417,7 +491,14 @@ try usersCollection.findOne(matching: Query(document))
 
 &lt;h1 id=&#34;tls-ssl&#34;&gt;TLS/SSL&lt;/h1&gt;
 
-&lt;p&gt;The Swift driver supports TLS/SSL connections to MongoDB that support TLS/SSL support.&lt;/p&gt;
+&lt;p&gt;MongoKitten supports TLS/SSL connections to MongoDB that support TLS/SSL support.&lt;/p&gt;
+
+&lt;p&gt;You can add the query parameter &amp;ldquo;ssl&amp;rdquo; to your connection string &lt;code&gt;mongodb://.....?ssl&lt;/code&gt; or enable SSL in the ClientSettings when initializing a Server. SSLSettings are an immutable part of the ClientSettings, so any configuration will have to be done prior to initializing a ClientSettings object with SSLSettings. SSL configuration be done using secure defaults by initializing it with a &lt;code&gt;true&lt;/code&gt; literal.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;var sslSettings: SSLSettings = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These sslSettings can then be modified to accept a specific certificate or even allow unverified hostnames and/or certificates.&lt;/p&gt;
 </description>
     </item>
     

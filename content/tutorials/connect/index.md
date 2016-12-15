@@ -14,8 +14,6 @@ MongoKitten is initializable on Server or Database level. Server objects allow a
 
 Database is initializable separately and allows access to a single database on a MongoDB server. You can still access the server object from the Database and access other parts of the server via there if this is necessary.
 
-Before you create your own connection URL it's recommended to [read this](URL.md)
-
 You can instantiate a Server using a MongoDB connection URL/String:
 
 ```swift

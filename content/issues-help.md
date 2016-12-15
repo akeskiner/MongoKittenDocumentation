@@ -31,8 +31,7 @@ To get started check out the source and work on a branch:
 
 ```bash
 $ git clone https://github.com/OpenKitten/MongoKitten.git
-$ cd https://github.com/OpenKitten/MongoKitten.gite
-$ swift build 
+$ cd https://github.com/OpenKitten/MongoKitten.git
+$ swift build
 $ git checkout -b myNewFeature
 ```
-

@@ -19,18 +19,6 @@
     </item>
     
     <item>
-      <title>Authentication</title>
-      <link>/MongoKittenDocumentation/tutorials/connect/authenticating/</link>
-      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
-      
-      <guid>/MongoKittenDocumentation/tutorials/connect/authenticating/</guid>
-      <description>
-
-&lt;h1 id=&#34;authentication&#34;&gt;Authentication&lt;/h1&gt;
-</description>
-    </item>
-    
-    <item>
       <title>CRUD Operations</title>
       <link>/MongoKittenDocumentation/tutorials/crud/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
@@ -333,8 +321,6 @@ try collection.count(limitedTo: 2, skipping: 4) // Will return 1 in this scenari
 
 &lt;p&gt;Database is initializable separately and allows access to a single database on a MongoDB server. You can still access the server object from the Database and access other parts of the server via there if this is necessary.&lt;/p&gt;
 
-&lt;p&gt;Before you create your own connection URL it&amp;rsquo;s recommended to &lt;a href=&#34;URL.md&#34;&gt;read this&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;You can instantiate a Server using a MongoDB connection URL/String:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let server = try Server(mongoURL: &amp;quot;mongodb://localhost&amp;quot;)
@@ -463,7 +449,95 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
       <guid>/MongoKittenDocumentation/tutorials/gridfs/</guid>
-      <description></description>
+      <description>
+
+&lt;h1 id=&#34;gridfs&#34;&gt;GridFS&lt;/h1&gt;
+
+&lt;p&gt;GridFS is a standard for using MongoDB as file storage through the MongoDB binary type. MongoDB allows you to store documents up to 16MB in size, which is useful for storing PDFs, profile pictures and other binary data. But if you want to store bigger data than 16MB you&amp;rsquo;ll need to store it over multiple documents. GridFS fulfills that task.&lt;/p&gt;
+
+&lt;h3 id=&#34;setup&#34;&gt;Setup&lt;/h3&gt;
+
+&lt;p&gt;GridFS is a bucket consisting of two collections. This means that two collections have the same prefix separating their own bucket name with a dot (&lt;code&gt;.&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;GridFS uses the &lt;code&gt;fs&lt;/code&gt; prefix by default and then appends the bucket names &lt;code&gt;files&lt;/code&gt; and &lt;code&gt;chunks&lt;/code&gt; to create a &lt;code&gt;fs.files&lt;/code&gt; collection and &lt;code&gt;fs.chunks&lt;/code&gt; collection. Files stores the metadata, chunks stores the binary information for the files.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;let fs = db.makeGridFS()&lt;/code&gt; will get you the GridFS instance.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-gridfs&#34;&gt;Using GridFS&lt;/h2&gt;
+
+&lt;p&gt;MongoKitten&amp;rsquo;s GridFS supports three methods of mutation.&lt;/p&gt;
+
+&lt;p&gt;Create/store, Read/find and Remove/delete.&lt;/p&gt;
+
+&lt;h3 id=&#34;storing-files&#34;&gt;Storing files&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let data: [UInt8] = []
+let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;removing-files&#34;&gt;Removing files&lt;/h3&gt;
+
+&lt;p&gt;Files can only be removed by their identifier because you wouldn&amp;rsquo;t want to remove all files accidentally. For that we have &lt;code&gt;try fs.drop()&lt;/code&gt; which drops the collections.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try fs.remove(byId: fileID)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;finding-files&#34;&gt;Finding files&lt;/h3&gt;
+
+&lt;p&gt;This functions similarly to Collection. But instead of returning a cursor containing Documents it returns a &lt;code&gt;GridFS.File&lt;/code&gt; cursor.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let allFiles = try fs.find()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can find single files using findOne similarly to Collection.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let file: GridFS.File? = try fs.findOne(byID: fileID)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;reading-files&#34;&gt;Reading files&lt;/h3&gt;
+
+&lt;p&gt;Once you&amp;rsquo;ve obtained an instance of &lt;code&gt;GridFS.File&lt;/code&gt; you&amp;rsquo;ve only fetched the metadata. Meaning the filename, mime type, MD5 checksum and any other metadata that this file contains.&lt;/p&gt;
+
+&lt;p&gt;You can use this file instance to fetch either all or specific sets of bytes. In the case of a smaller download, or a download that&amp;rsquo;ll need to be served in it&amp;rsquo;s entirely.&lt;/p&gt;
+
+&lt;p&gt;To fetch all bytes you&amp;rsquo;ll need to iterate over the chunks and send those chunks over the socket stream chunk-by-chunk.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;for chunk in file {
+  socket.send(chunk.data)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can interrupt this process at any time efficiently without fetching extra data from MongoDB.&lt;/p&gt;
+
+&lt;p&gt;MongoKitten will not throw an error when an error occurs when iterating over the file chunks using this method and will instead return no (additional) chunks. This may not always cause harm. In some situations it will result in an aborted or corrupted download which may or may not be a problem. In an image it&amp;rsquo;ll result in a partially loaded image, in a video it&amp;rsquo;ll result in the inability to load some parts of the movie and some file formats like PDF may be unable to open and need to be re-downloaded.&lt;/p&gt;
+
+&lt;p&gt;If you want to set up a failsafe for these scenarios you&amp;rsquo;ll need to use the &lt;code&gt;try file.chunked()&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;for chunk in try file.chunked() {
+  socket.send(chunk.data)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By default most frameworks will be unable to serve the file properly which results in the same situation as above. But if you catch the error manually you may be able to fetch the remaining data by re-trying to fetch the remaining chunks. This can be useful when the used replica set or sharded cluster has had a failure because it&amp;rsquo;s been disabled for maintainance or another reason, or simply to log the problem.&lt;/p&gt;
+
+&lt;h3 id=&#34;resumed-downloads&#34;&gt;Resumed downloads&lt;/h3&gt;
+
+&lt;p&gt;Some larger files and web-browsers may use a functionality that allows resuming downloads. Videos use them for buffering, by downloading the relevant parts of the videos when required allowing you to start watching the first bit whilst the rest is still buffering. Other big files may use this web-feature for resuming big downloads after a connection problem has occurred. Or you may have another use case scenario.&lt;/p&gt;
+
+&lt;p&gt;MongoKitten allows you to fetch specific subsets of information from GridFS.&lt;/p&gt;
+
+&lt;p&gt;You can request all bytes after byte 1 million (1MB) for example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try file.read(from: 1_000_000)`
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can request a limited subset of bytes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try file.read(from: 1_000_000, to: 2_500_000)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This would fetch 1.5MB of data starting after 1MB.&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -512,8 +586,8 @@ and tests.&lt;/p&gt;
 &lt;p&gt;To get started check out the source and work on a branch:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone https://github.com/OpenKitten/MongoKitten.git
-$ cd https://github.com/OpenKitten/MongoKitten.gite
-$ swift build 
+$ cd https://github.com/OpenKitten/MongoKitten.git
+$ swift build
 $ git checkout -b myNewFeature
 &lt;/code&gt;&lt;/pre&gt;
 </description>
@@ -565,7 +639,7 @@ try usersCollection.findOne(matching: Query(document))
 
 &lt;h1 id=&#34;quick-start&#34;&gt;Quick Start&lt;/h1&gt;
 
-&lt;p&gt;This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the &lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/reference/&#34;&gt;tutorials&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the &lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/tutorials/&#34;&gt;tutorials&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&#34;create-the-package-swift-file&#34;&gt;Create the package.swift file&lt;/h2&gt;
 
@@ -635,7 +709,14 @@ cd myproject
 
 &lt;h1 id=&#34;tls-ssl&#34;&gt;TLS/SSL&lt;/h1&gt;
 
-&lt;p&gt;The Swift driver supports TLS/SSL connections to MongoDB that support TLS/SSL support.&lt;/p&gt;
+&lt;p&gt;MongoKitten supports TLS/SSL connections to MongoDB that support TLS/SSL support.&lt;/p&gt;
+
+&lt;p&gt;You can add the query parameter &amp;ldquo;ssl&amp;rdquo; to your connection string &lt;code&gt;mongodb://.....?ssl&lt;/code&gt; or enable SSL in the ClientSettings when initializing a Server. SSLSettings are an immutable part of the ClientSettings, so any configuration will have to be done prior to initializing a ClientSettings object with SSLSettings. SSL configuration be done using secure defaults by initializing it with a &lt;code&gt;true&lt;/code&gt; literal.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;var sslSettings: SSLSettings = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These sslSettings can then be modified to accept a specific certificate or even allow unverified hostnames and/or certificates.&lt;/p&gt;
 </description>
     </item>
     
@@ -664,6 +745,126 @@ cd myproject
 &lt;p&gt;&lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/tutorials/Administration/&#34;&gt;Administration&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/tutorials/gridfs/&#34;&gt;GridFS&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Upgrade Guide</title>
+      <link>/MongoKittenDocumentation/upgrade-migration/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/MongoKittenDocumentation/upgrade-migration/</guid>
+      <description>
+
+&lt;h1 id=&#34;migrating-to-mongokitten-3&#34;&gt;Migrating to MongoKitten 3&lt;/h1&gt;
+
+&lt;p&gt;This guide will help users of MongoKitten 1.x and 2.x to migrate to MongoKitten 3.&lt;/p&gt;
+
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;The setup for Connection URLs stays mostly the same. But the parameter is now named &amp;ldquo;mongoURL&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;let server = try Server(&amp;quot;mongodb://...&amp;quot;)&lt;/code&gt; becomes &lt;code&gt;let server = try Server(mongoURL: &amp;quot;mongodb://...&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The connection URL supports &lt;code&gt;authSource&lt;/code&gt;, &lt;code&gt;authMechanism&lt;/code&gt;, &lt;code&gt;ssl&lt;/code&gt;, Replica Sets and Sharded Clusters. But if you prefer not using an URL you still can.&lt;/p&gt;
+
+&lt;p&gt;MongoKitten 3 has an object &amp;ldquo;ClientSettings&amp;rdquo; which separates out the settings from the server.&lt;/p&gt;
+
+&lt;p&gt;ClientSettings accepts one or more hosts. Multiple hosts should only be used for replica sets and sharded databases.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ClientSettings(host: ...)&lt;/code&gt; accepts a MongoHost. Which is manually creatable but is initializable using a String (literal).&lt;/p&gt;
+
+&lt;p&gt;The String needs to be formatted like this:
+&lt;code&gt;subdomain.example.com:12345&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The ClientSettings then accepts &lt;code&gt;sslSettings&lt;/code&gt;. sslSettings is an object that has 3 values. One for enabling or disabling SSL. The other 2 are for certificate and host validation.&lt;/p&gt;
+
+&lt;p&gt;SSLSettings is ExpressibleByBooleanLiteral, so &lt;code&gt;true&lt;/code&gt; will enable SSL with secure defaults. &lt;code&gt;false&lt;/code&gt; will not use SSL.&lt;/p&gt;
+
+&lt;p&gt;Last but not least ClientSettings accepts login details in the form of &lt;code&gt;MongoCredentials&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This accepts a username, password and database. If you don&amp;rsquo;t know the authentication database (it&amp;rsquo;s not always the same database as the one you&amp;rsquo;re trying to access) you can leave it empty wil &lt;code&gt;nil&lt;/code&gt; here.&lt;/p&gt;
+
+&lt;h3 id=&#34;connecting&#34;&gt;Connecting&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;automatically&lt;/code&gt; parameter has been removed. MongoKitten will always connect automatically now and will always attempt to reconnect.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;server.connect()&lt;/code&gt; has been removed for the same reason.&lt;/p&gt;
+
+&lt;h2 id=&#34;documents-and-values&#34;&gt;Documents and Values&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;~&lt;/code&gt; operator has been removed because Values are now directly embeddable inside Documents/Dictionary literals.&lt;/p&gt;
+
+&lt;p&gt;However, all Documents need to have their type explicitely defined now. This would look like the following&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let name = &amp;quot;Joannis&amp;quot;
+
+let doc: Document = [
+  &amp;quot;name&amp;quot; ~name,
+  &amp;quot;name2&amp;quot;: &amp;quot;Joannis&amp;quot;
+  &amp;quot;subDoc&amp;quot;: [
+    &amp;quot;name&amp;quot;: ~name
+  ]
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Will become&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let name = &amp;quot;Joannis&amp;quot;
+
+let doc: Document = [
+  &amp;quot;name&amp;quot; name,
+  &amp;quot;name2&amp;quot;: &amp;quot;Joannis&amp;quot;
+  &amp;quot;subDoc&amp;quot;: [
+    &amp;quot;name&amp;quot;: name
+  ] as Document
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;subscripting&#34;&gt;Subscripting&lt;/h3&gt;
+
+&lt;p&gt;Subscripting has changed quite a bit. We&amp;rsquo;ve moved from succeeding subscripts to variadic subscripts because we feel that it better serves our purpose.&lt;/p&gt;
+
+&lt;p&gt;The variadic subscripts come in two forms: a type inferred and a raw getter.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;doc[&amp;quot;subDoc&amp;quot;][&amp;quot;name&amp;quot;]&lt;/code&gt; will become &lt;code&gt;doc[raw: &amp;quot;subDoc&amp;quot;, &amp;quot;name&amp;quot;]&lt;/code&gt; and will return an optional generic Value.
+&lt;code&gt;Value&lt;/code&gt; has been removed entirely, including &lt;code&gt;.nothing&lt;/code&gt;. Checks for &lt;code&gt;Value.nothing&lt;/code&gt; need to be replaced with &lt;code&gt;nil&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The raw subscript will get the object as you present it. Which can be any ValueConvertible including all BSON types.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;doc[&amp;quot;subdoc&amp;quot;, &amp;quot;boolean&amp;quot;] as Bool?&lt;/code&gt; will get the value called &amp;ldquo;boolean&amp;rdquo; inside &amp;ldquo;subdoc&amp;rdquo; and will return a boolean if it&amp;rsquo;s representable as one.
+&lt;code&gt;doc[&amp;quot;_id&amp;quot;] as String?&lt;/code&gt; will try to convert the value to a String. So &lt;code&gt;Int64(3)&lt;/code&gt; will become &lt;code&gt;&amp;quot;3&amp;quot;&lt;/code&gt;. A String will stay a String, and ObjectIds will represent themselves as a hexadecimal String.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;doc[&amp;quot;_id&amp;quot;] as String?&lt;/code&gt; is exactly equal to &lt;code&gt;doc[raw: &amp;quot;_id&amp;quot;]?.string&lt;/code&gt;. Both will now return an optional.&lt;/p&gt;
+
+&lt;p&gt;If you want to know the type of the data, always use raw subscripting. If you prefer a specific type like a String, use &lt;code&gt;as String?&lt;/code&gt; or &lt;code&gt;raw: ...]?.string&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;extraction-getters&#34;&gt;Extraction getters&lt;/h3&gt;
+
+&lt;p&gt;Previous versions of BSON and MongoKitten allowed you to get a default value using &lt;code&gt;.string&lt;/code&gt;, &lt;code&gt;.int&lt;/code&gt;, &lt;code&gt;.int32&lt;/code&gt;, etc. This doesn&amp;rsquo;t work anymore. Extracting Strings with &lt;code&gt;.string&lt;/code&gt; will only return a String if it&amp;rsquo;s clearly representable as a String. Bool represents true or false. But converting it backwards isn&amp;rsquo;t possible since you don&amp;rsquo;t know the type. Integers will be converted to a String and backwards. If a String like &lt;code&gt;&amp;quot;3.14&amp;quot;&lt;/code&gt; is requested as a Double, BSON will return the value &lt;code&gt;3.14&lt;/code&gt; as a Double, instead of nil.&lt;/p&gt;
+
+&lt;h3 id=&#34;optional-chaining&#34;&gt;Optional chaining&lt;/h3&gt;
+
+&lt;p&gt;Because of the vast use of optionals in the new Documents you&amp;rsquo;ll have to set the default values yourself.
+Where you would use &lt;code&gt;doc[&amp;quot;stringKey&amp;quot;].string&lt;/code&gt; for getting a &lt;code&gt;String&lt;/code&gt; you will now receive an optional that will need to be unwrapped or chained.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let doc: Document = [
+  &amp;quot;stringKey&amp;quot;: &amp;quot;Hello World!&amp;quot;
+]
+
+print(doc[&amp;quot;stringKey&amp;quot;].string) // Prints &amp;quot;Hello World!&amp;quot; unless we can&#39;t find a String. Then it will print &amp;quot;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Will become&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let doc: Document = [
+  &amp;quot;stringKey&amp;quot;: &amp;quot;Hello World!&amp;quot;
+]
+
+print(doc[&amp;quot;stringKey&amp;quot;] as String? ?? &amp;quot;&amp;quot;) // Prints &amp;quot;Hello World!&amp;quot; unless we can&#39;t find a String. Then it will print &amp;quot;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or &lt;code&gt;print(doc[&amp;quot;stringKey&amp;quot;].string ?? &amp;quot;&amp;quot;)&lt;/code&gt;&lt;/p&gt;
 </description>
     </item>
     
