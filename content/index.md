@@ -21,12 +21,11 @@ information on updating your code to MongoKitten 3.
 
 ## Next steps
 
-* [Grid FS]({{< relref "tutorials/gridfs/streaming.md" >}})
+* [Grid FS]({{< relref "tutorials/gridfs/index.md" >}})
 
 ## Advanced topics
 
 Advanced configuration and features for the driver.
 
-* [Authentication]({{< relref "tutorials/connect/authenticating.md" >}})
 * [SSL]({{< relref "tutorials/connect/ssl.md" >}})
 * [FAQ]({{< relref "reference/faq/index.md" >}})
