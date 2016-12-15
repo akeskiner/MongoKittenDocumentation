@@ -18,7 +18,6 @@ information on updating your code to MongoKitten 3.
 * [Installing the driver]({{< relref "installation-guide/index.md" >}})
 * [Quick start]({{< relref "quick-start/index.md" >}})
 * [CRUD operations]({{< relref "tutorials/crud.md" >}})
-* [Connect]({{< relref "tutorials/connect/index.md" >}})
 
 ## Next steps
 
@@ -30,3 +29,4 @@ Advanced configuration and features for the driver.
 
 * [Authentication]({{< relref "tutorials/connect/authenticating.md" >}})
 * [SSL]({{< relref "tutorials/connect/ssl.md" >}})
+* [FAQ]({{< relref "reference/faq/index.md" >}})
