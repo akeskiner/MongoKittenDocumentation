@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Reference-rsses on MongoDB Swift Driver</title>
-    <link>MongoKittenDocumentation/reference/index.xml</link>
+    <link>/reference/index.xml</link>
     <description>Recent content in Reference-rsses on MongoDB Swift Driver</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 14 Dec 2016 12:36:56 +0000</lastBuildDate>
-    <atom:link href="MongoKittenDocumentation/reference/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/reference/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Connection Options</title>
-      <link>/MongoKittenDocumentation/reference/connecting/</link>
+      <link>/reference/connecting/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/reference/connecting/</guid>
+      <guid>/reference/connecting/</guid>
       <description>
 
 &lt;h1 id=&#34;url&#34;&gt;URL&lt;/h1&gt;
@@ -97,19 +97,19 @@
     
     <item>
       <title>Frequently Asked Questions</title>
-      <link>/MongoKittenDocumentation/reference/faq/</link>
+      <link>/reference/faq/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/reference/faq/</guid>
+      <guid>/reference/faq/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Reference</title>
-      <link>/MongoKittenDocumentation/reference/</link>
+      <link>/reference/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/reference/</guid>
+      <guid>/reference/</guid>
       <description>
 
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;

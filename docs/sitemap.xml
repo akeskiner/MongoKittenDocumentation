@@ -2,92 +2,92 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>/MongoKittenDocumentation/</loc>
+    <loc>/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/tutorials/aggregation/</loc>
+    <loc>/tutorials/aggregation/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/tutorials/crud/</loc>
+    <loc>/tutorials/crud/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/tutorials/collections/</loc>
+    <loc>/tutorials/collections/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/tutorials/connect/</loc>
+    <loc>/tutorials/connect/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/reference/connecting/</loc>
+    <loc>/reference/connecting/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/reference/faq/</loc>
+    <loc>/reference/faq/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/tutorials/gridfs/</loc>
+    <loc>/tutorials/gridfs/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/installation-guide/</loc>
+    <loc>/installation-guide/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/issues-help/</loc>
+    <loc>/issues-help/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/tutorials/QueryBuilder/</loc>
+    <loc>/tutorials/QueryBuilder/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/quick-start/</loc>
+    <loc>/quick-start/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/reference/</loc>
+    <loc>/reference/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/tutorials/connect/ssl/</loc>
+    <loc>/tutorials/connect/ssl/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/tutorials/</loc>
+    <loc>/tutorials/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/upgrade-migration/</loc>
+    <loc>/upgrade-migration/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/</loc>
+    <loc>/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/MongoKittenDocumentation/tutorials/Administration/</loc>
+    <loc>/tutorials/Administration/</loc>
     <lastmod>2016-12-14T12:57:41+01:00</lastmod>
   </url>
   

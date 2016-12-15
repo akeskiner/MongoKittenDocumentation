@@ -2,28 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MongoDB Swift Driver</title>
-    <link>MongoKittenDocumentation/index.xml</link>
+    <link>/index.xml</link>
     <description>Recent content on MongoDB Swift Driver</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 14 Dec 2016 12:36:56 +0000</lastBuildDate>
-    <atom:link href="MongoKittenDocumentation/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Aggregation</title>
-      <link>/MongoKittenDocumentation/tutorials/aggregation/</link>
+      <link>/tutorials/aggregation/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/tutorials/aggregation/</guid>
+      <guid>/tutorials/aggregation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CRUD Operations</title>
-      <link>/MongoKittenDocumentation/tutorials/crud/</link>
+      <link>/tutorials/crud/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/tutorials/crud/</guid>
+      <guid>/tutorials/crud/</guid>
       <description>
 
 &lt;h1 id=&#34;crud&#34;&gt;CRUD&lt;/h1&gt;
@@ -300,19 +300,19 @@ try collection.count(limitedTo: 2, skipping: 4) // Will return 1 in this scenari
     
     <item>
       <title>Collections</title>
-      <link>/MongoKittenDocumentation/tutorials/collections/</link>
+      <link>/tutorials/collections/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/tutorials/collections/</guid>
+      <guid>/tutorials/collections/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Connect to MongoDB</title>
-      <link>/MongoKittenDocumentation/tutorials/connect/</link>
+      <link>/tutorials/connect/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/tutorials/connect/</guid>
+      <guid>/tutorials/connect/</guid>
       <description>
 
 &lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
@@ -350,10 +350,10 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
     
     <item>
       <title>Connection Options</title>
-      <link>/MongoKittenDocumentation/reference/connecting/</link>
+      <link>/reference/connecting/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/reference/connecting/</guid>
+      <guid>/reference/connecting/</guid>
       <description>
 
 &lt;h1 id=&#34;url&#34;&gt;URL&lt;/h1&gt;
@@ -436,19 +436,19 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
     
     <item>
       <title>Frequently Asked Questions</title>
-      <link>/MongoKittenDocumentation/reference/faq/</link>
+      <link>/reference/faq/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/reference/faq/</guid>
+      <guid>/reference/faq/</guid>
       <description></description>
     </item>
     
     <item>
       <title>GridFS</title>
-      <link>/MongoKittenDocumentation/tutorials/gridfs/</link>
+      <link>/tutorials/gridfs/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/tutorials/gridfs/</guid>
+      <guid>/tutorials/gridfs/</guid>
       <description>
 
 &lt;h1 id=&#34;gridfs&#34;&gt;GridFS&lt;/h1&gt;
@@ -542,10 +542,10 @@ let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
     
     <item>
       <title>Installation Guide</title>
-      <link>/MongoKittenDocumentation/installation-guide/</link>
+      <link>/installation-guide/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/installation-guide/</guid>
+      <guid>/installation-guide/</guid>
       <description>
 
 &lt;h1 id=&#34;installation&#34;&gt;Installation&lt;/h1&gt;
@@ -556,10 +556,10 @@ let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
     
     <item>
       <title>Issues &amp; Help</title>
-      <link>/MongoKittenDocumentation/issues-help/</link>
+      <link>/issues-help/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/issues-help/</guid>
+      <guid>/issues-help/</guid>
       <description>
 
 &lt;h1 id=&#34;issues-help&#34;&gt;Issues &amp;amp; Help&lt;/h1&gt;
@@ -595,10 +595,10 @@ $ git checkout -b myNewFeature
     
     <item>
       <title>QueryBuilder</title>
-      <link>/MongoKittenDocumentation/tutorials/QueryBuilder/</link>
+      <link>/tutorials/QueryBuilder/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/tutorials/QueryBuilder/</guid>
+      <guid>/tutorials/QueryBuilder/</guid>
       <description>
 
 &lt;h1 id=&#34;querybuilder&#34;&gt;QueryBuilder&lt;/h1&gt;
@@ -631,15 +631,15 @@ try usersCollection.findOne(matching: Query(document))
     
     <item>
       <title>Quick Start</title>
-      <link>/MongoKittenDocumentation/quick-start/</link>
+      <link>/quick-start/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/quick-start/</guid>
+      <guid>/quick-start/</guid>
       <description>
 
 &lt;h1 id=&#34;quick-start&#34;&gt;Quick Start&lt;/h1&gt;
 
-&lt;p&gt;This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the &lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/tutorials/&#34;&gt;tutorials&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the &lt;a href=&#34;/tutorials/&#34;&gt;tutorials&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&#34;create-the-package-swift-file&#34;&gt;Create the package.swift file&lt;/h2&gt;
 
@@ -687,10 +687,10 @@ cd myproject
     
     <item>
       <title>Reference</title>
-      <link>/MongoKittenDocumentation/reference/</link>
+      <link>/reference/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/reference/</guid>
+      <guid>/reference/</guid>
       <description>
 
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
@@ -701,10 +701,10 @@ cd myproject
     
     <item>
       <title>SSL Settings</title>
-      <link>/MongoKittenDocumentation/tutorials/connect/ssl/</link>
+      <link>/tutorials/connect/ssl/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/tutorials/connect/ssl/</guid>
+      <guid>/tutorials/connect/ssl/</guid>
       <description>
 
 &lt;h1 id=&#34;tls-ssl&#34;&gt;TLS/SSL&lt;/h1&gt;
@@ -722,38 +722,38 @@ cd myproject
     
     <item>
       <title>Tutorials</title>
-      <link>/MongoKittenDocumentation/tutorials/</link>
+      <link>/tutorials/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/tutorials/</guid>
+      <guid>/tutorials/</guid>
       <description>
 
 &lt;h1 id=&#34;tutorials&#34;&gt;Tutorials&lt;/h1&gt;
 
 &lt;p&gt;The tutorials in this section provide examples of some frequently used operations. This section is not meant to be an exhaustive list of all operations available in the Node.js driver.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/tutorials/connect/&#34;&gt;Connect to MongoDB&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/tutorials/connect/&#34;&gt;Connect to MongoDB&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/tutorials/collections/&#34;&gt;Collections&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/tutorials/collections/&#34;&gt;Collections&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/tutorials/crud/&#34;&gt;CRUD Operations&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/tutorials/crud/&#34;&gt;CRUD Operations&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/tutorials/QueryBuilder/&#34;&gt;Query Builder&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/tutorials/QueryBuilder/&#34;&gt;Query Builder&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/tutorials/aggregation/&#34;&gt;Aggregation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/tutorials/aggregation/&#34;&gt;Aggregation&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/tutorials/Administration/&#34;&gt;Administration&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/tutorials/Administration/&#34;&gt;Administration&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/tutorials/gridfs/&#34;&gt;GridFS&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/tutorials/gridfs/&#34;&gt;GridFS&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Upgrade Guide</title>
-      <link>/MongoKittenDocumentation/upgrade-migration/</link>
+      <link>/upgrade-migration/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/upgrade-migration/</guid>
+      <guid>/upgrade-migration/</guid>
       <description>
 
 &lt;h1 id=&#34;migrating-to-mongokitten-3&#34;&gt;Migrating to MongoKitten 3&lt;/h1&gt;

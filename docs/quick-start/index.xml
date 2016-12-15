@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Quick-start-rsses on MongoDB Swift Driver</title>
-    <link>MongoKittenDocumentation/quick-start/index.xml</link>
+    <link>/quick-start/index.xml</link>
     <description>Recent content in Quick-start-rsses on MongoDB Swift Driver</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 14 Dec 2016 12:36:56 +0000</lastBuildDate>
-    <atom:link href="MongoKittenDocumentation/quick-start/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/quick-start/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Quick Start</title>
-      <link>/MongoKittenDocumentation/quick-start/</link>
+      <link>/quick-start/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/MongoKittenDocumentation/quick-start/</guid>
+      <guid>/quick-start/</guid>
       <description>
 
 &lt;h1 id=&#34;quick-start&#34;&gt;Quick Start&lt;/h1&gt;
 
-&lt;p&gt;This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the &lt;a href=&#34;MongoKittenDocumentation/MongoKittenDocumentation/tutorials/&#34;&gt;tutorials&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the &lt;a href=&#34;/tutorials/&#34;&gt;tutorials&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&#34;create-the-package-swift-file&#34;&gt;Create the package.swift file&lt;/h2&gt;
 
