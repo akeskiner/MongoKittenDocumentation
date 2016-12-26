@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/img/favicon.png">
 
-    <title>SSL Settings</title>
+    <title>Document</title>
 
     <link rel="stylesheet" href="/lib/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -164,51 +164,134 @@
 
 
   
-  
-  
-  
-  
-  
-  
-  
-
-  
-    
-    
-    
-      
-      
-      
-    
-    
-  
-  
 
 
+        
+          
         
       
     
     
+      
+    
   
 
 
+        
+          
         
       
     
       
       
         
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
       
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
+    
+      
     
   
 
@@ -230,14 +313,124 @@
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
       
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+    
+    
+    
+      
+    
+  
+  
+
+
+        
       
     
     
@@ -403,18 +596,16 @@
 
 
 
-  
 
 
 
-
-<li class="toctree-l1  current">
+<li class="toctree-l1 ">
   <a href="/tutorials/" class="">
       <i class='fa fa-thumb-tack'></i>
       <span>Tutorials</span>
-      <span class="menu-arrow fa fa-angle-down"></span>
+      <span class="menu-arrow fa fa-angle-right"></span>
   </a>
-    <ul  class="current">
+    <ul >
         
         
         
@@ -432,18 +623,16 @@
 
 
 
-  
 
 
 
-
-<li class="toctree-l2  current">
+<li class="toctree-l2 ">
   <a href="/tutorials/connect/" class="">
       <i class='fa'></i>
       <span>Connect to MongoDB</span>
       
   </a>
-    <ul  class="current">
+    <ul >
         
         
         
@@ -460,8 +649,6 @@
 
 
 
-
-  
 
 
 
@@ -618,16 +805,18 @@
 
 
 
+  
 
 
 
-<li class="toctree-l1 ">
+
+<li class="toctree-l1  current">
   <a href="/bson/" class="">
       <i class='fa fa-thumb-tack'></i>
       <span>BSON</span>
-      <span class="menu-arrow fa fa-angle-right"></span>
+      <span class="menu-arrow fa fa-angle-down"></span>
   </a>
-    <ul >
+    <ul  class="current">
         
         
         
@@ -731,6 +920,8 @@
 
 
 
+
+  
 
 
 
@@ -1002,7 +1193,7 @@
 
 
    
-<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/tutorials/connect/ssl.md" target="_blank" title="Edit tutorials/connect/ssl.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/bson/Document.md" target="_blank" title="Edit bson/Document.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
 
 
 
@@ -1019,25 +1210,150 @@
   
   
   
-  <li><a href="/tutorials/">Tutorials</a> <i class="fa fa-angle-right"></i></li>
-  <li><a href="/tutorials/connect/">Connect to MongoDB</a> <i class="fa fa-angle-right"></i></li>
-  <li>SSL Settings</li>
+  
+  <li><a href="/bson/">BSON</a> <i class="fa fa-angle-right"></i></li>
+  <li>Document</li>
 </ul>
 </div>
 
 
 
 
-<h1 id="tls-ssl">TLS/SSL</h1>
+<h1 id="document">Document</h1>
 
-<p>MongoKitten supports TLS/SSL connections to MongoDB that support TLS/SSL support.</p>
+<p>Document is the primary type of BSON. It&rsquo;s either a Dictionary or Array and allows interaction like a native Swift Dictionary or Array.</p>
 
-<p>You can add the query parameter &ldquo;ssl&rdquo; to your connection string <code>mongodb://.....?ssl</code> or enable SSL in the ClientSettings when initializing a Server. SSLSettings are an immutable part of the ClientSettings, so any configuration will have to be done prior to initializing a ClientSettings object with SSLSettings. SSL configuration be done using secure defaults by initializing it with a <code>true</code> literal.</p>
+<h2 id="basic-usage">Basic Usage</h2>
 
-<pre><code class="language-swift">var sslSettings: SSLSettings = true
+<p>Documents are usable like any other Swift dictionary/array. Only you&rsquo;ll need to explicitely specify your variable to be a Document.</p>
+
+<pre><code class="language-swift">let document: Document = [
+	&quot;my&quot;: &quot;data&quot;,
+	&quot;isAwesome&quot;: true
+]
 </code></pre>
 
-<p>These sslSettings can then be modified to accept a specific certificate or even allow unverified hostnames and/or certificates.</p>
+<p>or</p>
+
+<pre><code class="language-swift">let document = [
+	&quot;my&quot;: &quot;data&quot;,
+	&quot;isAwesome&quot;: true
+] as Document
+</code></pre>
+
+<p>Alternatively, if you need an Array, you can use the Array literal.</p>
+
+<pre><code class="language-swift">let arrayDocument = [
+	1, 2, 3, 4, 5
+]
+
+let arrayDocument2 = [
+	&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;
+]
+</code></pre>
+
+<p>There are two restrictions to a Document.</p>
+
+<ul>
+<li>If the Document is a Dictionary, the key <em>must</em> be a String</li>
+<li>The Value in both the Dictionary and Array for <em>must</em> be a ValueConvertible.</li>
+</ul>
+
+<p>However, ValueConvertible is a protocol that, by defaut, supports BSON primitives. BSON Primitives can always be used. And custom types can be ValueConvertible.</p>
+
+<p>Documents allow various methods of initializing:</p>
+
+<pre><code class="language-swift">let document0 = Document()
+let document1 = Document(array: ...)
+let document2 = Document(dictionaryElements: ...)
+let document3 = Document(data: [5, 0, 0, 0, 0])
+</code></pre>
+
+<p>They allow actions like an array:</p>
+
+<pre><code class="language-swift">var document: Document = [1, 2, 3, 4, 5]
+
+document.append(6)
+document[3] // 4
+document.count // 6
+</code></pre>
+
+<p>Or actions like a Dictionary:</p>
+
+<pre><code class="language-swift">var document: Document = [
+	&quot;key0&quot;: 0,
+	&quot;key1&quot;: 1,
+	&quot;key2&quot;: 2,
+	&quot;key3&quot;: 3
+]
+
+document[&quot;key1&quot;] // 1
+document[&quot;key4&quot;] // nil
+document[&quot;key4&quot;] = 4
+document[&quot;key4&quot;] // 4
+
+document.keys // [&quot;key0&quot;, &quot;key1&quot;, &quot;key2&quot;, &quot;key3&quot;, &quot;key4&quot;]
+document.values // [0, 1, 2, 3, 4]
+</code></pre>
+
+<p>Dictionary Documents act like you would expect.</p>
+
+<pre><code class="language-swift">let document: Document = [
+  &quot;hey&quot;: true,
+  &quot;hello&quot;: 3.33
+]
+
+for (key, value) in document {
+	guard key == &quot;hey&quot; || key == &quot;hello&quot; else {
+		fatalError(&quot;Impossible!&quot;)
+	}
+	
+	guard value as? Bool == true || value as? Double == 3.33 else {
+		fatalError(&quot;Impossible!&quot;)
+	}
+}
+</code></pre>
+
+<p>Array Documents act in a similar way:</p>
+
+<pre><code class="language-swift">let document: Document = [true, false, 3.3, false, true]
+
+for (key, value) in document {
+	guard [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;].contains(key) else {
+		fatalError(&quot;The key in an array is the position as string number&quot;)
+	}
+}
+</code></pre>
+
+<p>Documents can be easily embedded inside each other. Because of this we allow you to easily subscript a Document to access sub-Documents and even deeper layers of the structure using variadic subscripts.</p>
+
+<p>These subscripts accept Strings (for Dictionary Document keys) and <code>Int</code>egers (for Array positions or Dictionary positions). These work like you would expect from any other Array or Dictionary.</p>
+
+<pre><code class="language-swift">var document = [
+	&quot;subdoc&quot;: [
+		&quot;subsubdoc&quot;: [
+			&quot;array&quot;: [0, false, true, &quot;henk&quot;]
+		] as Document
+	] as Document
+] as Document
+
+// Get element position 2 from array in subsubdoc in subdoc in document
+document[&quot;subdoc&quot;, &quot;subsubdoc&quot;, &quot;array&quot;, 2] // true
+</code></pre>
+
+<p>Document also provides some extra features that are commonly used with BSON:</p>
+
+<pre><code class="language-swift">var document: Document = [
+	&quot;key&quot;: true,
+	&quot;subdoc&quot;: [
+	  &quot;value&quot;: 3
+	] as Document
+]
+
+document[dotNotated: &quot;subdoc.value&quot;] // 3
+
+document.flattened() // [&quot;key&quot;: true, &quot;subdoc.value&quot;: 3]
+</code></pre>
 
 
 
@@ -1046,11 +1362,12 @@
 
 <div id="btnv">
   
-  
-  <div class="pull-right">
-  <a class="navigation next" href="/tutorials/collections/">
-    Collections <i class="fa fa-long-arrow-right"> </i>
+  <div class="pull-left">
+  <a class="navigation prev" href="/bson/ObjectId/">
+      <i class="fa fa-long-arrow-left"> </i> ObjectId
   </a>
+  </div>
+  
   
 </div>
 </div>
@@ -1063,7 +1380,10 @@
     <span class="toc-header">On this page</span>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#tls-ssl">TLS/SSL</a></li>
+<li><a href="#document">Document</a>
+<ul>
+<li><a href="#basic-usage">Basic Usage</a></li>
+</ul></li>
 </ul>
 </nav>
   </div>

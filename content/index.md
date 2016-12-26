@@ -27,5 +27,6 @@ information on updating your code to MongoKitten 3.
 
 Advanced configuration and features for the driver.
 
+* [Authentication]({{< relref "tutorials/connect/authenticating.md" >}})
 * [SSL]({{< relref "tutorials/connect/ssl.md" >}})
 * [FAQ]({{< relref "reference/faq/index.md" >}})

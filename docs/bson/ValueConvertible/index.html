@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/img/favicon.png">
 
-    <title>SSL Settings</title>
+    <title>ValueConvertible</title>
 
     <link rel="stylesheet" href="/lib/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -164,51 +164,134 @@
 
 
   
-  
-  
-  
-  
-  
-  
-  
-
-  
-    
-    
-    
-      
-      
-      
-    
-    
-  
-  
 
 
+        
+          
         
       
     
     
+      
+    
   
 
 
+        
+          
         
       
     
       
       
         
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
       
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
+    
+      
     
   
 
@@ -230,11 +313,75 @@
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+    
+    
     
       
+    
+  
+  
+
+
+        
+      
+    
+      
+      
+        
       
     
       
@@ -403,18 +550,16 @@
 
 
 
-  
 
 
 
-
-<li class="toctree-l1  current">
+<li class="toctree-l1 ">
   <a href="/tutorials/" class="">
       <i class='fa fa-thumb-tack'></i>
       <span>Tutorials</span>
-      <span class="menu-arrow fa fa-angle-down"></span>
+      <span class="menu-arrow fa fa-angle-right"></span>
   </a>
-    <ul  class="current">
+    <ul >
         
         
         
@@ -432,18 +577,16 @@
 
 
 
-  
 
 
 
-
-<li class="toctree-l2  current">
+<li class="toctree-l2 ">
   <a href="/tutorials/connect/" class="">
       <i class='fa'></i>
       <span>Connect to MongoDB</span>
       
   </a>
-    <ul  class="current">
+    <ul >
         
         
         
@@ -460,8 +603,6 @@
 
 
 
-
-  
 
 
 
@@ -618,16 +759,18 @@
 
 
 
+  
 
 
 
-<li class="toctree-l1 ">
+
+<li class="toctree-l1  current">
   <a href="/bson/" class="">
       <i class='fa fa-thumb-tack'></i>
       <span>BSON</span>
-      <span class="menu-arrow fa fa-angle-right"></span>
+      <span class="menu-arrow fa fa-angle-down"></span>
   </a>
-    <ul >
+    <ul  class="current">
         
         
         
@@ -673,6 +816,8 @@
 
 
 
+
+  
 
 
 
@@ -1002,7 +1147,7 @@
 
 
    
-<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/tutorials/connect/ssl.md" target="_blank" title="Edit tutorials/connect/ssl.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/bson/ValueConvertible.md" target="_blank" title="Edit bson/ValueConvertible.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
 
 
 
@@ -1019,25 +1164,84 @@
   
   
   
-  <li><a href="/tutorials/">Tutorials</a> <i class="fa fa-angle-right"></i></li>
-  <li><a href="/tutorials/connect/">Connect to MongoDB</a> <i class="fa fa-angle-right"></i></li>
-  <li>SSL Settings</li>
+  
+  <li><a href="/bson/">BSON</a> <i class="fa fa-angle-right"></i></li>
+  <li>ValueConvertible</li>
 </ul>
 </div>
 
 
 
 
-<h1 id="tls-ssl">TLS/SSL</h1>
+<h2 id="valueconvertible">ValueConvertible</h2>
 
-<p>MongoKitten supports TLS/SSL connections to MongoDB that support TLS/SSL support.</p>
+<p>ValueConvertible is the backbone of BSON. BSONConvertible is a protocol that allows any existing type to represent itself as BSONPrimitive.</p>
 
-<p>You can add the query parameter &ldquo;ssl&rdquo; to your connection string <code>mongodb://.....?ssl</code> or enable SSL in the ClientSettings when initializing a Server. SSLSettings are an immutable part of the ClientSettings, so any configuration will have to be done prior to initializing a ClientSettings object with SSLSettings. SSL configuration be done using secure defaults by initializing it with a <code>true</code> literal.</p>
+<p>It requires the implementation of a function with the following signature:
+<code>func makeBSONPrimitive() -&gt; BSONPrimitive</code>, so it requires you to represent the ValueConvertible as a primitive.</p>
 
-<pre><code class="language-swift">var sslSettings: SSLSettings = true
+<p>There are a number of BSON Primitives.</p>
+
+<ul>
+<li>Double</li>
+<li>String</li>
+<li><a href="Document.md">Document</a> (Array and Dictionary)</li>
+<li><a href="ObjectId.md">ObjectId</a></li>
+<li>Bool</li>
+<li>Int32</li>
+<li>Int64</li>
+<li>Binary</li>
+<li>Decimal128</li>
+<li>JavascriptCode</li>
+<li>Null (not nil)</li>
+<li>Date (from Foundation)</li>
+<li>MinKey</li>
+<li>MaxKey</li>
+<li>NSRegularExpression (or RegularExpression on Linux)</li>
+</ul>
+
+<p>Document does not exclusively interact with BSONPrimitives but with ValueConvertibles instead.</p>
+
+<p>Normally you can create a Document like this:</p>
+
+<pre><code class="language-swift">let document: Document = [
+	&quot;name&quot;: &quot;henk&quot;,
+	&quot;age&quot;: 24,
+	&quot;awesome&quot;: true,
+	&quot;subdocument&quot;: [
+		&quot;creation&quot;: Date(),
+		&quot;modification&quot;: Date()
+	] as Document
+]
 </code></pre>
 
-<p>These sslSettings can then be modified to accept a specific certificate or even allow unverified hostnames and/or certificates.</p>
+<p>By conforming your type to ValueConvertible you can embed your custom types as BSON type and directly embed them.</p>
+
+<pre><code class="language-swift">struct MutationDate: ValueConvertible {
+	var creation = Date()
+	var modification = Date()
+	
+	func makeBSONPrimitive() -&gt; BSONPrimitive {
+		return [
+			&quot;creation&quot;: self.creation
+			&quot;moficiation&quot;: moficiation
+		] as Document
+	}
+}
+
+let document: Document = [
+	&quot;name&quot;: &quot;henk&quot;,
+	&quot;age&quot;: 24,
+	&quot;awesome&quot;: true,
+	&quot;subdocument&quot;: MutationDate()
+]
+</code></pre>
+
+<p>This doesn&rsquo;t sound like much but helps when you have custom objects that aren&rsquo;t already representable as BSON.</p>
+
+<p>A password needs to be hashed, but needs it&rsquo;s salt, iterations and possibly the algorithm stored. The password ans salt can be binary, the iterations an Int32 or Int64 and thethe algorithm can be defined as a String. All come together in a Document, but you&rsquo;ll need this password to be a part of a User Document, so the password needs to be embeddable in the root Document. Last, but not least, you&rsquo;ll want to have functions on this password that will validate against inputted passwords on a website for example.</p>
+
+<p>This is a good use case for compliance to ValueConvertible.</p>
 
 
 
@@ -1046,10 +1250,16 @@
 
 <div id="btnv">
   
+  <div class="pull-left">
+  <a class="navigation prev" href="/bson/BSONPrimitive/">
+      <i class="fa fa-long-arrow-left"> </i> BSONPrimitive
+  </a>
+  </div>
+  
   
   <div class="pull-right">
-  <a class="navigation next" href="/tutorials/collections/">
-    Collections <i class="fa fa-long-arrow-right"> </i>
+  <a class="navigation next" href="/bson/ObjectId/">
+    ObjectId <i class="fa fa-long-arrow-right"> </i>
   </a>
   
 </div>
@@ -1063,7 +1273,10 @@
     <span class="toc-header">On this page</span>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#tls-ssl">TLS/SSL</a></li>
+<li>
+<ul>
+<li><a href="#valueconvertible">ValueConvertible</a></li>
+</ul></li>
 </ul>
 </nav>
   </div>

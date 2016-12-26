@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/img/favicon.png">
 
-    <title>SSL Settings</title>
+    <title>BSONPrimitive</title>
 
     <link rel="stylesheet" href="/lib/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -164,51 +164,134 @@
 
 
   
-  
-  
-  
-  
-  
-  
-  
-
-  
-    
-    
-    
-      
-      
-      
-    
-    
-  
-  
 
 
+        
+          
         
       
     
     
+      
+    
   
 
 
+        
+          
         
       
     
       
       
         
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
       
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
+    
+      
     
   
 
@@ -230,8 +313,48 @@
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+    
+    
     
       
+    
+  
+  
+
+
+        
+      
+    
+      
+      
+        
       
     
       
@@ -403,18 +526,16 @@
 
 
 
-  
 
 
 
-
-<li class="toctree-l1  current">
+<li class="toctree-l1 ">
   <a href="/tutorials/" class="">
       <i class='fa fa-thumb-tack'></i>
       <span>Tutorials</span>
-      <span class="menu-arrow fa fa-angle-down"></span>
+      <span class="menu-arrow fa fa-angle-right"></span>
   </a>
-    <ul  class="current">
+    <ul >
         
         
         
@@ -432,18 +553,16 @@
 
 
 
-  
 
 
 
-
-<li class="toctree-l2  current">
+<li class="toctree-l2 ">
   <a href="/tutorials/connect/" class="">
       <i class='fa'></i>
       <span>Connect to MongoDB</span>
       
   </a>
-    <ul  class="current">
+    <ul >
         
         
         
@@ -460,8 +579,6 @@
 
 
 
-
-  
 
 
 
@@ -618,16 +735,18 @@
 
 
 
+  
 
 
 
-<li class="toctree-l1 ">
+
+<li class="toctree-l1  current">
   <a href="/bson/" class="">
       <i class='fa fa-thumb-tack'></i>
       <span>BSON</span>
-      <span class="menu-arrow fa fa-angle-right"></span>
+      <span class="menu-arrow fa fa-angle-down"></span>
   </a>
-    <ul >
+    <ul  class="current">
         
         
         
@@ -644,6 +763,8 @@
 
 
 
+
+  
 
 
 
@@ -1002,7 +1123,7 @@
 
 
    
-<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/tutorials/connect/ssl.md" target="_blank" title="Edit tutorials/connect/ssl.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/bson/BSONPrimitive.md" target="_blank" title="Edit bson/BSONPrimitive.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
 
 
 
@@ -1019,25 +1140,48 @@
   
   
   
-  <li><a href="/tutorials/">Tutorials</a> <i class="fa fa-angle-right"></i></li>
-  <li><a href="/tutorials/connect/">Connect to MongoDB</a> <i class="fa fa-angle-right"></i></li>
-  <li>SSL Settings</li>
+  
+  <li><a href="/bson/">BSON</a> <i class="fa fa-angle-right"></i></li>
+  <li>BSONPrimitive</li>
 </ul>
 </div>
 
 
 
 
-<h1 id="tls-ssl">TLS/SSL</h1>
+<h1 id="bsonprimitive">BSONPrimitive</h1>
 
-<p>MongoKitten supports TLS/SSL connections to MongoDB that support TLS/SSL support.</p>
+<p>BSON is based upon a set of primitive types. These are described <a href="http://bsonspec.org/spec.html">here</a>.</p>
 
-<p>You can add the query parameter &ldquo;ssl&rdquo; to your connection string <code>mongodb://.....?ssl</code> or enable SSL in the ClientSettings when initializing a Server. SSLSettings are an immutable part of the ClientSettings, so any configuration will have to be done prior to initializing a ClientSettings object with SSLSettings. SSL configuration be done using secure defaults by initializing it with a <code>true</code> literal.</p>
+<p>In this BSON library we contain a protocol: <code>BSONPrimitive</code>. This protocol is public and should normally <em>not</em> be implemented on an existing object.</p>
 
-<pre><code class="language-swift">var sslSettings: SSLSettings = true
-</code></pre>
+<p>This protocol is here to support all native Swift types that are related to an existing MongoDB type. Examples of this would be <code>Int</code> <code>Bool</code> <code>String</code>, but also custom BSON types like <code>JavascriptCode</code> and <code>Binary</code>.</p>
 
-<p>These sslSettings can then be modified to accept a specific certificate or even allow unverified hostnames and/or certificates.</p>
+<p>BSONPrimitives are representable as BSON binary data that can be put into the Value position of a(n) (array-)Document.</p>
+
+<p>These primitives also have a typeIdentifier that identifies the type of the binary data.</p>
+
+<p>Adding custom types that does not conform to an unsupported/custom version of the BSON specification will <em>not</em> be deserialized and will result in corrupt data.</p>
+
+<p>The list of BSON Primitives:</p>
+
+<ul>
+<li>Double</li>
+<li>String</li>
+<li><a href="Document.md">Document</a> (Array and Dictionary)</li>
+<li><a href="ObjectId.md">ObjectId</a></li>
+<li>Bool</li>
+<li>Int32</li>
+<li>Int64</li>
+<li>Binary</li>
+<li>Decimal128</li>
+<li>JavascriptCode</li>
+<li>Null (not nil)</li>
+<li>Date (from Foundation)</li>
+<li>MinKey</li>
+<li>MaxKey</li>
+<li>NSRegularExpression (or RegularExpression on Linux)</li>
+</ul>
 
 
 
@@ -1048,8 +1192,8 @@
   
   
   <div class="pull-right">
-  <a class="navigation next" href="/tutorials/collections/">
-    Collections <i class="fa fa-long-arrow-right"> </i>
+  <a class="navigation next" href="/bson/ValueConvertible/">
+    ValueConvertible <i class="fa fa-long-arrow-right"> </i>
   </a>
   
 </div>
@@ -1063,7 +1207,7 @@
     <span class="toc-header">On this page</span>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#tls-ssl">TLS/SSL</a></li>
+<li><a href="#bsonprimitive">BSONPrimitive</a></li>
 </ul>
 </nav>
   </div>

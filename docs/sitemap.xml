@@ -3,7 +3,32 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+    <lastmod>2016-12-26T12:14:08+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/bson/Document/</loc>
+    <lastmod>2016-12-26T12:14:08+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/bson/ObjectId/</loc>
+    <lastmod>2016-12-26T12:13:13+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/bson/ValueConvertible/</loc>
+    <lastmod>2016-12-26T12:11:57+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/bson/BSONPrimitive/</loc>
+    <lastmod>2016-12-26T12:09:53+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/bson/</loc>
+    <lastmod>2016-12-26T12:07:42+01:00</lastmod>
   </url>
   
   <url>
