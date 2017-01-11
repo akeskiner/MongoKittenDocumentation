@@ -370,7 +370,7 @@ let data = document.bsonData // Array of [UInt8]
 let sameDocument = try! Document(data: data)
 
 // Do something with the data
-let temperature = document[&amp;quot;temperature&amp;quot;].double
+let temperature = document[&amp;quot;temperature&amp;quot;] as Double?
 
 // Use the temperature
 &lt;/code&gt;&lt;/pre&gt;
@@ -385,8 +385,8 @@ let temperature = document[&amp;quot;temperature&amp;quot;].double
 
 &lt;h4 id=&#34;comparing&#34;&gt;Comparing&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;document[&amp;quot;double&amp;quot;] == document[&amp;quot;int64&amp;quot;] // true for .double(0) == .int64(0)
-document[&amp;quot;double&amp;quot;] === document[&amp;quot;int64&amp;quot;] // false for .double(0) === .int64(0)
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;document[&amp;quot;double&amp;quot;] == document[&amp;quot;int64&amp;quot;] // true for Double(0) == Int64(0)
+document[&amp;quot;double&amp;quot;] === document[&amp;quot;int64&amp;quot;] // false for Double(0) === Int64(0)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;supported-types&#34;&gt;Supported Types&lt;/h3&gt;
