@@ -1126,11 +1126,9 @@
 
 let package = Package(
     name: &quot;MyApp&quot;,
-    dependencies: [.Package(url: &quot;https://github.com/OpenKitten/BSON.git&quot;, majorVersion: 3, minor: 7)]
+    dependencies: [.Package(url: &quot;https://github.com/OpenKitten/BSON.git&quot;, majorVersion: 4)]
 )
 </code></pre>
-
-<p>Check the <a href="https://openkitten.github.io/BSON/">documentation</a> for more information.</p>
 
 <h4 id="basic-usage">Basic Usage</h4>
 
@@ -1155,8 +1153,8 @@ let temperature = document[&quot;temperature&quot;].double
 <h4 id="embedded-documents">Embedded documents</h4>
 
 <pre><code class="language-swift">let document: Document = [
-            &quot;subdocument&quot;: [&quot;hello&quot;: &quot;sample&quot;],
-            &quot;anothersubdocument&quot;: [81.2, &quot;cheese&quot;] // an array is also an embedded document
+            &quot;subdocument&quot;: [&quot;hello&quot;: &quot;sample&quot;] as Document,
+            &quot;anothersubdocument&quot;: [81.2, &quot;cheese&quot;] as Document // an array is also an embedded document
         ]
 </code></pre>
 

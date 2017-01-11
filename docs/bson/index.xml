@@ -351,11 +351,9 @@ let document: Document = [
 
 let package = Package(
     name: &amp;quot;MyApp&amp;quot;,
-    dependencies: [.Package(url: &amp;quot;https://github.com/OpenKitten/BSON.git&amp;quot;, majorVersion: 3, minor: 7)]
+    dependencies: [.Package(url: &amp;quot;https://github.com/OpenKitten/BSON.git&amp;quot;, majorVersion: 4)]
 )
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Check the &lt;a href=&#34;https://openkitten.github.io/BSON/&#34;&gt;documentation&lt;/a&gt; for more information.&lt;/p&gt;
 
 &lt;h4 id=&#34;basic-usage&#34;&gt;Basic Usage&lt;/h4&gt;
 
@@ -380,8 +378,8 @@ let temperature = document[&amp;quot;temperature&amp;quot;].double
 &lt;h4 id=&#34;embedded-documents&#34;&gt;Embedded documents&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
-            &amp;quot;subdocument&amp;quot;: [&amp;quot;hello&amp;quot;: &amp;quot;sample&amp;quot;],
-            &amp;quot;anothersubdocument&amp;quot;: [81.2, &amp;quot;cheese&amp;quot;] // an array is also an embedded document
+            &amp;quot;subdocument&amp;quot;: [&amp;quot;hello&amp;quot;: &amp;quot;sample&amp;quot;] as Document,
+            &amp;quot;anothersubdocument&amp;quot;: [81.2, &amp;quot;cheese&amp;quot;] as Document // an array is also an embedded document
         ]
 &lt;/code&gt;&lt;/pre&gt;
 

@@ -30,11 +30,9 @@ import PackageDescription
 
 let package = Package(
     name: "MyApp",
-    dependencies: [.Package(url: "https://github.com/OpenKitten/BSON.git", majorVersion: 3, minor: 7)]
+    dependencies: [.Package(url: "https://github.com/OpenKitten/BSON.git", majorVersion: 4)]
 )
 ```
-
-Check the [documentation](https://openkitten.github.io/BSON/) for more information.
 
 #### Basic Usage
 
@@ -61,8 +59,8 @@ let temperature = document["temperature"].double
 
 ```swift
 let document: Document = [
-            "subdocument": ["hello": "sample"],
-            "anothersubdocument": [81.2, "cheese"] // an array is also an embedded document
+            "subdocument": ["hello": "sample"] as Document,
+            "anothersubdocument": [81.2, "cheese"] as Document // an array is also an embedded document
         ]
 ```
 
