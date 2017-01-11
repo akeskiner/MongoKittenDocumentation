@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Installation-guide-rsses on MongoDB Swift Driver</title>
-    <link>/installation-guide/index.xml</link>
-    <description>Recent content in Installation-guide-rsses on MongoDB Swift Driver</description>
+    <title>Installation-guides on MongoDB Swift Driver</title>
+    <link>http://docs.openkitten.org/installation-guide/index.xml</link>
+    <description>Recent content in Installation-guides on MongoDB Swift Driver</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 14 Dec 2016 12:36:56 +0000</lastBuildDate>
-    <atom:link href="/installation-guide/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://docs.openkitten.org/installation-guide/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Installation Guide</title>
-      <link>/installation-guide/</link>
+      <link>http://docs.openkitten.org/installation-guide/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/installation-guide/</guid>
+      <guid>http://docs.openkitten.org/installation-guide/</guid>
       <description>
 
 &lt;h1 id=&#34;installation&#34;&gt;Installation&lt;/h1&gt;

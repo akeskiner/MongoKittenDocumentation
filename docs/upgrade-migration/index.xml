@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Upgrade-migration-rsses on MongoDB Swift Driver</title>
-    <link>/upgrade-migration/index.xml</link>
-    <description>Recent content in Upgrade-migration-rsses on MongoDB Swift Driver</description>
+    <title>Upgrade-migrations on MongoDB Swift Driver</title>
+    <link>http://docs.openkitten.org/upgrade-migration/index.xml</link>
+    <description>Recent content in Upgrade-migrations on MongoDB Swift Driver</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 14 Dec 2016 12:36:56 +0000</lastBuildDate>
-    <atom:link href="/upgrade-migration/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://docs.openkitten.org/upgrade-migration/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Upgrade Guide</title>
-      <link>/upgrade-migration/</link>
+      <link>http://docs.openkitten.org/upgrade-migration/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/upgrade-migration/</guid>
+      <guid>http://docs.openkitten.org/upgrade-migration/</guid>
       <description>
 
 &lt;h1 id=&#34;migrating-to-mongokitten-3&#34;&gt;Migrating to MongoKitten 3&lt;/h1&gt;

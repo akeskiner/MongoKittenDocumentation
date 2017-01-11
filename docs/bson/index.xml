@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Bson-rsses on MongoDB Swift Driver</title>
-    <link>/bson/index.xml</link>
-    <description>Recent content in Bson-rsses on MongoDB Swift Driver</description>
+    <title>Bsons on MongoDB Swift Driver</title>
+    <link>http://docs.openkitten.org/bson/index.xml</link>
+    <description>Recent content in Bsons on MongoDB Swift Driver</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 26 Dec 2016 12:14:08 +0100</lastBuildDate>
-    <atom:link href="/bson/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://docs.openkitten.org/bson/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Document</title>
-      <link>/bson/Document/</link>
+      <link>http://docs.openkitten.org/bson/Document/</link>
       <pubDate>Mon, 26 Dec 2016 12:14:08 +0100</pubDate>
       
-      <guid>/bson/Document/</guid>
+      <guid>http://docs.openkitten.org/bson/Document/</guid>
       <description>
 
 &lt;h1 id=&#34;document&#34;&gt;Document&lt;/h1&gt;
@@ -157,10 +157,10 @@ document.flattened() // [&amp;quot;key&amp;quot;: true, &amp;quot;subdoc.value&a
     
     <item>
       <title>ObjectId</title>
-      <link>/bson/ObjectId/</link>
+      <link>http://docs.openkitten.org/bson/ObjectId/</link>
       <pubDate>Mon, 26 Dec 2016 12:13:13 +0100</pubDate>
       
-      <guid>/bson/ObjectId/</guid>
+      <guid>http://docs.openkitten.org/bson/ObjectId/</guid>
       <description>
 
 &lt;h1 id=&#34;objectid&#34;&gt;ObjectId&lt;/h1&gt;
@@ -197,10 +197,10 @@ let objectId = try ObjectId(hexString)
     
     <item>
       <title>ValueConvertible</title>
-      <link>/bson/ValueConvertible/</link>
+      <link>http://docs.openkitten.org/bson/ValueConvertible/</link>
       <pubDate>Mon, 26 Dec 2016 12:11:57 +0100</pubDate>
       
-      <guid>/bson/ValueConvertible/</guid>
+      <guid>http://docs.openkitten.org/bson/ValueConvertible/</guid>
       <description>
 
 &lt;h2 id=&#34;valueconvertible&#34;&gt;ValueConvertible&lt;/h2&gt;
@@ -277,10 +277,10 @@ let document: Document = [
     
     <item>
       <title>BSONPrimitive</title>
-      <link>/bson/BSONPrimitive/</link>
+      <link>http://docs.openkitten.org/bson/BSONPrimitive/</link>
       <pubDate>Mon, 26 Dec 2016 12:09:53 +0100</pubDate>
       
-      <guid>/bson/BSONPrimitive/</guid>
+      <guid>http://docs.openkitten.org/bson/BSONPrimitive/</guid>
       <description>
 
 &lt;h1 id=&#34;bsonprimitive&#34;&gt;BSONPrimitive&lt;/h1&gt;
@@ -321,10 +321,10 @@ let document: Document = [
     
     <item>
       <title>BSON</title>
-      <link>/bson/</link>
+      <link>http://docs.openkitten.org/bson/</link>
       <pubDate>Mon, 26 Dec 2016 12:07:42 +0100</pubDate>
       
-      <guid>/bson/</guid>
+      <guid>http://docs.openkitten.org/bson/</guid>
       <description>
 
 &lt;h2 id=&#34;a-native-fast-bson-library-for-swift-written-in-swift&#34;&gt;A native, fast BSON library for Swift, written in Swift.&lt;/h2&gt;

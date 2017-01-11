@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MongoDB Swift Driver</title>
-    <link>/index.xml</link>
+    <link>http://docs.openkitten.org/index.xml</link>
     <description>Recent content on MongoDB Swift Driver</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 26 Dec 2016 12:14:08 +0100</lastBuildDate>
-    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://docs.openkitten.org/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Document</title>
-      <link>/bson/Document/</link>
+      <link>http://docs.openkitten.org/bson/Document/</link>
       <pubDate>Mon, 26 Dec 2016 12:14:08 +0100</pubDate>
       
-      <guid>/bson/Document/</guid>
+      <guid>http://docs.openkitten.org/bson/Document/</guid>
       <description>
 
 &lt;h1 id=&#34;document&#34;&gt;Document&lt;/h1&gt;
@@ -157,10 +157,10 @@ document.flattened() // [&amp;quot;key&amp;quot;: true, &amp;quot;subdoc.value&a
     
     <item>
       <title>ObjectId</title>
-      <link>/bson/ObjectId/</link>
+      <link>http://docs.openkitten.org/bson/ObjectId/</link>
       <pubDate>Mon, 26 Dec 2016 12:13:13 +0100</pubDate>
       
-      <guid>/bson/ObjectId/</guid>
+      <guid>http://docs.openkitten.org/bson/ObjectId/</guid>
       <description>
 
 &lt;h1 id=&#34;objectid&#34;&gt;ObjectId&lt;/h1&gt;
@@ -197,10 +197,10 @@ let objectId = try ObjectId(hexString)
     
     <item>
       <title>ValueConvertible</title>
-      <link>/bson/ValueConvertible/</link>
+      <link>http://docs.openkitten.org/bson/ValueConvertible/</link>
       <pubDate>Mon, 26 Dec 2016 12:11:57 +0100</pubDate>
       
-      <guid>/bson/ValueConvertible/</guid>
+      <guid>http://docs.openkitten.org/bson/ValueConvertible/</guid>
       <description>
 
 &lt;h2 id=&#34;valueconvertible&#34;&gt;ValueConvertible&lt;/h2&gt;
@@ -277,10 +277,10 @@ let document: Document = [
     
     <item>
       <title>BSONPrimitive</title>
-      <link>/bson/BSONPrimitive/</link>
+      <link>http://docs.openkitten.org/bson/BSONPrimitive/</link>
       <pubDate>Mon, 26 Dec 2016 12:09:53 +0100</pubDate>
       
-      <guid>/bson/BSONPrimitive/</guid>
+      <guid>http://docs.openkitten.org/bson/BSONPrimitive/</guid>
       <description>
 
 &lt;h1 id=&#34;bsonprimitive&#34;&gt;BSONPrimitive&lt;/h1&gt;
@@ -321,10 +321,10 @@ let document: Document = [
     
     <item>
       <title>BSON</title>
-      <link>/bson/</link>
+      <link>http://docs.openkitten.org/bson/</link>
       <pubDate>Mon, 26 Dec 2016 12:07:42 +0100</pubDate>
       
-      <guid>/bson/</guid>
+      <guid>http://docs.openkitten.org/bson/</guid>
       <description>
 
 &lt;h2 id=&#34;a-native-fast-bson-library-for-swift-written-in-swift&#34;&gt;A native, fast BSON library for Swift, written in Swift.&lt;/h2&gt;
@@ -425,19 +425,19 @@ document[&amp;quot;double&amp;quot;] === document[&amp;quot;int64&amp;quot;] // 
     
     <item>
       <title>Aggregation</title>
-      <link>/tutorials/aggregation/</link>
+      <link>http://docs.openkitten.org/tutorials/aggregation/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/aggregation/</guid>
+      <guid>http://docs.openkitten.org/tutorials/aggregation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CRUD Operations</title>
-      <link>/tutorials/crud/</link>
+      <link>http://docs.openkitten.org/tutorials/crud/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/crud/</guid>
+      <guid>http://docs.openkitten.org/tutorials/crud/</guid>
       <description>
 
 &lt;h1 id=&#34;crud&#34;&gt;CRUD&lt;/h1&gt;
@@ -714,19 +714,19 @@ try collection.count(limitedTo: 2, skipping: 4) // Will return 1 in this scenari
     
     <item>
       <title>Collections</title>
-      <link>/tutorials/collections/</link>
+      <link>http://docs.openkitten.org/tutorials/collections/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/collections/</guid>
+      <guid>http://docs.openkitten.org/tutorials/collections/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Connect to MongoDB</title>
-      <link>/tutorials/connect/</link>
+      <link>http://docs.openkitten.org/tutorials/connect/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/connect/</guid>
+      <guid>http://docs.openkitten.org/tutorials/connect/</guid>
       <description>
 
 &lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
@@ -764,10 +764,10 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
     
     <item>
       <title>Connection Options</title>
-      <link>/reference/connecting/</link>
+      <link>http://docs.openkitten.org/reference/connecting/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/reference/connecting/</guid>
+      <guid>http://docs.openkitten.org/reference/connecting/</guid>
       <description>
 
 &lt;h1 id=&#34;url&#34;&gt;URL&lt;/h1&gt;
@@ -850,19 +850,19 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
     
     <item>
       <title>Frequently Asked Questions</title>
-      <link>/reference/faq/</link>
+      <link>http://docs.openkitten.org/reference/faq/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/reference/faq/</guid>
+      <guid>http://docs.openkitten.org/reference/faq/</guid>
       <description></description>
     </item>
     
     <item>
       <title>GridFS</title>
-      <link>/tutorials/gridfs/</link>
+      <link>http://docs.openkitten.org/tutorials/gridfs/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/gridfs/</guid>
+      <guid>http://docs.openkitten.org/tutorials/gridfs/</guid>
       <description>
 
 &lt;h1 id=&#34;gridfs&#34;&gt;GridFS&lt;/h1&gt;
@@ -956,10 +956,10 @@ let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
     
     <item>
       <title>Installation Guide</title>
-      <link>/installation-guide/</link>
+      <link>http://docs.openkitten.org/installation-guide/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/installation-guide/</guid>
+      <guid>http://docs.openkitten.org/installation-guide/</guid>
       <description>
 
 &lt;h1 id=&#34;installation&#34;&gt;Installation&lt;/h1&gt;
@@ -970,10 +970,10 @@ let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
     
     <item>
       <title>Issues &amp; Help</title>
-      <link>/issues-help/</link>
+      <link>http://docs.openkitten.org/issues-help/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/issues-help/</guid>
+      <guid>http://docs.openkitten.org/issues-help/</guid>
       <description>
 
 &lt;h1 id=&#34;issues-help&#34;&gt;Issues &amp;amp; Help&lt;/h1&gt;
@@ -1009,10 +1009,10 @@ $ git checkout -b myNewFeature
     
     <item>
       <title>QueryBuilder</title>
-      <link>/tutorials/QueryBuilder/</link>
+      <link>http://docs.openkitten.org/tutorials/QueryBuilder/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/QueryBuilder/</guid>
+      <guid>http://docs.openkitten.org/tutorials/QueryBuilder/</guid>
       <description>
 
 &lt;h1 id=&#34;querybuilder&#34;&gt;QueryBuilder&lt;/h1&gt;
