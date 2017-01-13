@@ -22,7 +22,7 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/bson/</loc>
+    <loc>http://docs.openkitten.org/bson/BSON/</loc>
     <lastmod>2016-12-26T12:07:42+01:00</lastmod>
   </url>
   
@@ -62,7 +62,7 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/installation-guide/</loc>
+    <loc>http://docs.openkitten.org/installation-guide/installation-guide/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -77,12 +77,12 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/quick-start/</loc>
+    <loc>http://docs.openkitten.org/quick-start/quick-start/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/reference/</loc>
+    <loc>http://docs.openkitten.org/reference/reference/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -92,12 +92,12 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/</loc>
+    <loc>http://docs.openkitten.org/tutorials/tutorials/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/upgrade-migration/</loc>
+    <loc>http://docs.openkitten.org/upgrade-migration/upgrade-migration/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   

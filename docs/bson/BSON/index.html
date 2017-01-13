@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="http://docs.openkitten.org/img/favicon.png">
 
-    <title>Issues &amp; Help</title>
+    <title>BSON</title>
 
     <link rel="stylesheet" href="http://docs.openkitten.org/lib/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="http://docs.openkitten.org/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -363,118 +363,15 @@
 
 
   
-    
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
+  
+  
+  
+  
+  
+  
   
 
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
   
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-    
-      
     
   
 
@@ -496,60 +393,10 @@
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
     
-    
-      
     
   
 
@@ -611,17 +458,6 @@
 
 
 
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-    
   
 
 
@@ -966,16 +802,18 @@
 
 
 
+  
 
 
 
-<li class="toctree-l1 ">
+
+<li class="toctree-l1  current">
   <a href="/bson/BSON/" class="">
       <i class='fa fa-thumb-tack'></i>
       <span>BSON</span>
-      <span class="menu-arrow fa fa-angle-right"></span>
+      <span class="menu-arrow fa fa-angle-down"></span>
   </a>
-    <ul >
+    <ul  class="current">
         
         
         
@@ -1283,8 +1121,6 @@
 
 
 
-  
-
 
 
 
@@ -1352,7 +1188,7 @@
 
 
    
-<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/issues-help.md" target="_blank" title="Edit issues-help.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/bson/BSON.md" target="_blank" title="Edit bson/BSON.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
 
 
 
@@ -1371,41 +1207,106 @@
   
   
   
-  <li>Issues &amp; Help</li>
+  <li>BSON</li>
 </ul>
 </div>
 
 
 
 
-<h1 id="issues-help">Issues &amp; Help</h1>
+<h2 id="a-native-fast-bson-library-for-swift-written-in-swift">A native, fast BSON library for Swift, written in Swift.</h2>
 
-<h2 id="bugs-feature-requests">Bugs / Feature Requests</h2>
+<p>BSON is parsed and generated as specified for version 1.0 of the <a href="http://bsonspec.org/spec.html">BSON specification</a>.</p>
 
-<p>To report a bug or to request a new feature in the Swift driver,
-please open an issue on the GitHub project:</p>
+<h3 id="compatibility">Compatibility</h3>
+
+<h5 id="operating-systems">Operating systems</h5>
+
+<p>All versions starting with BSON 1.3 are compatible with OS X and Ubuntu 15.10. Other operating systems may work but are untested.</p>
+
+<h5 id="swift-version">Swift Version</h5>
+
+<p>We support the Swift version specified in .swift_version, which most of the time is the latest version of Swift when a version is released.</p>
+
+<p>For every new Swift snapshot we release a new minor version.</p>
+
+<h3 id="usage">Usage</h3>
+
+<p>The supported method for using this library is trough the Swift Package manager, like this:</p>
+
+<pre><code class="language-swift">import PackageDescription
+
+let package = Package(
+    name: &quot;MyApp&quot;,
+    dependencies: [.Package(url: &quot;https://github.com/OpenKitten/BSON.git&quot;, majorVersion: 4)]
+)
+</code></pre>
+
+<h4 id="basic-usage">Basic Usage</h4>
+
+<pre><code class="language-swift">// Create a document using a dictionary literal
+let document: Document = [
+            &quot;hello&quot;: &quot;I am a BSON document&quot;,
+            &quot;temperature&quot;: 42.5
+        ]
+
+// Retreive the BSON data, ready for storing or sending over the network
+let data = document.bsonData // Array of [UInt8]
+
+// Initialize a document using a [UInt8]
+let sameDocument = try! Document(data: data)
+
+// Do something with the data
+let temperature = document[&quot;temperature&quot;] as Double?
+
+// Use the temperature
+</code></pre>
+
+<h4 id="embedded-documents">Embedded documents</h4>
+
+<pre><code class="language-swift">let document: Document = [
+            &quot;subdocument&quot;: [&quot;hello&quot;: &quot;sample&quot;] as Document,
+            &quot;anothersubdocument&quot;: [81.2, &quot;cheese&quot;] as Document // an array is also an embedded document
+        ]
+</code></pre>
+
+<h4 id="comparing">Comparing</h4>
+
+<pre><code class="language-swift">document[&quot;double&quot;] == document[&quot;int64&quot;] // true for Double(0) == Int64(0)
+document[&quot;double&quot;] === document[&quot;int64&quot;] // false for Double(0) === Int64(0)
+</code></pre>
+
+<h3 id="supported-types">Supported Types</h3>
+
+<p>All non-deprecated BSON 1.0 types are supported.</p>
 
 <ul>
-<li><a href="https://github.com">Create an account and login</a>.</li>
-<li>Navigate to <a href="https://github.com/OpenKitten/MongoKitten/issues">the MongoKitten project</a>.</li>
-<li>Click <strong>New Issue</strong>. Provide as much information as possible about the
-issue and the steps to reproduce it.</li>
+<li>Double</li>
+<li>String</li>
+<li>Document</li>
+<li>Array</li>
+<li>ObjectId</li>
+<li>Bool</li>
+<li>DateTime</li>
+<li>32-bit integer</li>
+<li>64-bit integer</li>
+<li>Null value</li>
+<li>Binary</li>
+<li>Regular Expression</li>
+<li>Min Key</li>
+<li>Max Key</li>
+<li>Timestamp</li>
+<li>Javascript Code</li>
+<li>Javascript Code with Scope</li>
 </ul>
 
-<h2 id="pull-requests">Pull Requests</h2>
+<h3 id="supported-features">Supported features</h3>
 
-<p>We are happy to accept contributions to help improve the driver.
-We will review user contributions to ensure they meet the standards of the codebase.
-Pull requests must pass the travis.ci checks as well as include documentation
-and tests.</p>
-
-<p>To get started check out the source and work on a branch:</p>
-
-<pre><code class="language-bash">$ git clone https://github.com/OpenKitten/MongoKitten.git
-$ cd https://github.com/OpenKitten/MongoKitten.git
-$ swift build
-$ git checkout -b myNewFeature
-</code></pre>
+<ul>
+<li>MongoDB Extended JSON</li>
+<li>ISO8601 for Extended JSON Dates</li>
+<li><strong>Really</strong> fast BSON Parsing and Serializing</li>
+</ul>
 
 
 
@@ -1426,10 +1327,27 @@ $ git checkout -b myNewFeature
     <span class="toc-header">On this page</span>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#issues-help">Issues &amp; Help</a>
+<li>
 <ul>
-<li><a href="#bugs-feature-requests">Bugs / Feature Requests</a></li>
-<li><a href="#pull-requests">Pull Requests</a></li>
+<li><a href="#a-native-fast-bson-library-for-swift-written-in-swift">A native, fast BSON library for Swift, written in Swift.</a>
+<ul>
+<li><a href="#compatibility">Compatibility</a>
+<ul>
+<li>
+<ul>
+<li><a href="#operating-systems">Operating systems</a></li>
+<li><a href="#swift-version">Swift Version</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#usage">Usage</a>
+<ul>
+<li><a href="#basic-usage">Basic Usage</a></li>
+<li><a href="#embedded-documents">Embedded documents</a></li>
+<li><a href="#comparing">Comparing</a></li>
+</ul></li>
+<li><a href="#supported-types">Supported Types</a></li>
+<li><a href="#supported-features">Supported features</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>

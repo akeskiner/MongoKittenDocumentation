@@ -321,10 +321,10 @@ let document: Document = [
     
     <item>
       <title>BSON</title>
-      <link>http://docs.openkitten.org/bson/</link>
+      <link>http://docs.openkitten.org/bson/BSON/</link>
       <pubDate>Mon, 26 Dec 2016 12:07:42 +0100</pubDate>
       
-      <guid>http://docs.openkitten.org/bson/</guid>
+      <guid>http://docs.openkitten.org/bson/BSON/</guid>
       <description>
 
 &lt;h2 id=&#34;a-native-fast-bson-library-for-swift-written-in-swift&#34;&gt;A native, fast BSON library for Swift, written in Swift.&lt;/h2&gt;
@@ -956,10 +956,10 @@ let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
     
     <item>
       <title>Installation Guide</title>
-      <link>http://docs.openkitten.org/installation-guide/</link>
+      <link>http://docs.openkitten.org/installation-guide/installation-guide/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/installation-guide/</guid>
+      <guid>http://docs.openkitten.org/installation-guide/installation-guide/</guid>
       <description>
 
 &lt;h1 id=&#34;installation&#34;&gt;Installation&lt;/h1&gt;

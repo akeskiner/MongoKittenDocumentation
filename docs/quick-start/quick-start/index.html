@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="http://docs.openkitten.org/img/favicon.png">
 
-    <title>Issues &amp; Help</title>
+    <title>Quick Start</title>
 
     <link rel="stylesheet" href="http://docs.openkitten.org/lib/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="http://docs.openkitten.org/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -105,6 +105,15 @@
 
 
   
+  
+  
+  
+  
+  
+  
+  
+
+  
 
 
           
@@ -124,228 +133,25 @@
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-    
     
       
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-    
-      
-    
-  
-
-
-        
-          
-        
       
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
+    
+      
       
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
+    
+      
       
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
     
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-    
-      
     
   
 
@@ -367,114 +173,16 @@
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
+    
+      
       
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
     
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-    
-      
     
   
 
@@ -496,60 +204,10 @@
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
     
-    
-      
     
   
 
@@ -611,17 +269,6 @@
 
 
 
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-    
   
 
 
@@ -671,6 +318,8 @@
 
 
 
+
+  
 
 
 
@@ -1283,8 +932,6 @@
 
 
 
-  
-
 
 
 
@@ -1352,7 +999,7 @@
 
 
    
-<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/issues-help.md" target="_blank" title="Edit issues-help.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/quick-start/quick-start.md" target="_blank" title="Edit quick-start/quick-start.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
 
 
 
@@ -1371,41 +1018,59 @@
   
   
   
-  <li>Issues &amp; Help</li>
+  <li>Quick Start</li>
 </ul>
 </div>
 
 
 
 
-<h1 id="issues-help">Issues &amp; Help</h1>
+<h1 id="quick-start">Quick Start</h1>
 
-<h2 id="bugs-feature-requests">Bugs / Feature Requests</h2>
+<p>This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the <a href="No page found with path or logical name "tutorials/index.md".
+">tutorials</a>.</p>
 
-<p>To report a bug or to request a new feature in the Swift driver,
-please open an issue on the GitHub project:</p>
+<h2 id="create-the-package-swift-file">Create the package.swift file</h2>
 
-<ul>
-<li><a href="https://github.com">Create an account and login</a>.</li>
-<li>Navigate to <a href="https://github.com/OpenKitten/MongoKitten/issues">the MongoKitten project</a>.</li>
-<li>Click <strong>New Issue</strong>. Provide as much information as possible about the
-issue and the steps to reproduce it.</li>
-</ul>
+<p>First, create a directory where your application will live.</p>
 
-<h2 id="pull-requests">Pull Requests</h2>
-
-<p>We are happy to accept contributions to help improve the driver.
-We will review user contributions to ensure they meet the standards of the codebase.
-Pull requests must pass the travis.ci checks as well as include documentation
-and tests.</p>
-
-<p>To get started check out the source and work on a branch:</p>
-
-<pre><code class="language-bash">$ git clone https://github.com/OpenKitten/MongoKitten.git
-$ cd https://github.com/OpenKitten/MongoKitten.git
-$ swift build
-$ git checkout -b myNewFeature
+<pre><code>mkdir myproject
+cd myproject
 </code></pre>
+
+<p>Enter the following command and answer the questions to create the initial structure for your new project:</p>
+
+<pre><code>swift package init --type executable
+</code></pre>
+
+<p>Next, install the driver dependency.</p>
+
+<p>Add this to your <code>Package.swift</code> for the stable</p>
+
+<p><code>.Package(url: &quot;https://github.com/OpenKitten/MongoKitten.git&quot;, majorVersion: 2)</code></p>
+
+<p>Or add this to your <code>Package.swift</code> for the beta of MongoKitten 3</p>
+
+<p><code>.Package(url: &quot;https://github.com/OpenKitten/MongoKitten.git&quot;, &quot;3.0.0-beta&quot;)</code></p>
+
+<p>And <code>import MongoKitten</code> in your project.</p>
+
+<p>You should see <strong>SPM</strong> download a lot of files. Once it&rsquo;s done you&rsquo;ll find all the downloaded packages under the <strong>Packages</strong> directory.</p>
+
+<h2 id="start-a-mongodb-server">Start a MongoDB Server</h2>
+
+<p>For complete MongoDB installation instructions, see <a href="https://docs.mongodb.org/manual/installation/">the manual</a>.</p>
+
+<ol>
+<li>Download the right MongoDB version from <a href="https://www.mongodb.org/downloads">MongoDB</a></li>
+<li>Create a database directory (in this case under <strong>/data</strong>).</li>
+<li>Install and start a <code>mongod</code> process.</li>
+</ol>
+
+<pre><code>mongod --dbpath=/data
+</code></pre>
+
+<p>You should see the <strong>mongod</strong> process start up and print some status information.</p>
 
 
 
@@ -1426,10 +1091,10 @@ $ git checkout -b myNewFeature
     <span class="toc-header">On this page</span>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#issues-help">Issues &amp; Help</a>
+<li><a href="#quick-start">Quick Start</a>
 <ul>
-<li><a href="#bugs-feature-requests">Bugs / Feature Requests</a></li>
-<li><a href="#pull-requests">Pull Requests</a></li>
+<li><a href="#create-the-package-swift-file">Create the package.swift file</a></li>
+<li><a href="#start-a-mongodb-server">Start a MongoDB Server</a></li>
 </ul></li>
 </ul>
 </nav>

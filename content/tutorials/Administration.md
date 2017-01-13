@@ -3,7 +3,7 @@ title = "Administration"
 date = "2016-12-14T12:57:41+01:00"
 [menu.main]
   parent = "Tutorials"
-  identifier = "Aggregation"
+  identifier = "Administration"
   weight = 81
   pre = "<i class='fa'></i>"
 +++

@@ -504,10 +504,10 @@ try usersCollection.findOne(matching: Query(document))
     
     <item>
       <title>Tutorials</title>
-      <link>http://docs.openkitten.org/tutorials/</link>
+      <link>http://docs.openkitten.org/tutorials/tutorials/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/tutorials/</guid>
+      <guid>http://docs.openkitten.org/tutorials/tutorials/</guid>
       <description>
 
 &lt;h1 id=&#34;tutorials&#34;&gt;Tutorials&lt;/h1&gt;

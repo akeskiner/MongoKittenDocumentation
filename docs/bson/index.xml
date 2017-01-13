@@ -321,10 +321,10 @@ let document: Document = [
     
     <item>
       <title>BSON</title>
-      <link>http://docs.openkitten.org/bson/</link>
+      <link>http://docs.openkitten.org/bson/BSON/</link>
       <pubDate>Mon, 26 Dec 2016 12:07:42 +0100</pubDate>
       
-      <guid>http://docs.openkitten.org/bson/</guid>
+      <guid>http://docs.openkitten.org/bson/BSON/</guid>
       <description>
 
 &lt;h2 id=&#34;a-native-fast-bson-library-for-swift-written-in-swift&#34;&gt;A native, fast BSON library for Swift, written in Swift.&lt;/h2&gt;

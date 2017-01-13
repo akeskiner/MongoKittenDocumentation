@@ -11,10 +11,10 @@
     
     <item>
       <title>Upgrade Guide</title>
-      <link>http://docs.openkitten.org/upgrade-migration/</link>
+      <link>http://docs.openkitten.org/upgrade-migration/upgrade-migration/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/upgrade-migration/</guid>
+      <guid>http://docs.openkitten.org/upgrade-migration/upgrade-migration/</guid>
       <description>
 
 &lt;h1 id=&#34;migrating-to-mongokitten-3&#34;&gt;Migrating to MongoKitten 3&lt;/h1&gt;

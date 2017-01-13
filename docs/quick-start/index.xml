@@ -11,15 +11,16 @@
     
     <item>
       <title>Quick Start</title>
-      <link>http://docs.openkitten.org/quick-start/</link>
+      <link>http://docs.openkitten.org/quick-start/quick-start/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/quick-start/</guid>
+      <guid>http://docs.openkitten.org/quick-start/quick-start/</guid>
       <description>
 
 &lt;h1 id=&#34;quick-start&#34;&gt;Quick Start&lt;/h1&gt;
 
-&lt;p&gt;This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the &lt;a href=&#34;http://docs.openkitten.org/tutorials/&#34;&gt;tutorials&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the &lt;a href=&#34;No page found with path or logical name &#34;tutorials/index.md&#34;.
+&#34;&gt;tutorials&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&#34;create-the-package-swift-file&#34;&gt;Create the package.swift file&lt;/h2&gt;
 
