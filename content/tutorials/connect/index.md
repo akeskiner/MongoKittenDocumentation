@@ -23,7 +23,7 @@ let server = try Server(mongoURL: "mongodb://localhost")
 The database also has two initializers. One accepts a connection URL as String. The database which is accessed is equal to the authentication database in this case.
 
 ```swift
-let database = try Database(mongoURL: "mongodb://kitten:kitten@ds125078-a0.mlab.com:25078,ds125078-a1.mlab.com:25078/kitten?replicaSet=rs-ds125078")
+let database = try Database(mongoURL: "mongodb://user:password@ds12345-a0.domain.com:25078,ds12345-a1.domain.com:25078/kitten?replicaSet=rs-ds125078")
 ```
 
 Alternatively you can create a server object and select the database from there:

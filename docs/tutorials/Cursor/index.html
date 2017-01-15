@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/img/favicon.png">
 
-    <title>ObjectId</title>
+    <title>CRUD Operations</title>
 
     <link rel="stylesheet" href="/lib/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -256,69 +256,33 @@
 
 
   
+  
+  
+  
+  
+  
+  
+  
 
-
-        
-          
-        
-      
+  
     
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
+    
+    
+  
   
 
 
         
-          
-        
       
     
       
       
         
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
       
     
-    
       
+      
+    
     
   
 
@@ -340,102 +304,14 @@
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
+    
+      
       
     
       
       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
     
       
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-    
-    
-    
-      
-    
-  
-  
-
-
-        
-      
-    
-      
-      
-        
       
     
     
@@ -601,16 +477,18 @@
 
 
 
+  
 
 
 
-<li class="toctree-l1 ">
+
+<li class="toctree-l1  current">
   <a href="/tutorials/" class="">
       <i class='fa fa-thumb-tack'></i>
       <span>Tutorials</span>
-      <span class="menu-arrow fa fa-angle-right"></span>
+      <span class="menu-arrow fa fa-angle-down"></span>
   </a>
-    <ul >
+    <ul  class="current">
         
         
         
@@ -748,6 +626,8 @@
 
 
 
+  
+
 
 
 
@@ -839,18 +719,16 @@
 
 
 
-  
 
 
 
-
-<li class="toctree-l1  current">
+<li class="toctree-l1 ">
   <a href="/bson/" class="">
       <i class='fa fa-thumb-tack'></i>
       <span>BSON</span>
-      <span class="menu-arrow fa fa-angle-down"></span>
+      <span class="menu-arrow fa fa-angle-right"></span>
   </a>
-    <ul  class="current">
+    <ul >
         
         
         
@@ -925,8 +803,6 @@
 
 
 
-
-  
 
 
 
@@ -1220,7 +1096,7 @@
 
 
    
-<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/bson/ObjectId.md" target="_blank" title="Edit bson/ObjectId.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/tutorials/Cursor.md" target="_blank" title="Edit tutorials/Cursor.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
 
 
 
@@ -1238,43 +1114,47 @@
   
   
   
-  <li><a href="/bson/">BSON</a> <i class="fa fa-angle-right"></i></li>
-  <li>ObjectId</li>
+  <li><a href="/tutorials/">Tutorials</a> <i class="fa fa-angle-right"></i></li>
+  <li>CRUD Operations</li>
 </ul>
 </div>
 
 
 
 
-<h1 id="objectid">ObjectId</h1>
+<h1 id="cursor">Cursor</h1>
 
-<p>ObjectId is the primary form of identification in MongoDB. ObjectId is a 12 bytes long identifier consisting of non- pseudo- and fully random components.</p>
+<p>All larger result sets in MongoKitten are encapsulated in a Cursor.</p>
 
-<p>ObjectId contains metadata about the creation date in UNIX epoch time, the machine identifer and process ID that created it as well as a random number that&rsquo;s incremented.</p>
+<p>Cursors are a pointer to a set of data on the MongoDB instance, not locally in-memory.
+When looped over the cursor&rsquo;s contents the Cursor will fetch a batch X Documents from the server and make them available to the user. Whenever more are requested the Cursor will fetch the next batch of Documents. The amount of Documents fetched at a time is configurable in most commands with a <code>withBatchSize</code> parameter.</p>
 
-<p>ObjectId is often represented as a 24-character hexadecimal string which is useful in places like an URL</p>
+<p>A big amount of Documents could benefit enormously from <code>withBatchSize</code> at 1000 but the Document grouped together may not be bigger than 48MB. Luckily, this rarely happens unless you store binary data like images inside the Documents. A batchSize of 1000 would still leave 48KB of data per Document.</p>
 
-<p>I.E. <code>https://example.com/users/1234567890abcdef12345678/profile</code></p>
+<h2 id="mapping-transforming">Mapping/Transforming</h2>
 
-<p>MongoKitten ObjectId values are easily generated using an empty initializer: <code>ObjectId()</code>.</p>
+<p>When you&rsquo;re executing a <code>find</code> command on a Collection, it&rsquo;s likely this collection stores data of a certain type. Like all users, all articles etc. For this purpose Cursor has a mechanism to map incoming Documents to other types or even those other types to more specialized types.</p>
 
-<p>Alternatively they&rsquo;re initializable using a hexadecimal String representation like <code>&quot;1234567890abcdef12345678&quot;</code>.</p>
+<p>Assuming you have stored <code>Cursor&lt;Document&gt;</code> received from calling a <code>find</code> method on Collection:</p>
 
-<pre><code class="language-swift">let hexString = &quot;1234567890abcdef12345678&quot;
-let objectId = try ObjectId(hexString)
+<pre><code class="language-swift">import BSON
+import MongoKitten
+
+struct User {
+  let username: String
+  init?(fromDocument document: Document) {
+    guard let username = document[&quot;username&quot;] as String? else {
+      return nil
+    }
+
+    self.username = username
+  }
+}
+
+let usersCursor = Cursor(basicDocumentCursor) { document in
+  return User(fromDocument: document)
+}
 </code></pre>
-
-<p>In some cases you might want to know the ObjectIds creation date. You can fetch a <code>Foundation.Date</code> from the ObjectId using <code>let objectIdCreationDate = myObjectId.epoch</code></p>
-
-<p>Last but not least, ObjectIds are hashable, so they&rsquo;re usable for a key in a Dictionary.</p>
-
-<pre><code class="language-swift">let dictionary: [ObjectId: Document] = [
-  ObjectId(): ...,
-  ObjectId(): ...
-]
-</code></pre>
-
-<p>In the case of MongoKitten/MongoDB this may be useful when you&rsquo;re creating a cache for information from the database. Instead of re-fetching this data from the database you can identify the data using the ObjectId identifier easily.</p>
 
 
 
@@ -1284,15 +1164,15 @@ let objectId = try ObjectId(hexString)
 <div id="btnv">
   
   <div class="pull-left">
-  <a class="navigation prev" href="/bson/ValueConvertible/">
-      <i class="fa fa-long-arrow-left"> </i> ValueConvertible
+  <a class="navigation prev" href="/tutorials/crud/">
+      <i class="fa fa-long-arrow-left"> </i> CRUD Operations
   </a>
   </div>
   
   
   <div class="pull-right">
-  <a class="navigation next" href="/bson/Document/">
-    Document <i class="fa fa-long-arrow-right"> </i>
+  <a class="navigation next" href="/tutorials/aggregation/">
+    Aggregation <i class="fa fa-long-arrow-right"> </i>
   </a>
   
 </div>
@@ -1306,7 +1186,10 @@ let objectId = try ObjectId(hexString)
     <span class="toc-header">On this page</span>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#objectid">ObjectId</a></li>
+<li><a href="#cursor">Cursor</a>
+<ul>
+<li><a href="#mapping-transforming">Mapping/Transforming</a></li>
+</ul></li>
 </ul>
 </nav>
   </div>

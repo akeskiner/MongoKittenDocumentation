@@ -302,8 +302,8 @@ let document: Document = [
 &lt;ul&gt;
 &lt;li&gt;Double&lt;/li&gt;
 &lt;li&gt;String&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;Document.md&#34;&gt;Document&lt;/a&gt; (Array and Dictionary)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;ObjectId.md&#34;&gt;ObjectId&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/bson/Document/&#34;&gt;Document&lt;/a&gt; (Array and Dictionary)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/bson/ObjectId/&#34;&gt;ObjectId&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Bool&lt;/li&gt;
 &lt;li&gt;Int32&lt;/li&gt;
 &lt;li&gt;Int64&lt;/li&gt;
@@ -354,8 +354,6 @@ let package = Package(
     dependencies: [.Package(url: &amp;quot;https://github.com/OpenKitten/BSON.git&amp;quot;, majorVersion: 3, minor: 7)]
 )
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Check the &lt;a href=&#34;https://openkitten.github.io/BSON/&#34;&gt;documentation&lt;/a&gt; for more information.&lt;/p&gt;
 
 &lt;h4 id=&#34;basic-usage&#34;&gt;Basic Usage&lt;/h4&gt;
 

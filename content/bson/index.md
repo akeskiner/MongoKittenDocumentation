@@ -34,8 +34,6 @@ let package = Package(
 )
 ```
 
-Check the [documentation](https://openkitten.github.io/BSON/) for more information.
-
 #### Basic Usage
 
 ```swift

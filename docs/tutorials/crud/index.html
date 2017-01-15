@@ -256,6 +256,9 @@
       
       
     
+      
+      
+    
     
   
 
@@ -577,6 +580,35 @@
 
     <li class="toctree-l2">
     <a href="/tutorials/crud/">
+        <i class='fa'></i>
+        CRUD Operations
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/tutorials/Cursor/">
         <i class='fa'></i>
         CRUD Operations
     </a>
@@ -1037,13 +1069,6 @@
               <div class="documentwrapper">
                 <div class="bodywrapper">
                   <div class="body">
-                    <p><div class="admonition note">
-                    <h5 class="admonition-title">Survey</h5>
-                    <p>Please help us improve by answering a few questions at our
-						<a href="https://www.surveymonkey.com/r/FQ8KT2Y"><strong> user survey</strong></a>.
-                    </p>
-                    </div>
-                    </p>
 
 
    
@@ -1075,7 +1100,8 @@
 
 <h1 id="crud">CRUD</h1>
 
-<p>In <a href="Setup.md">the setup guide</a> we&rsquo;ve covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.</p>
+<p>In <a href="No page found with path or logical name "tutorials/connect.md".
+">the setup guide</a> we&rsquo;ve covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.</p>
 
 <p>From a collection object we can start interacting with our data. From here we&rsquo;ll cover all parts of CRUD.
 (Create, Read, Update, Delete). And we&rsquo;ll assume you have a Collection available as the variable <code>collection</code>.</p>
@@ -1100,7 +1126,7 @@
 
 <p><code>find</code> can be ran without arguments to fetch every Document in the collection.</p>
 
-<p><code>try collection.find()</code> will return a <a href="Cursor.md">Cursor</a> containing all Documents. Cursors are an important part of the MongoKitten flow but we&rsquo;ll cover them in short here.</p>
+<p><code>try collection.find()</code> will return a <a href="/tutorials/Cursor/">Cursor</a> containing all Documents. Cursors are an important part of the MongoKitten flow but we&rsquo;ll cover them in short here.</p>
 
 <p><code>try collection.findOne()</code> will return a single <code>Document?</code>. Which is nil if no Document could be found.</p>
 
@@ -1212,9 +1238,9 @@ try collection.find(projecting: [&quot;_id&quot;: false, &quot;key0&quot;: true]
 
 <h3 id="single-updates">Single updates</h3>
 
-<p>Single updates are formed using a single filter (<a href="QueryBuilder.md">Query</a> object) and a single update document.</p>
+<p>Single updates are formed using a single filter (<a href="/tutorials/QueryBuilder/">Query</a> object) and a single update document.</p>
 
-<p><a href="QueryBuilder.md">Queries are covered here.</a></p>
+<p><a href="/tutorials/QueryBuilder/">Queries are covered here.</a></p>
 
 <p>Update finds already existing Documents in the collection that match the query/filter and updates them to the <code>to</code> Document and will overwrite the existing Document with the new Document.</p>
 
@@ -1358,8 +1384,8 @@ try collection.count(limitedTo: 2, skipping: 4) // Will return 1 in this scenari
   
   
   <div class="pull-right">
-  <a class="navigation next" href="/tutorials/aggregation/">
-    Aggregation <i class="fa fa-long-arrow-right"> </i>
+  <a class="navigation next" href="/tutorials/Cursor/">
+    CRUD Operations <i class="fa fa-long-arrow-right"> </i>
   </a>
   
 </div>

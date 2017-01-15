@@ -10,7 +10,7 @@ title = "CRUD Operations"
 
 # CRUD
 
-In [the setup guide](Setup.md) we've covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.
+In [the setup guide]({{< relref "tutorials/connect.md" >}}) we've covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.
 
 From a collection object we can start interacting with our data. From here we'll cover all parts of CRUD.
 (Create, Read, Update, Delete). And we'll assume you have a Collection available as the variable `collection`.
@@ -35,12 +35,12 @@ You can also insert an array of Documents which will all be inserted. MongoKitte
 
 `find` can be ran without arguments to fetch every Document in the collection.
 
-`try collection.find()` will return a [Cursor](Cursor.md) containing all Documents. Cursors are an important part of the MongoKitten flow but we'll cover them in short here.
+`try collection.find()` will return a [Cursor]({{< relref "tutorials/Cursor.md" >}}) containing all Documents. Cursors are an important part of the MongoKitten flow but we'll cover them in short here.
 
 `try collection.findOne()` will return a single `Document?`. Which is nil if no Document could be found.
 
 The `Array` initializer can be used on the Cursor to create an `Array<Document>` containing all results.
-This is recommended when you definitely need all results. Looping over a Cursor is recommended when you don't necessarily need all results and might stop in the middle of the process. `Array` isn't any better than Cursor other than providing the ability to count the results without an extra query. However, it does use more RAM. 
+This is recommended when you definitely need all results. Looping over a Cursor is recommended when you don't necessarily need all results and might stop in the middle of the process. `Array` isn't any better than Cursor other than providing the ability to count the results without an extra query. However, it does use more RAM.
 
 ```swift
 let documentArray = Array(try collection.find())
@@ -157,9 +157,9 @@ Update comes in two forms. Bulk and single updates.
 
 ### Single updates
 
-Single updates are formed using a single filter ([Query](QueryBuilder.md) object) and a single update document.
+Single updates are formed using a single filter ([Query]({{< relref "tutorials/QueryBuilder.md" >}}) object) and a single update document.
 
-[Queries are covered here.](QueryBuilder.md)
+[Queries are covered here.]({{< relref "tutorials/QueryBuilder.md" >}})
 
 Update finds already existing Documents in the collection that match the query/filter and updates them to the `to` Document and will overwrite the existing Document with the new Document.
 

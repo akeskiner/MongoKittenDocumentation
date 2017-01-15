@@ -302,8 +302,8 @@ let document: Document = [
 &lt;ul&gt;
 &lt;li&gt;Double&lt;/li&gt;
 &lt;li&gt;String&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;Document.md&#34;&gt;Document&lt;/a&gt; (Array and Dictionary)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;ObjectId.md&#34;&gt;ObjectId&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/bson/Document/&#34;&gt;Document&lt;/a&gt; (Array and Dictionary)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/bson/ObjectId/&#34;&gt;ObjectId&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Bool&lt;/li&gt;
 &lt;li&gt;Int32&lt;/li&gt;
 &lt;li&gt;Int64&lt;/li&gt;
@@ -354,8 +354,6 @@ let package = Package(
     dependencies: [.Package(url: &amp;quot;https://github.com/OpenKitten/BSON.git&amp;quot;, majorVersion: 3, minor: 7)]
 )
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Check the &lt;a href=&#34;https://openkitten.github.io/BSON/&#34;&gt;documentation&lt;/a&gt; for more information.&lt;/p&gt;
 
 &lt;h4 id=&#34;basic-usage&#34;&gt;Basic Usage&lt;/h4&gt;
 
@@ -436,6 +434,50 @@ document[&amp;quot;double&amp;quot;] === document[&amp;quot;int64&amp;quot;] // 
     
     <item>
       <title>CRUD Operations</title>
+      <link>/tutorials/Cursor/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>/tutorials/Cursor/</guid>
+      <description>
+
+&lt;h1 id=&#34;cursor&#34;&gt;Cursor&lt;/h1&gt;
+
+&lt;p&gt;All larger result sets in MongoKitten are encapsulated in a Cursor.&lt;/p&gt;
+
+&lt;p&gt;Cursors are a pointer to a set of data on the MongoDB instance, not locally in-memory.
+When looped over the cursor&amp;rsquo;s contents the Cursor will fetch a batch X Documents from the server and make them available to the user. Whenever more are requested the Cursor will fetch the next batch of Documents. The amount of Documents fetched at a time is configurable in most commands with a &lt;code&gt;withBatchSize&lt;/code&gt; parameter.&lt;/p&gt;
+
+&lt;p&gt;A big amount of Documents could benefit enormously from &lt;code&gt;withBatchSize&lt;/code&gt; at 1000 but the Document grouped together may not be bigger than 48MB. Luckily, this rarely happens unless you store binary data like images inside the Documents. A batchSize of 1000 would still leave 48KB of data per Document.&lt;/p&gt;
+
+&lt;h2 id=&#34;mapping-transforming&#34;&gt;Mapping/Transforming&lt;/h2&gt;
+
+&lt;p&gt;When you&amp;rsquo;re executing a &lt;code&gt;find&lt;/code&gt; command on a Collection, it&amp;rsquo;s likely this collection stores data of a certain type. Like all users, all articles etc. For this purpose Cursor has a mechanism to map incoming Documents to other types or even those other types to more specialized types.&lt;/p&gt;
+
+&lt;p&gt;Assuming you have stored &lt;code&gt;Cursor&amp;lt;Document&amp;gt;&lt;/code&gt; received from calling a &lt;code&gt;find&lt;/code&gt; method on Collection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import BSON
+import MongoKitten
+
+struct User {
+  let username: String
+  init?(fromDocument document: Document) {
+    guard let username = document[&amp;quot;username&amp;quot;] as String? else {
+      return nil
+    }
+
+    self.username = username
+  }
+}
+
+let usersCursor = Cursor(basicDocumentCursor) { document in
+  return User(fromDocument: document)
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CRUD Operations</title>
       <link>/tutorials/crud/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
@@ -444,7 +486,8 @@ document[&amp;quot;double&amp;quot;] === document[&amp;quot;int64&amp;quot;] // 
 
 &lt;h1 id=&#34;crud&#34;&gt;CRUD&lt;/h1&gt;
 
-&lt;p&gt;In &lt;a href=&#34;Setup.md&#34;&gt;the setup guide&lt;/a&gt; we&amp;rsquo;ve covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.&lt;/p&gt;
+&lt;p&gt;In &lt;a href=&#34;No page found with path or logical name &#34;tutorials/connect.md&#34;.
+&#34;&gt;the setup guide&lt;/a&gt; we&amp;rsquo;ve covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.&lt;/p&gt;
 
 &lt;p&gt;From a collection object we can start interacting with our data. From here we&amp;rsquo;ll cover all parts of CRUD.
 (Create, Read, Update, Delete). And we&amp;rsquo;ll assume you have a Collection available as the variable &lt;code&gt;collection&lt;/code&gt;.&lt;/p&gt;
@@ -469,7 +512,7 @@ document[&amp;quot;double&amp;quot;] === document[&amp;quot;int64&amp;quot;] // 
 
 &lt;p&gt;&lt;code&gt;find&lt;/code&gt; can be ran without arguments to fetch every Document in the collection.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;try collection.find()&lt;/code&gt; will return a &lt;a href=&#34;Cursor.md&#34;&gt;Cursor&lt;/a&gt; containing all Documents. Cursors are an important part of the MongoKitten flow but we&amp;rsquo;ll cover them in short here.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;try collection.find()&lt;/code&gt; will return a &lt;a href=&#34;/tutorials/Cursor/&#34;&gt;Cursor&lt;/a&gt; containing all Documents. Cursors are an important part of the MongoKitten flow but we&amp;rsquo;ll cover them in short here.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;try collection.findOne()&lt;/code&gt; will return a single &lt;code&gt;Document?&lt;/code&gt;. Which is nil if no Document could be found.&lt;/p&gt;
 
@@ -581,9 +624,9 @@ try collection.find(projecting: [&amp;quot;_id&amp;quot;: false, &amp;quot;key0&
 
 &lt;h3 id=&#34;single-updates&#34;&gt;Single updates&lt;/h3&gt;
 
-&lt;p&gt;Single updates are formed using a single filter (&lt;a href=&#34;QueryBuilder.md&#34;&gt;Query&lt;/a&gt; object) and a single update document.&lt;/p&gt;
+&lt;p&gt;Single updates are formed using a single filter (&lt;a href=&#34;/tutorials/QueryBuilder/&#34;&gt;Query&lt;/a&gt; object) and a single update document.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;QueryBuilder.md&#34;&gt;Queries are covered here.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/tutorials/QueryBuilder/&#34;&gt;Queries are covered here.&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Update finds already existing Documents in the collection that match the query/filter and updates them to the &lt;code&gt;to&lt;/code&gt; Document and will overwrite the existing Document with the new Document.&lt;/p&gt;
 
@@ -744,7 +787,7 @@ try collection.count(limitedTo: 2, skipping: 4) // Will return 1 in this scenari
 
 &lt;p&gt;The database also has two initializers. One accepts a connection URL as String. The database which is accessed is equal to the authentication database in this case.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(mongoURL: &amp;quot;mongodb://kitten:kitten@ds125078-a0.mlab.com:25078,ds125078-a1.mlab.com:25078/kitten?replicaSet=rs-ds125078&amp;quot;)
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(mongoURL: &amp;quot;mongodb://user:password@ds12345-a0.domain.com:25078,ds12345-a1.domain.com:25078/kitten?replicaSet=rs-ds125078&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Alternatively you can create a server object and select the database from there:&lt;/p&gt;
@@ -1005,42 +1048,6 @@ and tests.&lt;/p&gt;
 $ cd https://github.com/OpenKitten/MongoKitten.git
 $ swift build
 $ git checkout -b myNewFeature
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>QueryBuilder</title>
-      <link>/tutorials/QueryBuilder/</link>
-      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
-      
-      <guid>/tutorials/QueryBuilder/</guid>
-      <description>
-
-&lt;h1 id=&#34;querybuilder&#34;&gt;QueryBuilder&lt;/h1&gt;
-
-&lt;p&gt;Query is the object that will find data for you. It&amp;rsquo;s used in all CRUD operations except insert. It&amp;rsquo;s used for finding the Document you want to fetch/modify/delete.&lt;/p&gt;
-
-&lt;p&gt;There are two method of creating a Query. You can create a Query manually from a Document or you can use the operators. Operator based queries are means for simple queries only.&lt;/p&gt;
-
-&lt;p&gt;This would be an example of an operator based query&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let firstName = &amp;quot;Bob&amp;quot;
-let surName = &amp;quot;de Boer&amp;quot;
-let query: Query = &amp;quot;name_first&amp;quot; == firstName
-
-try usersCollection.findOne(matching: &amp;quot;name_first&amp;quot; == firstName &amp;amp;&amp;amp; &amp;quot;name_last&amp;quot; == surName &amp;amp;&amp;amp; &amp;quot;age&amp;quot; &amp;lt; 24)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you&amp;rsquo;re in need for more advanced MongoDB queries you can create one from a Document.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
-  &amp;quot;name_first&amp;quot;: firstName,
-  &amp;quot;name_last&amp;quot;: surName,
-  &amp;quot;age&amp;quot;: [ &amp;quot;$lt&amp;quot;: 24]
-]
-
-try usersCollection.findOne(matching: Query(document))
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
