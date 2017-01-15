@@ -3,7 +3,7 @@ date = "2016-12-14T12:36:56Z"
 title = "QueryBuilder"
 [menu.main]
   parent = "Tutorials"
-  identifier = "Aggregation"
+  identifier = "QueryBuilder"
   weight = 79
   pre = "<i class='fa'></i>"
 +++

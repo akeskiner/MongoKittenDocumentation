@@ -2,28 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tutorials-rsses on MongoDB Swift Driver</title>
-    <link>/tutorials/index.xml</link>
+    <link>http://docs.openkitten.org/tutorials/index.xml</link>
     <description>Recent content in Tutorials-rsses on MongoDB Swift Driver</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 14 Dec 2016 12:36:56 +0000</lastBuildDate>
-    <atom:link href="/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://docs.openkitten.org/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Aggregation</title>
-      <link>/tutorials/aggregation/</link>
+      <link>http://docs.openkitten.org/tutorials/aggregation/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/aggregation/</guid>
+      <guid>http://docs.openkitten.org/tutorials/aggregation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>CRUD Operations</title>
-      <link>/tutorials/Cursor/</link>
+      <link>http://docs.openkitten.org/tutorials/Cursor/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/Cursor/</guid>
+      <guid>http://docs.openkitten.org/tutorials/Cursor/</guid>
       <description>
 
 &lt;h1 id=&#34;cursor&#34;&gt;Cursor&lt;/h1&gt;
@@ -64,10 +64,10 @@ let usersCursor = Cursor(basicDocumentCursor) { document in
     
     <item>
       <title>CRUD Operations</title>
-      <link>/tutorials/crud/</link>
+      <link>http://docs.openkitten.org/tutorials/crud/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/crud/</guid>
+      <guid>http://docs.openkitten.org/tutorials/crud/</guid>
       <description>
 
 &lt;h1 id=&#34;crud&#34;&gt;CRUD&lt;/h1&gt;
@@ -98,7 +98,7 @@ let usersCursor = Cursor(basicDocumentCursor) { document in
 
 &lt;p&gt;&lt;code&gt;find&lt;/code&gt; can be ran without arguments to fetch every Document in the collection.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;try collection.find()&lt;/code&gt; will return a &lt;a href=&#34;/tutorials/Cursor/&#34;&gt;Cursor&lt;/a&gt; containing all Documents. Cursors are an important part of the MongoKitten flow but we&amp;rsquo;ll cover them in short here.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;try collection.find()&lt;/code&gt; will return a &lt;a href=&#34;http://docs.openkitten.org/tutorials/Cursor/&#34;&gt;Cursor&lt;/a&gt; containing all Documents. Cursors are an important part of the MongoKitten flow but we&amp;rsquo;ll cover them in short here.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;try collection.findOne()&lt;/code&gt; will return a single &lt;code&gt;Document?&lt;/code&gt;. Which is nil if no Document could be found.&lt;/p&gt;
 
@@ -210,9 +210,9 @@ try collection.find(projecting: [&amp;quot;_id&amp;quot;: false, &amp;quot;key0&
 
 &lt;h3 id=&#34;single-updates&#34;&gt;Single updates&lt;/h3&gt;
 
-&lt;p&gt;Single updates are formed using a single filter (&lt;a href=&#34;/tutorials/QueryBuilder/&#34;&gt;Query&lt;/a&gt; object) and a single update document.&lt;/p&gt;
+&lt;p&gt;Single updates are formed using a single filter (&lt;a href=&#34;http://docs.openkitten.org/tutorials/QueryBuilder/&#34;&gt;Query&lt;/a&gt; object) and a single update document.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;/tutorials/QueryBuilder/&#34;&gt;Queries are covered here.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/QueryBuilder/&#34;&gt;Queries are covered here.&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Update finds already existing Documents in the collection that match the query/filter and updates them to the &lt;code&gt;to&lt;/code&gt; Document and will overwrite the existing Document with the new Document.&lt;/p&gt;
 
@@ -345,19 +345,19 @@ try collection.count(limitedTo: 2, skipping: 4) // Will return 1 in this scenari
     
     <item>
       <title>Collections</title>
-      <link>/tutorials/collections/</link>
+      <link>http://docs.openkitten.org/tutorials/collections/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/collections/</guid>
+      <guid>http://docs.openkitten.org/tutorials/collections/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Connect to MongoDB</title>
-      <link>/tutorials/connect/</link>
+      <link>http://docs.openkitten.org/tutorials/connect/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/connect/</guid>
+      <guid>http://docs.openkitten.org/tutorials/connect/</guid>
       <description>
 
 &lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
@@ -395,10 +395,10 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
     
     <item>
       <title>GridFS</title>
-      <link>/tutorials/gridfs/</link>
+      <link>http://docs.openkitten.org/tutorials/gridfs/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/gridfs/</guid>
+      <guid>http://docs.openkitten.org/tutorials/gridfs/</guid>
       <description>
 
 &lt;h1 id=&#34;gridfs&#34;&gt;GridFS&lt;/h1&gt;
@@ -492,10 +492,10 @@ let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
     
     <item>
       <title>QueryBuilder</title>
-      <link>/tutorials/QueryBuilder/</link>
+      <link>http://docs.openkitten.org/tutorials/QueryBuilder/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/QueryBuilder/</guid>
+      <guid>http://docs.openkitten.org/tutorials/QueryBuilder/</guid>
       <description>
 
 &lt;h1 id=&#34;querybuilder&#34;&gt;QueryBuilder&lt;/h1&gt;
@@ -528,10 +528,10 @@ try usersCollection.findOne(matching: Query(document))
     
     <item>
       <title>SSL Settings</title>
-      <link>/tutorials/connect/ssl/</link>
+      <link>http://docs.openkitten.org/tutorials/connect/ssl/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/connect/ssl/</guid>
+      <guid>http://docs.openkitten.org/tutorials/connect/ssl/</guid>
       <description>
 
 &lt;h1 id=&#34;tls-ssl&#34;&gt;TLS/SSL&lt;/h1&gt;
@@ -549,38 +549,38 @@ try usersCollection.findOne(matching: Query(document))
     
     <item>
       <title>Tutorials</title>
-      <link>/tutorials/</link>
+      <link>http://docs.openkitten.org/tutorials/tutorials/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>/tutorials/</guid>
+      <guid>http://docs.openkitten.org/tutorials/tutorials/</guid>
       <description>
 
 &lt;h1 id=&#34;tutorials&#34;&gt;Tutorials&lt;/h1&gt;
 
 &lt;p&gt;The tutorials in this section provide examples of some frequently used operations. This section is not meant to be an exhaustive list of all operations available in the Node.js driver.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;/tutorials/connect/&#34;&gt;Connect to MongoDB&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/connect/&#34;&gt;Connect to MongoDB&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;/tutorials/collections/&#34;&gt;Collections&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/collections/&#34;&gt;Collections&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;/tutorials/crud/&#34;&gt;CRUD Operations&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/crud/&#34;&gt;CRUD Operations&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;/tutorials/QueryBuilder/&#34;&gt;Query Builder&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/QueryBuilder/&#34;&gt;Query Builder&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;/tutorials/aggregation/&#34;&gt;Aggregation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/aggregation/&#34;&gt;Aggregation&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;/tutorials/Administration/&#34;&gt;Administration&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/Administration/&#34;&gt;Administration&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;/tutorials/gridfs/&#34;&gt;GridFS&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/gridfs/&#34;&gt;GridFS&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Administration</title>
-      <link>/tutorials/Administration/</link>
+      <link>http://docs.openkitten.org/tutorials/Administration/</link>
       <pubDate>Wed, 14 Dec 2016 12:57:41 +0100</pubDate>
       
-      <guid>/tutorials/Administration/</guid>
+      <guid>http://docs.openkitten.org/tutorials/Administration/</guid>
       <description>
 
 &lt;h1 id=&#34;administration&#34;&gt;Administration&lt;/h1&gt;

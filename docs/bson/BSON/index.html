@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="http://docs.openkitten.org/img/favicon.png">
 
-    <title>Document</title>
+    <title>BSON</title>
 
     <link rel="stylesheet" href="http://docs.openkitten.org/lib/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="http://docs.openkitten.org/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -390,109 +390,6 @@
 
 
   
-    
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
-
-
-        
-          
-        
-      
-    
-      
-      
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-  
   
   
   
@@ -502,18 +399,6 @@
   
 
   
-    
-    
-    
-      
-    
-  
-  
-
-
-        
-      
-    
     
   
 
@@ -1089,8 +974,6 @@
 
 
 
-  
-
 
 
 
@@ -1354,7 +1237,7 @@
 
 
    
-<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/bson/Document.md" target="_blank" title="Edit bson/Document.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/bson/BSON.md" target="_blank" title="Edit bson/BSON.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
 
 
 
@@ -1372,149 +1255,107 @@
   
   
   
-  <li><a href="/bson/BSON/">BSON</a> <i class="fa fa-angle-right"></i></li>
-  <li>Document</li>
+  
+  <li>BSON</li>
 </ul>
 </div>
 
 
 
 
-<h1 id="document">Document</h1>
+<h2 id="a-native-fast-bson-library-for-swift-written-in-swift">A native, fast BSON library for Swift, written in Swift.</h2>
 
-<p>Document is the primary type of BSON. It&rsquo;s either a Dictionary or Array and allows interaction like a native Swift Dictionary or Array.</p>
+<p>BSON is parsed and generated as specified for version 1.0 of the <a href="http://bsonspec.org/spec.html">BSON specification</a>.</p>
 
-<h2 id="basic-usage">Basic Usage</h2>
+<h3 id="compatibility">Compatibility</h3>
 
-<p>Documents are usable like any other Swift dictionary/array. Only you&rsquo;ll need to explicitely specify your variable to be a Document.</p>
+<h5 id="operating-systems">Operating systems</h5>
+
+<p>All versions starting with BSON 1.3 are compatible with OS X and Ubuntu 15.10. Other operating systems may work but are untested.</p>
+
+<h5 id="swift-version">Swift Version</h5>
+
+<p>We support the Swift version specified in .swift_version, which most of the time is the latest version of Swift when a version is released.</p>
+
+<p>For every new Swift snapshot we release a new minor version.</p>
+
+<h3 id="usage">Usage</h3>
+
+<p>The supported method for using this library is trough the Swift Package manager, like this:</p>
+
+<pre><code class="language-swift">import PackageDescription
+
+let package = Package(
+    name: &quot;MyApp&quot;,
+    dependencies: [.Package(url: &quot;https://github.com/OpenKitten/BSON.git&quot;, majorVersion: 4)]
+)
+</code></pre>
+
+<h4 id="basic-usage">Basic Usage</h4>
+
+<pre><code class="language-swift">// Create a document using a dictionary literal
+let document: Document = [
+            &quot;hello&quot;: &quot;I am a BSON document&quot;,
+            &quot;temperature&quot;: 42.5
+        ]
+
+// Retreive the BSON data, ready for storing or sending over the network
+let data = document.bsonData // Array of [UInt8]
+
+// Initialize a document using a [UInt8]
+let sameDocument = try! Document(data: data)
+
+// Do something with the data
+let temperature = document[&quot;temperature&quot;] as Double?
+
+// Use the temperature
+</code></pre>
+
+<h4 id="embedded-documents">Embedded documents</h4>
 
 <pre><code class="language-swift">let document: Document = [
-	&quot;my&quot;: &quot;data&quot;,
-	&quot;isAwesome&quot;: true
-]
+            &quot;subdocument&quot;: [&quot;hello&quot;: &quot;sample&quot;] as Document,
+            &quot;anothersubdocument&quot;: [81.2, &quot;cheese&quot;] as Document // an array is also an embedded document
+        ]
 </code></pre>
 
-<p>or</p>
+<h4 id="comparing">Comparing</h4>
 
-<pre><code class="language-swift">let document = [
-	&quot;my&quot;: &quot;data&quot;,
-	&quot;isAwesome&quot;: true
-] as Document
+<pre><code class="language-swift">document[&quot;double&quot;] == document[&quot;int64&quot;] // true for Double(0) == Int64(0)
+document[&quot;double&quot;] === document[&quot;int64&quot;] // false for Double(0) === Int64(0)
 </code></pre>
 
-<p>Alternatively, if you need an Array, you can use the Array literal.</p>
+<h3 id="supported-types">Supported Types</h3>
 
-<pre><code class="language-swift">let arrayDocument = [
-	1, 2, 3, 4, 5
-]
-
-let arrayDocument2 = [
-	&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;
-]
-</code></pre>
-
-<p>There are two restrictions to a Document.</p>
+<p>All non-deprecated BSON 1.0 types are supported.</p>
 
 <ul>
-<li>If the Document is a Dictionary, the key <em>must</em> be a String</li>
-<li>The Value in both the Dictionary and Array for <em>must</em> be a ValueConvertible.</li>
+<li>Double</li>
+<li>String</li>
+<li>Document</li>
+<li>Array</li>
+<li>ObjectId</li>
+<li>Bool</li>
+<li>DateTime</li>
+<li>32-bit integer</li>
+<li>64-bit integer</li>
+<li>Null value</li>
+<li>Binary</li>
+<li>Regular Expression</li>
+<li>Min Key</li>
+<li>Max Key</li>
+<li>Timestamp</li>
+<li>Javascript Code</li>
+<li>Javascript Code with Scope</li>
 </ul>
 
-<p>However, ValueConvertible is a protocol that, by defaut, supports BSON primitives. BSON Primitives can always be used. And custom types can be ValueConvertible.</p>
+<h3 id="supported-features">Supported features</h3>
 
-<p>Documents allow various methods of initializing:</p>
-
-<pre><code class="language-swift">let document0 = Document()
-let document1 = Document(array: ...)
-let document2 = Document(dictionaryElements: ...)
-let document3 = Document(data: [5, 0, 0, 0, 0])
-</code></pre>
-
-<p>They allow actions like an array:</p>
-
-<pre><code class="language-swift">var document: Document = [1, 2, 3, 4, 5]
-
-document.append(6)
-document[3] // 4
-document.count // 6
-</code></pre>
-
-<p>Or actions like a Dictionary:</p>
-
-<pre><code class="language-swift">var document: Document = [
-	&quot;key0&quot;: 0,
-	&quot;key1&quot;: 1,
-	&quot;key2&quot;: 2,
-	&quot;key3&quot;: 3
-]
-
-document[&quot;key1&quot;] // 1
-document[&quot;key4&quot;] // nil
-document[&quot;key4&quot;] = 4
-document[&quot;key4&quot;] // 4
-
-document.keys // [&quot;key0&quot;, &quot;key1&quot;, &quot;key2&quot;, &quot;key3&quot;, &quot;key4&quot;]
-document.values // [0, 1, 2, 3, 4]
-</code></pre>
-
-<p>Dictionary Documents act like you would expect.</p>
-
-<pre><code class="language-swift">let document: Document = [
-  &quot;hey&quot;: true,
-  &quot;hello&quot;: 3.33
-]
-
-for (key, value) in document {
-	guard key == &quot;hey&quot; || key == &quot;hello&quot; else {
-		fatalError(&quot;Impossible!&quot;)
-	}
-	
-	guard value as? Bool == true || value as? Double == 3.33 else {
-		fatalError(&quot;Impossible!&quot;)
-	}
-}
-</code></pre>
-
-<p>Array Documents act in a similar way:</p>
-
-<pre><code class="language-swift">let document: Document = [true, false, 3.3, false, true]
-
-for (key, value) in document {
-	guard [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;].contains(key) else {
-		fatalError(&quot;The key in an array is the position as string number&quot;)
-	}
-}
-</code></pre>
-
-<p>Documents can be easily embedded inside each other. Because of this we allow you to easily subscript a Document to access sub-Documents and even deeper layers of the structure using variadic subscripts.</p>
-
-<p>These subscripts accept Strings (for Dictionary Document keys) and <code>Int</code>egers (for Array positions or Dictionary positions). These work like you would expect from any other Array or Dictionary.</p>
-
-<pre><code class="language-swift">var document = [
-	&quot;subdoc&quot;: [
-		&quot;subsubdoc&quot;: [
-			&quot;array&quot;: [0, false, true, &quot;henk&quot;]
-		] as Document
-	] as Document
-] as Document
-
-// Get element position 2 from array in subsubdoc in subdoc in document
-document[&quot;subdoc&quot;, &quot;subsubdoc&quot;, &quot;array&quot;, 2] // true
-</code></pre>
-
-<p>Document also provides some extra features that are commonly used with BSON:</p>
-
-<pre><code class="language-swift">var document: Document = [
-	&quot;key&quot;: true,
-	&quot;subdoc&quot;: [
-	  &quot;value&quot;: 3
-	] as Document
-]
-
-document[dotNotated: &quot;subdoc.value&quot;] // 3
-
-document.flattened() // [&quot;key&quot;: true, &quot;subdoc.value&quot;: 3]
-</code></pre>
+<ul>
+<li>MongoDB Extended JSON</li>
+<li>ISO8601 for Extended JSON Dates</li>
+<li><strong>Really</strong> fast BSON Parsing and Serializing</li>
+</ul>
 
 
 
@@ -1522,12 +1363,6 @@ document.flattened() // [&quot;key&quot;: true, &quot;subdoc.value&quot;: 3]
 
 
 <div id="btnv">
-  
-  <div class="pull-left">
-  <a class="navigation prev" href="/bson/ObjectId/">
-      <i class="fa fa-long-arrow-left"> </i> ObjectId
-  </a>
-  </div>
   
   
 </div>
@@ -1541,9 +1376,27 @@ document.flattened() // [&quot;key&quot;: true, &quot;subdoc.value&quot;: 3]
     <span class="toc-header">On this page</span>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#document">Document</a>
+<li>
+<ul>
+<li><a href="#a-native-fast-bson-library-for-swift-written-in-swift">A native, fast BSON library for Swift, written in Swift.</a>
+<ul>
+<li><a href="#compatibility">Compatibility</a>
+<ul>
+<li>
+<ul>
+<li><a href="#operating-systems">Operating systems</a></li>
+<li><a href="#swift-version">Swift Version</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#usage">Usage</a>
 <ul>
 <li><a href="#basic-usage">Basic Usage</a></li>
+<li><a href="#embedded-documents">Embedded documents</a></li>
+<li><a href="#comparing">Comparing</a></li>
+</ul></li>
+<li><a href="#supported-types">Supported Types</a></li>
+<li><a href="#supported-features">Supported features</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>

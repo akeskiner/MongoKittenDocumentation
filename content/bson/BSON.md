@@ -30,7 +30,7 @@ import PackageDescription
 
 let package = Package(
     name: "MyApp",
-    dependencies: [.Package(url: "https://github.com/OpenKitten/BSON.git", majorVersion: 3, minor: 7)]
+    dependencies: [.Package(url: "https://github.com/OpenKitten/BSON.git", majorVersion: 4)]
 )
 ```
 
@@ -50,7 +50,7 @@ let data = document.bsonData // Array of [UInt8]
 let sameDocument = try! Document(data: data)
 
 // Do something with the data
-let temperature = document["temperature"].double
+let temperature = document["temperature"] as Double?
 
 // Use the temperature
 ```
@@ -59,16 +59,16 @@ let temperature = document["temperature"].double
 
 ```swift
 let document: Document = [
-            "subdocument": ["hello": "sample"],
-            "anothersubdocument": [81.2, "cheese"] // an array is also an embedded document
+            "subdocument": ["hello": "sample"] as Document,
+            "anothersubdocument": [81.2, "cheese"] as Document // an array is also an embedded document
         ]
 ```
 
 #### Comparing
 
 ```swift
-document["double"] == document["int64"] // true for .double(0) == .int64(0)
-document["double"] === document["int64"] // false for .double(0) === .int64(0)
+document["double"] == document["int64"] // true for Double(0) == Int64(0)
+document["double"] === document["int64"] // false for Double(0) === Int64(0)
 ```
 
 ### Supported Types

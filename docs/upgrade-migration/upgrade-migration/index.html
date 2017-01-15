@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="http://docs.openkitten.org/img/favicon.png">
 
-    <title>Document</title>
+    <title>Upgrade Guide</title>
 
     <link rel="stylesheet" href="http://docs.openkitten.org/lib/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="http://docs.openkitten.org/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -493,28 +493,16 @@
 
 
   
-  
-  
-  
-  
-  
-  
-  
-
-  
-    
-    
-    
-      
-    
-  
-  
 
 
+        
+          
         
       
     
     
+      
+    
   
 
 
@@ -535,10 +523,60 @@
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
       
       
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
     
+    
+      
     
   
 
@@ -555,6 +593,17 @@
 
 
 
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+    
   
 
 
@@ -973,18 +1022,16 @@
 
 
 
-  
 
 
 
-
-<li class="toctree-l1  current">
+<li class="toctree-l1 ">
   <a href="/bson/BSON/" class="">
       <i class='fa fa-thumb-tack'></i>
       <span>BSON</span>
-      <span class="menu-arrow fa fa-angle-down"></span>
+      <span class="menu-arrow fa fa-angle-right"></span>
   </a>
-    <ul  class="current">
+    <ul >
         
         
         
@@ -1088,8 +1135,6 @@
 
 
 
-
-  
 
 
 
@@ -1212,6 +1257,8 @@
 
 
 
+
+  
 
 
 
@@ -1354,7 +1401,7 @@
 
 
    
-<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/bson/Document.md" target="_blank" title="Edit bson/Document.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/upgrade-migration/upgrade-migration.md" target="_blank" title="Edit upgrade-migration/upgrade-migration.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
 
 
 
@@ -1372,149 +1419,123 @@
   
   
   
-  <li><a href="/bson/BSON/">BSON</a> <i class="fa fa-angle-right"></i></li>
-  <li>Document</li>
+  
+  <li>Upgrade Guide</li>
 </ul>
 </div>
 
 
 
 
-<h1 id="document">Document</h1>
+<h1 id="migrating-to-mongokitten-3">Migrating to MongoKitten 3</h1>
 
-<p>Document is the primary type of BSON. It&rsquo;s either a Dictionary or Array and allows interaction like a native Swift Dictionary or Array.</p>
+<p>This guide will help users of MongoKitten 1.x and 2.x to migrate to MongoKitten 3.</p>
 
-<h2 id="basic-usage">Basic Usage</h2>
+<h2 id="setup">Setup</h2>
 
-<p>Documents are usable like any other Swift dictionary/array. Only you&rsquo;ll need to explicitely specify your variable to be a Document.</p>
+<p>The setup for Connection URLs stays mostly the same. But the parameter is now named &ldquo;mongoURL&rdquo;</p>
 
-<pre><code class="language-swift">let document: Document = [
-	&quot;my&quot;: &quot;data&quot;,
-	&quot;isAwesome&quot;: true
+<p><code>let server = try Server(&quot;mongodb://...&quot;)</code> becomes <code>let server = try Server(mongoURL: &quot;mongodb://...&quot;)</code></p>
+
+<p>The connection URL supports <code>authSource</code>, <code>authMechanism</code>, <code>ssl</code>, Replica Sets and Sharded Clusters. But if you prefer not using an URL you still can.</p>
+
+<p>MongoKitten 3 has an object &ldquo;ClientSettings&rdquo; which separates out the settings from the server.</p>
+
+<p>ClientSettings accepts one or more hosts. Multiple hosts should only be used for replica sets and sharded databases.</p>
+
+<p><code>ClientSettings(host: ...)</code> accepts a MongoHost. Which is manually creatable but is initializable using a String (literal).</p>
+
+<p>The String needs to be formatted like this:
+<code>subdomain.example.com:12345</code>.</p>
+
+<p>The ClientSettings then accepts <code>sslSettings</code>. sslSettings is an object that has 3 values. One for enabling or disabling SSL. The other 2 are for certificate and host validation.</p>
+
+<p>SSLSettings is ExpressibleByBooleanLiteral, so <code>true</code> will enable SSL with secure defaults. <code>false</code> will not use SSL.</p>
+
+<p>Last but not least ClientSettings accepts login details in the form of <code>MongoCredentials</code>.</p>
+
+<p>This accepts a username, password and database. If you don&rsquo;t know the authentication database (it&rsquo;s not always the same database as the one you&rsquo;re trying to access) you can leave it empty wil <code>nil</code> here.</p>
+
+<h3 id="connecting">Connecting</h3>
+
+<p>The <code>automatically</code> parameter has been removed. MongoKitten will always connect automatically now and will always attempt to reconnect.</p>
+
+<p><code>server.connect()</code> has been removed for the same reason.</p>
+
+<h2 id="documents-and-values">Documents and Values</h2>
+
+<p>The <code>~</code> operator has been removed because Values are now directly embeddable inside Documents/Dictionary literals.</p>
+
+<p>However, all Documents need to have their type explicitely defined now. This would look like the following</p>
+
+<pre><code class="language-swift">let name = &quot;Joannis&quot;
+
+let doc: Document = [
+  &quot;name&quot; ~name,
+  &quot;name2&quot;: &quot;Joannis&quot;
+  &quot;subDoc&quot;: [
+    &quot;name&quot;: ~name
+  ]
 ]
 </code></pre>
 
-<p>or</p>
+<p>Will become</p>
 
-<pre><code class="language-swift">let document = [
-	&quot;my&quot;: &quot;data&quot;,
-	&quot;isAwesome&quot;: true
-] as Document
-</code></pre>
+<pre><code class="language-swift">let name = &quot;Joannis&quot;
 
-<p>Alternatively, if you need an Array, you can use the Array literal.</p>
-
-<pre><code class="language-swift">let arrayDocument = [
-	1, 2, 3, 4, 5
-]
-
-let arrayDocument2 = [
-	&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;
+let doc: Document = [
+  &quot;name&quot; name,
+  &quot;name2&quot;: &quot;Joannis&quot;
+  &quot;subDoc&quot;: [
+    &quot;name&quot;: name
+  ] as Document
 ]
 </code></pre>
 
-<p>There are two restrictions to a Document.</p>
+<h3 id="subscripting">Subscripting</h3>
 
-<ul>
-<li>If the Document is a Dictionary, the key <em>must</em> be a String</li>
-<li>The Value in both the Dictionary and Array for <em>must</em> be a ValueConvertible.</li>
-</ul>
+<p>Subscripting has changed quite a bit. We&rsquo;ve moved from succeeding subscripts to variadic subscripts because we feel that it better serves our purpose.</p>
 
-<p>However, ValueConvertible is a protocol that, by defaut, supports BSON primitives. BSON Primitives can always be used. And custom types can be ValueConvertible.</p>
+<p>The variadic subscripts come in two forms: a type inferred and a raw getter.</p>
 
-<p>Documents allow various methods of initializing:</p>
+<p><code>doc[&quot;subDoc&quot;][&quot;name&quot;]</code> will become <code>doc[raw: &quot;subDoc&quot;, &quot;name&quot;]</code> and will return an optional generic Value.
+<code>Value</code> has been removed entirely, including <code>.nothing</code>. Checks for <code>Value.nothing</code> need to be replaced with <code>nil</code>.</p>
 
-<pre><code class="language-swift">let document0 = Document()
-let document1 = Document(array: ...)
-let document2 = Document(dictionaryElements: ...)
-let document3 = Document(data: [5, 0, 0, 0, 0])
-</code></pre>
+<p>The raw subscript will get the object as you present it. Which can be any ValueConvertible including all BSON types.</p>
 
-<p>They allow actions like an array:</p>
+<p><code>doc[&quot;subdoc&quot;, &quot;boolean&quot;] as Bool?</code> will get the value called &ldquo;boolean&rdquo; inside &ldquo;subdoc&rdquo; and will return a boolean if it&rsquo;s representable as one.
+<code>doc[&quot;_id&quot;] as String?</code> will try to convert the value to a String. So <code>Int64(3)</code> will become <code>&quot;3&quot;</code>. A String will stay a String, and ObjectIds will represent themselves as a hexadecimal String.</p>
 
-<pre><code class="language-swift">var document: Document = [1, 2, 3, 4, 5]
+<p><code>doc[&quot;_id&quot;] as String?</code> is exactly equal to <code>doc[raw: &quot;_id&quot;]?.string</code>. Both will now return an optional.</p>
 
-document.append(6)
-document[3] // 4
-document.count // 6
-</code></pre>
+<p>If you want to know the type of the data, always use raw subscripting. If you prefer a specific type like a String, use <code>as String?</code> or <code>raw: ...]?.string</code></p>
 
-<p>Or actions like a Dictionary:</p>
+<h3 id="extraction-getters">Extraction getters</h3>
 
-<pre><code class="language-swift">var document: Document = [
-	&quot;key0&quot;: 0,
-	&quot;key1&quot;: 1,
-	&quot;key2&quot;: 2,
-	&quot;key3&quot;: 3
+<p>Previous versions of BSON and MongoKitten allowed you to get a default value using <code>.string</code>, <code>.int</code>, <code>.int32</code>, etc. This doesn&rsquo;t work anymore. Extracting Strings with <code>.string</code> will only return a String if it&rsquo;s clearly representable as a String. Bool represents true or false. But converting it backwards isn&rsquo;t possible since you don&rsquo;t know the type. Integers will be converted to a String and backwards. If a String like <code>&quot;3.14&quot;</code> is requested as a Double, BSON will return the value <code>3.14</code> as a Double, instead of nil.</p>
+
+<h3 id="optional-chaining">Optional chaining</h3>
+
+<p>Because of the vast use of optionals in the new Documents you&rsquo;ll have to set the default values yourself.
+Where you would use <code>doc[&quot;stringKey&quot;].string</code> for getting a <code>String</code> you will now receive an optional that will need to be unwrapped or chained.</p>
+
+<pre><code class="language-swift">let doc: Document = [
+  &quot;stringKey&quot;: &quot;Hello World!&quot;
 ]
 
-document[&quot;key1&quot;] // 1
-document[&quot;key4&quot;] // nil
-document[&quot;key4&quot;] = 4
-document[&quot;key4&quot;] // 4
-
-document.keys // [&quot;key0&quot;, &quot;key1&quot;, &quot;key2&quot;, &quot;key3&quot;, &quot;key4&quot;]
-document.values // [0, 1, 2, 3, 4]
+print(doc[&quot;stringKey&quot;].string) // Prints &quot;Hello World!&quot; unless we can't find a String. Then it will print &quot;&quot;
 </code></pre>
 
-<p>Dictionary Documents act like you would expect.</p>
+<p>Will become</p>
 
-<pre><code class="language-swift">let document: Document = [
-  &quot;hey&quot;: true,
-  &quot;hello&quot;: 3.33
+<pre><code class="language-swift">let doc: Document = [
+  &quot;stringKey&quot;: &quot;Hello World!&quot;
 ]
 
-for (key, value) in document {
-	guard key == &quot;hey&quot; || key == &quot;hello&quot; else {
-		fatalError(&quot;Impossible!&quot;)
-	}
-	
-	guard value as? Bool == true || value as? Double == 3.33 else {
-		fatalError(&quot;Impossible!&quot;)
-	}
-}
+print(doc[&quot;stringKey&quot;] as String? ?? &quot;&quot;) // Prints &quot;Hello World!&quot; unless we can't find a String. Then it will print &quot;&quot;
 </code></pre>
 
-<p>Array Documents act in a similar way:</p>
-
-<pre><code class="language-swift">let document: Document = [true, false, 3.3, false, true]
-
-for (key, value) in document {
-	guard [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;].contains(key) else {
-		fatalError(&quot;The key in an array is the position as string number&quot;)
-	}
-}
-</code></pre>
-
-<p>Documents can be easily embedded inside each other. Because of this we allow you to easily subscript a Document to access sub-Documents and even deeper layers of the structure using variadic subscripts.</p>
-
-<p>These subscripts accept Strings (for Dictionary Document keys) and <code>Int</code>egers (for Array positions or Dictionary positions). These work like you would expect from any other Array or Dictionary.</p>
-
-<pre><code class="language-swift">var document = [
-	&quot;subdoc&quot;: [
-		&quot;subsubdoc&quot;: [
-			&quot;array&quot;: [0, false, true, &quot;henk&quot;]
-		] as Document
-	] as Document
-] as Document
-
-// Get element position 2 from array in subsubdoc in subdoc in document
-document[&quot;subdoc&quot;, &quot;subsubdoc&quot;, &quot;array&quot;, 2] // true
-</code></pre>
-
-<p>Document also provides some extra features that are commonly used with BSON:</p>
-
-<pre><code class="language-swift">var document: Document = [
-	&quot;key&quot;: true,
-	&quot;subdoc&quot;: [
-	  &quot;value&quot;: 3
-	] as Document
-]
-
-document[dotNotated: &quot;subdoc.value&quot;] // 3
-
-document.flattened() // [&quot;key&quot;: true, &quot;subdoc.value&quot;: 3]
-</code></pre>
+<p>or <code>print(doc[&quot;stringKey&quot;].string ?? &quot;&quot;)</code></p>
 
 
 
@@ -1522,12 +1543,6 @@ document.flattened() // [&quot;key&quot;: true, &quot;subdoc.value&quot;: 3]
 
 
 <div id="btnv">
-  
-  <div class="pull-left">
-  <a class="navigation prev" href="/bson/ObjectId/">
-      <i class="fa fa-long-arrow-left"> </i> ObjectId
-  </a>
-  </div>
   
   
 </div>
@@ -1541,9 +1556,18 @@ document.flattened() // [&quot;key&quot;: true, &quot;subdoc.value&quot;: 3]
     <span class="toc-header">On this page</span>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#document">Document</a>
+<li><a href="#migrating-to-mongokitten-3">Migrating to MongoKitten 3</a>
 <ul>
-<li><a href="#basic-usage">Basic Usage</a></li>
+<li><a href="#setup">Setup</a>
+<ul>
+<li><a href="#connecting">Connecting</a></li>
+</ul></li>
+<li><a href="#documents-and-values">Documents and Values</a>
+<ul>
+<li><a href="#subscripting">Subscripting</a></li>
+<li><a href="#extraction-getters">Extraction getters</a></li>
+<li><a href="#optional-chaining">Optional chaining</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>

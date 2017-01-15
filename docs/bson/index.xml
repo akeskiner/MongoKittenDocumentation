@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bson-rsses on MongoDB Swift Driver</title>
-    <link>/bson/index.xml</link>
+    <link>http://docs.openkitten.org/bson/index.xml</link>
     <description>Recent content in Bson-rsses on MongoDB Swift Driver</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 26 Dec 2016 12:14:08 +0100</lastBuildDate>
-    <atom:link href="/bson/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://docs.openkitten.org/bson/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Document</title>
-      <link>/bson/Document/</link>
+      <link>http://docs.openkitten.org/bson/Document/</link>
       <pubDate>Mon, 26 Dec 2016 12:14:08 +0100</pubDate>
       
-      <guid>/bson/Document/</guid>
+      <guid>http://docs.openkitten.org/bson/Document/</guid>
       <description>
 
 &lt;h1 id=&#34;document&#34;&gt;Document&lt;/h1&gt;
@@ -157,10 +157,10 @@ document.flattened() // [&amp;quot;key&amp;quot;: true, &amp;quot;subdoc.value&a
     
     <item>
       <title>ObjectId</title>
-      <link>/bson/ObjectId/</link>
+      <link>http://docs.openkitten.org/bson/ObjectId/</link>
       <pubDate>Mon, 26 Dec 2016 12:13:13 +0100</pubDate>
       
-      <guid>/bson/ObjectId/</guid>
+      <guid>http://docs.openkitten.org/bson/ObjectId/</guid>
       <description>
 
 &lt;h1 id=&#34;objectid&#34;&gt;ObjectId&lt;/h1&gt;
@@ -197,10 +197,10 @@ let objectId = try ObjectId(hexString)
     
     <item>
       <title>ValueConvertible</title>
-      <link>/bson/ValueConvertible/</link>
+      <link>http://docs.openkitten.org/bson/ValueConvertible/</link>
       <pubDate>Mon, 26 Dec 2016 12:11:57 +0100</pubDate>
       
-      <guid>/bson/ValueConvertible/</guid>
+      <guid>http://docs.openkitten.org/bson/ValueConvertible/</guid>
       <description>
 
 &lt;h2 id=&#34;valueconvertible&#34;&gt;ValueConvertible&lt;/h2&gt;
@@ -277,10 +277,10 @@ let document: Document = [
     
     <item>
       <title>BSONPrimitive</title>
-      <link>/bson/BSONPrimitive/</link>
+      <link>http://docs.openkitten.org/bson/BSONPrimitive/</link>
       <pubDate>Mon, 26 Dec 2016 12:09:53 +0100</pubDate>
       
-      <guid>/bson/BSONPrimitive/</guid>
+      <guid>http://docs.openkitten.org/bson/BSONPrimitive/</guid>
       <description>
 
 &lt;h1 id=&#34;bsonprimitive&#34;&gt;BSONPrimitive&lt;/h1&gt;
@@ -302,8 +302,8 @@ let document: Document = [
 &lt;ul&gt;
 &lt;li&gt;Double&lt;/li&gt;
 &lt;li&gt;String&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;/bson/Document/&#34;&gt;Document&lt;/a&gt; (Array and Dictionary)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;/bson/ObjectId/&#34;&gt;ObjectId&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.openkitten.org/bson/Document/&#34;&gt;Document&lt;/a&gt; (Array and Dictionary)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.openkitten.org/bson/ObjectId/&#34;&gt;ObjectId&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Bool&lt;/li&gt;
 &lt;li&gt;Int32&lt;/li&gt;
 &lt;li&gt;Int64&lt;/li&gt;
@@ -321,10 +321,10 @@ let document: Document = [
     
     <item>
       <title>BSON</title>
-      <link>/bson/</link>
+      <link>http://docs.openkitten.org/bson/BSON/</link>
       <pubDate>Mon, 26 Dec 2016 12:07:42 +0100</pubDate>
       
-      <guid>/bson/</guid>
+      <guid>http://docs.openkitten.org/bson/BSON/</guid>
       <description>
 
 &lt;h2 id=&#34;a-native-fast-bson-library-for-swift-written-in-swift&#34;&gt;A native, fast BSON library for Swift, written in Swift.&lt;/h2&gt;
@@ -351,7 +351,7 @@ let document: Document = [
 
 let package = Package(
     name: &amp;quot;MyApp&amp;quot;,
-    dependencies: [.Package(url: &amp;quot;https://github.com/OpenKitten/BSON.git&amp;quot;, majorVersion: 3, minor: 7)]
+    dependencies: [.Package(url: &amp;quot;https://github.com/OpenKitten/BSON.git&amp;quot;, majorVersion: 4)]
 )
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -370,7 +370,7 @@ let data = document.bsonData // Array of [UInt8]
 let sameDocument = try! Document(data: data)
 
 // Do something with the data
-let temperature = document[&amp;quot;temperature&amp;quot;].double
+let temperature = document[&amp;quot;temperature&amp;quot;] as Double?
 
 // Use the temperature
 &lt;/code&gt;&lt;/pre&gt;
@@ -378,15 +378,15 @@ let temperature = document[&amp;quot;temperature&amp;quot;].double
 &lt;h4 id=&#34;embedded-documents&#34;&gt;Embedded documents&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
-            &amp;quot;subdocument&amp;quot;: [&amp;quot;hello&amp;quot;: &amp;quot;sample&amp;quot;],
-            &amp;quot;anothersubdocument&amp;quot;: [81.2, &amp;quot;cheese&amp;quot;] // an array is also an embedded document
+            &amp;quot;subdocument&amp;quot;: [&amp;quot;hello&amp;quot;: &amp;quot;sample&amp;quot;] as Document,
+            &amp;quot;anothersubdocument&amp;quot;: [81.2, &amp;quot;cheese&amp;quot;] as Document // an array is also an embedded document
         ]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h4 id=&#34;comparing&#34;&gt;Comparing&lt;/h4&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;document[&amp;quot;double&amp;quot;] == document[&amp;quot;int64&amp;quot;] // true for .double(0) == .int64(0)
-document[&amp;quot;double&amp;quot;] === document[&amp;quot;int64&amp;quot;] // false for .double(0) === .int64(0)
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;document[&amp;quot;double&amp;quot;] == document[&amp;quot;int64&amp;quot;] // true for Double(0) == Int64(0)
+document[&amp;quot;double&amp;quot;] === document[&amp;quot;int64&amp;quot;] // false for Double(0) === Int64(0)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;supported-types&#34;&gt;Supported Types&lt;/h3&gt;
