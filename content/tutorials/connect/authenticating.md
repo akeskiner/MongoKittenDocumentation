@@ -24,7 +24,7 @@ The username and password need to be URL percent encoded.
 
 ### Query Parameters
 
-You can enable SSL with the query parameter `ssl` as described [here.]({{< relref "tutorials/connect/ssl.md" }})
+You can enable SSL with the query parameter `ssl` as described [here.]({{< relref "tutorials/connect/ssl.md" >}})
 
 If you need to authenticate to a specific database other than "admin" you can provide an "authSource":
 

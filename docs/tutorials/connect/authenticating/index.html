@@ -1164,7 +1164,19 @@
 
 <h3 id="query-parameters">Query Parameters</h3>
 
-<p>You can enable SSL with the query parameter <code>ssl</code> as described [here.](</p>
+<p>You can enable SSL with the query parameter <code>ssl</code> as described <a href="/tutorials/connect/ssl/">here.</a></p>
+
+<p>If you need to authenticate to a specific database other than &ldquo;admin&rdquo; you can provide an &ldquo;authSource&rdquo;:</p>
+
+<pre><code class="language-swift">let database = try Database(mongoURL: &quot;mongodb://user:password@hostname?authSource=myauthdb&quot;)
+</code></pre>
+
+<p>And if you need an authentication mechanism other than SCRAM you can select one using:</p>
+
+<pre><code class="language-swift">let database = try Database(mongoURL: &quot;mongodb://user:password@hostname?authMechanism=SCRAM_SHA_1&quot;)
+</code></pre>
+
+<p>We currently only support &ldquo;SCRAM_SHA_1&rdquo; and &ldquo;MONGODB-CR&rdquo;. Although other mechanisms can be implemented in the future.</p>
 
 
 
