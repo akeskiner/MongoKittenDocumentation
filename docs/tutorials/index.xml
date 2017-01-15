@@ -19,6 +19,33 @@
     </item>
     
     <item>
+      <title>Authentication</title>
+      <link>http://docs.openkitten.org/tutorials/connect/authenticating/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/connect/authenticating/</guid>
+      <description>
+
+&lt;h1 id=&#34;authentication&#34;&gt;Authentication&lt;/h1&gt;
+
+&lt;p&gt;Authentication is done using by either providing a MongoDB connection string or a ClientSettings object.&lt;/p&gt;
+
+&lt;h2 id=&#34;mongodb-connection-string&#34;&gt;MongoDB connection String&lt;/h2&gt;
+
+&lt;p&gt;Authentication via a connection String requires the username and password on the left side of the hostname like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(mongoURL: &amp;quot;mongodb://user:password@hostname&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The username and password need to be URL percent encoded.&lt;/p&gt;
+
+&lt;h3 id=&#34;query-parameters&#34;&gt;Query Parameters&lt;/h3&gt;
+
+&lt;p&gt;You can enable SSL with the query parameter &lt;code&gt;ssl&lt;/code&gt; as described [here.](&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>CRUD Operations</title>
       <link>http://docs.openkitten.org/tutorials/Cursor/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>

@@ -433,6 +433,33 @@ document[&amp;quot;double&amp;quot;] === document[&amp;quot;int64&amp;quot;] // 
     </item>
     
     <item>
+      <title>Authentication</title>
+      <link>http://docs.openkitten.org/tutorials/connect/authenticating/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/connect/authenticating/</guid>
+      <description>
+
+&lt;h1 id=&#34;authentication&#34;&gt;Authentication&lt;/h1&gt;
+
+&lt;p&gt;Authentication is done using by either providing a MongoDB connection string or a ClientSettings object.&lt;/p&gt;
+
+&lt;h2 id=&#34;mongodb-connection-string&#34;&gt;MongoDB connection String&lt;/h2&gt;
+
+&lt;p&gt;Authentication via a connection String requires the username and password on the left side of the hostname like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(mongoURL: &amp;quot;mongodb://user:password@hostname&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The username and password need to be URL percent encoded.&lt;/p&gt;
+
+&lt;h3 id=&#34;query-parameters&#34;&gt;Query Parameters&lt;/h3&gt;
+
+&lt;p&gt;You can enable SSL with the query parameter &lt;code&gt;ssl&lt;/code&gt; as described [here.](&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>CRUD Operations</title>
       <link>http://docs.openkitten.org/tutorials/Cursor/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
@@ -1010,45 +1037,6 @@ let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
 &lt;h1 id=&#34;installation&#34;&gt;Installation&lt;/h1&gt;
 
 &lt;p&gt;The recommended way to get started using the Swift driver is by using &lt;code&gt;SPM&lt;/code&gt; (Swift Package Manager) to install the dependency in your project.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Issues &amp; Help</title>
-      <link>http://docs.openkitten.org/issues-help/</link>
-      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
-      
-      <guid>http://docs.openkitten.org/issues-help/</guid>
-      <description>
-
-&lt;h1 id=&#34;issues-help&#34;&gt;Issues &amp;amp; Help&lt;/h1&gt;
-
-&lt;h2 id=&#34;bugs-feature-requests&#34;&gt;Bugs / Feature Requests&lt;/h2&gt;
-
-&lt;p&gt;To report a bug or to request a new feature in the Swift driver,
-please open an issue on the GitHub project:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com&#34;&gt;Create an account and login&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Navigate to &lt;a href=&#34;https://github.com/OpenKitten/MongoKitten/issues&#34;&gt;the MongoKitten project&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Click &lt;strong&gt;New Issue&lt;/strong&gt;. Provide as much information as possible about the
-issue and the steps to reproduce it.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;pull-requests&#34;&gt;Pull Requests&lt;/h2&gt;
-
-&lt;p&gt;We are happy to accept contributions to help improve the driver.
-We will review user contributions to ensure they meet the standards of the codebase.
-Pull requests must pass the travis.ci checks as well as include documentation
-and tests.&lt;/p&gt;
-
-&lt;p&gt;To get started check out the source and work on a branch:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone https://github.com/OpenKitten/MongoKitten.git
-$ cd https://github.com/OpenKitten/MongoKitten.git
-$ swift build
-$ git checkout -b myNewFeature
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
