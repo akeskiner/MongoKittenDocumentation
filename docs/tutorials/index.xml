@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tutorials-rsses on MongoDB Swift Driver</title>
+    <title>Tutorials on MongoDB Swift Driver</title>
     <link>http://docs.openkitten.org/tutorials/index.xml</link>
-    <description>Recent content in Tutorials-rsses on MongoDB Swift Driver</description>
+    <description>Recent content in Tutorials on MongoDB Swift Driver</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 14 Dec 2016 12:36:56 +0000</lastBuildDate>
@@ -54,50 +54,6 @@
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;We currently only support &amp;ldquo;SCRAM_SHA_1&amp;rdquo; and &amp;ldquo;MONGODB-CR&amp;rdquo;. Although other mechanisms can be implemented in the future.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>CRUD Operations</title>
-      <link>http://docs.openkitten.org/tutorials/Cursor/</link>
-      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
-      
-      <guid>http://docs.openkitten.org/tutorials/Cursor/</guid>
-      <description>
-
-&lt;h1 id=&#34;cursor&#34;&gt;Cursor&lt;/h1&gt;
-
-&lt;p&gt;All larger result sets in MongoKitten are encapsulated in a Cursor.&lt;/p&gt;
-
-&lt;p&gt;Cursors are a pointer to a set of data on the MongoDB instance, not locally in-memory.
-When looped over the cursor&amp;rsquo;s contents the Cursor will fetch a batch X Documents from the server and make them available to the user. Whenever more are requested the Cursor will fetch the next batch of Documents. The amount of Documents fetched at a time is configurable in most commands with a &lt;code&gt;withBatchSize&lt;/code&gt; parameter.&lt;/p&gt;
-
-&lt;p&gt;A big amount of Documents could benefit enormously from &lt;code&gt;withBatchSize&lt;/code&gt; at 1000 but the Document grouped together may not be bigger than 48MB. Luckily, this rarely happens unless you store binary data like images inside the Documents. A batchSize of 1000 would still leave 48KB of data per Document.&lt;/p&gt;
-
-&lt;h2 id=&#34;mapping-transforming&#34;&gt;Mapping/Transforming&lt;/h2&gt;
-
-&lt;p&gt;When you&amp;rsquo;re executing a &lt;code&gt;find&lt;/code&gt; command on a Collection, it&amp;rsquo;s likely this collection stores data of a certain type. Like all users, all articles etc. For this purpose Cursor has a mechanism to map incoming Documents to other types or even those other types to more specialized types.&lt;/p&gt;
-
-&lt;p&gt;Assuming you have stored &lt;code&gt;Cursor&amp;lt;Document&amp;gt;&lt;/code&gt; received from calling a &lt;code&gt;find&lt;/code&gt; method on Collection:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import BSON
-import MongoKitten
-
-struct User {
-  let username: String
-  init?(fromDocument document: Document) {
-    guard let username = document[&amp;quot;username&amp;quot;] as String? else {
-      return nil
-    }
-
-    self.username = username
-  }
-}
-
-let usersCursor = Cursor(basicDocumentCursor) { document in
-  return User(fromDocument: document)
-}
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
@@ -429,6 +385,50 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;From here you can interact with every part of MongoKitten.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Cursor</title>
+      <link>http://docs.openkitten.org/tutorials/Cursor/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/Cursor/</guid>
+      <description>
+
+&lt;h1 id=&#34;cursor&#34;&gt;Cursor&lt;/h1&gt;
+
+&lt;p&gt;All larger result sets in MongoKitten are encapsulated in a Cursor.&lt;/p&gt;
+
+&lt;p&gt;Cursors are a pointer to a set of data on the MongoDB instance, not locally in-memory.
+When looped over the cursor&amp;rsquo;s contents the Cursor will fetch a batch X Documents from the server and make them available to the user. Whenever more are requested the Cursor will fetch the next batch of Documents. The amount of Documents fetched at a time is configurable in most commands with a &lt;code&gt;withBatchSize&lt;/code&gt; parameter.&lt;/p&gt;
+
+&lt;p&gt;A big amount of Documents could benefit enormously from &lt;code&gt;withBatchSize&lt;/code&gt; at 1000 but the Document grouped together may not be bigger than 48MB. Luckily, this rarely happens unless you store binary data like images inside the Documents. A batchSize of 1000 would still leave 48KB of data per Document.&lt;/p&gt;
+
+&lt;h2 id=&#34;mapping-transforming&#34;&gt;Mapping/Transforming&lt;/h2&gt;
+
+&lt;p&gt;When you&amp;rsquo;re executing a &lt;code&gt;find&lt;/code&gt; command on a Collection, it&amp;rsquo;s likely this collection stores data of a certain type. Like all users, all articles etc. For this purpose Cursor has a mechanism to map incoming Documents to other types or even those other types to more specialized types.&lt;/p&gt;
+
+&lt;p&gt;Assuming you have stored &lt;code&gt;Cursor&amp;lt;Document&amp;gt;&lt;/code&gt; received from calling a &lt;code&gt;find&lt;/code&gt; method on Collection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import BSON
+import MongoKitten
+
+struct User {
+  let username: String
+  init?(fromDocument document: Document) {
+    guard let username = document[&amp;quot;username&amp;quot;] as String? else {
+      return nil
+    }
+
+    self.username = username
+  }
+}
+
+let usersCursor = Cursor(basicDocumentCursor) { document in
+  return User(fromDocument: document)
+}
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
