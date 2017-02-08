@@ -57,7 +57,22 @@
   </url>
   
   <url>
+    <loc>http://docs.openkitten.org/tutorials/crud/count/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/crud/create/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://docs.openkitten.org/tutorials/Cursor/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/crud/delete/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -68,6 +83,11 @@
   
   <url>
     <loc>http://docs.openkitten.org/tutorials/gridfs/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/Indexes/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -92,6 +112,11 @@
   </url>
   
   <url>
+    <loc>http://docs.openkitten.org/tutorials/crud/read/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://docs.openkitten.org/reference/reference/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
@@ -103,6 +128,11 @@
   
   <url>
     <loc>http://docs.openkitten.org/tutorials/tutorials/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/crud/update/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   

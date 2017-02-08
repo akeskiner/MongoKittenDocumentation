@@ -525,7 +525,7 @@ let _ = results.map {
     </item>
     
     <item>
-      <title>CRUD Operations</title>
+      <title>Collection CRUD Operations</title>
       <link>http://docs.openkitten.org/tutorials/crud/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
@@ -539,274 +539,11 @@ let _ = results.map {
 
 &lt;p&gt;From a collection object we can start interacting with our data. From here we&amp;rsquo;ll cover all parts of CRUD.
 (Create, Read, Update, Delete). And we&amp;rsquo;ll assume you have a Collection available as the variable &lt;code&gt;collection&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;creation&#34;&gt;Creation&lt;/h2&gt;
-
-&lt;p&gt;You can create an entry in MongoDB by &lt;code&gt;insert&lt;/code&gt;ing a Document into a Collection.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;let identifier = try collection.insert(document)&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;The returned identifier is the &lt;code&gt;_id&lt;/code&gt; field in the Document. If no &lt;code&gt;_id&lt;/code&gt; exists in the provided Document parameter an ObjectId will be generated. The &lt;code&gt;_id&lt;/code&gt; field can be of almost any value.&lt;/p&gt;
-
-&lt;p&gt;ObjectId keeps track of the creation date and is unique. Int32 and Int64 can be used incrementally like is usual in SQL. Strings can also be used. When you&amp;rsquo;re inserting a Document which primarily contains a unique String (like a database migration&amp;rsquo;s description) this description can be the &lt;code&gt;_id&lt;/code&gt; of the Document.&lt;/p&gt;
-
-&lt;p&gt;No two Documents can exist in the same collection with the same &lt;code&gt;_id&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;You can also insert an array of Documents which will all be inserted. MongoKitten will return an array of identifiers for each inserted Document.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;let identifiers = try collection.insert([document0, document1, document2])&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;reading-finding&#34;&gt;Reading/finding&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;find&lt;/code&gt; can be ran without arguments to fetch every Document in the collection.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;try collection.find()&lt;/code&gt; will return a &lt;a href=&#34;http://docs.openkitten.org/tutorials/Cursor/&#34;&gt;Cursor&lt;/a&gt; containing all Documents. Cursors are an important part of the MongoKitten flow but we&amp;rsquo;ll cover them in short here.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;try collection.findOne()&lt;/code&gt; will return a single &lt;code&gt;Document?&lt;/code&gt;. Which is nil if no Document could be found.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code&gt;Array&lt;/code&gt; initializer can be used on the Cursor to create an &lt;code&gt;Array&amp;lt;Document&amp;gt;&lt;/code&gt; containing all results.
-This is recommended when you definitely need all results. Looping over a Cursor is recommended when you don&amp;rsquo;t necessarily need all results and might stop in the middle of the process. &lt;code&gt;Array&lt;/code&gt; isn&amp;rsquo;t any better than Cursor other than providing the ability to count the results without an extra query. However, it does use more RAM.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let documentArray = Array(try collection.find())
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can specify 6 parameters which we&amp;rsquo;ll all cover underneath which, of course, can be combined.&lt;/p&gt;
-
-&lt;h3 id=&#34;matching&#34;&gt;matching&lt;/h3&gt;
-
-&lt;p&gt;&lt;code&gt;find&lt;/code&gt; accepts a Query that Documents are matched against. You can create a Query from a Document or using operators.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document = [
-  &amp;quot;username&amp;quot;: &amp;quot;bob&amp;quot;
-]
-let query = Query(document)
-
-try collection.find(matching: query)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let query: Query = &amp;quot;username&amp;quot; == &amp;quot;bob&amp;quot;
-
-try collection.find(matching: query)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;sortedby&#34;&gt;sortedBy&lt;/h3&gt;
-
-&lt;p&gt;This accepts a &lt;code&gt;Sort&lt;/code&gt; object which can be created with a Dictionary literal.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let sort: Sort = [
-  &amp;quot;integer&amp;quot;: .ascending,
-  &amp;quot;date&amp;quot;: .descending
-]
-
-try collection.find(sortedBy: sort)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;projecting&#34;&gt;projecting&lt;/h3&gt;
-
-&lt;p&gt;Accepts a projection that projects the fields that should be returned. The &lt;code&gt;_id&lt;/code&gt; key will be included unless specifically disabled.&lt;/p&gt;
-
-&lt;p&gt;Suppose the following Document resides in the database:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
-  &amp;quot;_id&amp;quot;: ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;),
-  &amp;quot;key0&amp;quot;: &amp;quot;henk&amp;quot;,
-  &amp;quot;key1&amp;quot;: true,
-  &amp;quot;key2&amp;quot;: 3,
-  &amp;quot;key3&amp;quot;: [
-    &amp;quot;key4&amp;quot;: &amp;quot;value0&amp;quot;
-  ]
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The following projection will return the keys &lt;code&gt;_id&lt;/code&gt;, &lt;code&gt;key1&lt;/code&gt; and &lt;code&gt;key2&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let projection: Projection = [&amp;quot;key1&amp;quot;, &amp;quot;key2&amp;quot;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The following projections will return &lt;code&gt;key2&lt;/code&gt; and &lt;code&gt;key3&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let projection0: Projection = [
-  &amp;quot;_id&amp;quot;: false,
-  &amp;quot;key2&amp;quot;: true,
-  &amp;quot;key3&amp;quot;: true
-]
-
-let projection1: Projection = [
-  &amp;quot;_id&amp;quot;: .excluded,
-  &amp;quot;key2&amp;quot;: .included,
-  &amp;quot;key3&amp;quot;: .included
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Applying this projection to limit the returned fields is simple:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.find(projecting: projection)
-try collection.find(projecting: [&amp;quot;_id&amp;quot;: false, &amp;quot;key0&amp;quot;: true])
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;skipping&#34;&gt;skipping&lt;/h3&gt;
-
-&lt;p&gt;Accepts an Int32 that skips the first X results where X is the provided number. If 5 documents match the find query and the skip is set so 4, the last Document is returned. If the skip is set to 2, the last 3 documents will be returned. If the skip is set to 5, no Documents will be returned.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.find(skipping: 3)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;limitedto&#34;&gt;limitedTo&lt;/h3&gt;
-
-&lt;p&gt;Accepts an Int32 that limits the returned results to be less or equal to the limit. If 5 documents match the find query and the limit is set to 7, 5 Documents will be returned. If the limit is set to 3, the first 3 Documents will be returned.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.find(limitedTo: 3)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;withbatchsize&#34;&gt;withBatchSize&lt;/h3&gt;
-
-&lt;p&gt;The batch size is important with respect to efficiency and performance. Cursors return &lt;code&gt;batchSize&lt;/code&gt; of Documents with every fetch. And a fetch is done whenever more Documents are required. When looping over a cursor containing 100 Documents with a batchSize of 10, 10 queries will be done to fetch all results. The default value is 10 Documents per query because a Document can be up to 16 MB and MongoDB usually only communicates 48 MB per message.&lt;/p&gt;
-
-&lt;p&gt;If you&amp;rsquo;re fetching a lot of small Documents a higher batchSize is useful. If you&amp;rsquo;re fetching a lot of big Documents, a smaller batchSize is necessary. And if you&amp;rsquo;re fetching and processing all Documents like &lt;code&gt;Array(collection.find(...))&lt;/code&gt; or a &lt;code&gt;for document in collection.find(...)&lt;/code&gt; that doesn&amp;rsquo;t break out of the loop it&amp;rsquo;s generally better to fetch more Documents per query to reduce the amount of communication and delay.&lt;/p&gt;
-
-&lt;p&gt;Most MongoDB servers don&amp;rsquo;t accept values over 1000.&lt;/p&gt;
-
-&lt;h2 id=&#34;updating&#34;&gt;Updating&lt;/h2&gt;
-
-&lt;p&gt;Update comes in two forms. Bulk and single updates.&lt;/p&gt;
-
-&lt;h3 id=&#34;single-updates&#34;&gt;Single updates&lt;/h3&gt;
-
-&lt;p&gt;Single updates are formed using a single filter (&lt;a href=&#34;http://docs.openkitten.org/tutorials/QueryBuilder/&#34;&gt;Query&lt;/a&gt; object) and a single update document.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/QueryBuilder/&#34;&gt;Queries are covered here.&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Update finds already existing Documents in the collection that match the query/filter and updates them to the &lt;code&gt;to&lt;/code&gt; Document and will overwrite the existing Document with the new Document.&lt;/p&gt;
-
-&lt;p&gt;Assuming the following Document resides in the database:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
-  &amp;quot;_id&amp;quot;: ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;),
-  &amp;quot;key0&amp;quot;: &amp;quot;henk&amp;quot;,
-  &amp;quot;key1&amp;quot;: true,
-  &amp;quot;key2&amp;quot;: 3,
-  &amp;quot;key3&amp;quot;: [
-    &amp;quot;key4&amp;quot;: &amp;quot;value0&amp;quot;
-  ]
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Executing the following query:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document = [
-  &amp;quot;key0&amp;quot;: &amp;quot;bob&amp;quot;,
-  &amp;quot;key1&amp;quot;: false
-]
-
-try collection.update(matching: &amp;quot;_id&amp;quot; == ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;), to: document)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Will result in the following database Document:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document = [
-  &amp;quot;_id&amp;quot;: ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;),
-  &amp;quot;key0&amp;quot;: &amp;quot;bob&amp;quot;,
-  &amp;quot;key1&amp;quot;: false
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;However the following query:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document = [
-  &amp;quot;$set&amp;quot;: [
-    &amp;quot;key0&amp;quot;: &amp;quot;bob&amp;quot;,
-    &amp;quot;key1&amp;quot;: false
-  ]
-]
-
-try collection.update(matching: &amp;quot;_id&amp;quot; == ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;), to: document)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Will result in the following Document.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
-  &amp;quot;_id&amp;quot;: ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;),
-  &amp;quot;key0&amp;quot;: &amp;quot;bob&amp;quot;,
-  &amp;quot;key1&amp;quot;: false,
-  &amp;quot;key2&amp;quot;: 3,
-  &amp;quot;key3&amp;quot;: [
-    &amp;quot;key4&amp;quot;: &amp;quot;value0&amp;quot;
-  ]
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;upserting&#34;&gt;upserting&lt;/h3&gt;
-
-&lt;p&gt;If &lt;code&gt;true&lt;/code&gt;, the &lt;code&gt;to&lt;/code&gt; Document will be inserted if no matching Documents were found to update.&lt;/p&gt;
-
-&lt;h3 id=&#34;multiple&#34;&gt;multiple&lt;/h3&gt;
-
-&lt;p&gt;If &lt;code&gt;true&lt;/code&gt;, this operation will update &lt;em&gt;all&lt;/em&gt; Documents matching the filter to the &lt;code&gt;to&lt;/code&gt; Document. If &lt;code&gt;$set&lt;/code&gt; is used to overwrite only the &lt;code&gt;$set&lt;/code&gt; key-value pairs, all Documents matching will have the keys overridden. Otherwise the new &lt;code&gt;to&lt;/code&gt; Document will be used for all matching Documents and all non-matching keys will be removed.&lt;/p&gt;
-
-&lt;h3 id=&#34;multiple-updates&#34;&gt;Multiple updates&lt;/h3&gt;
-
-&lt;p&gt;TODO for signature&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;public func update(_ updates: [(filter: Query, to: Document, upserting: Bool, multiple: Bool)], stoppingOnError ordered: Bool? = nil) throws -&amp;gt; Int {&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;counting&#34;&gt;Counting&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;count&lt;/code&gt; can be used on a collection to count all Documents matching the provided requirements. If no requirements are provided, all documents will be counted.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;count&lt;/code&gt; will return the amount of updated matches.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count() // returns 5
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;matching-1&#34;&gt;matching&lt;/h3&gt;
-
-&lt;p&gt;Count accepts the parameter &lt;code&gt;matching&lt;/code&gt; which requires a Query to be provided.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count(matching: &amp;quot;first_name&amp;quot; == &amp;quot;Joannis&amp;quot;) // returns 1 if only one user is named Joannis
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;limitedto-1&#34;&gt;limitedTo&lt;/h3&gt;
-
-&lt;p&gt;Limits the results that will be counted.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count(limitedTo: 4) // returns 4, even if 5 users reside in the database
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;skipping-1&#34;&gt;skipping&lt;/h3&gt;
-
-&lt;p&gt;Skips X matching documents before counting.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count(skipping: 3) // returns 2, even if 5 users reside in the database
-try collection.count(limitedTo: 2, skipping: 4) // Will return 1 in this scenario. 4 will be skipped and only 1 remains to be counted.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;removing&#34;&gt;Removing&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;remove&lt;/code&gt; removes all Documents matching the query but can be limited in the amount of removals. It will return the amount of objects that have been removed.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove() // returns 5
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The above example will remove all Documents.&lt;/p&gt;
-
-&lt;h3 id=&#34;matching-2&#34;&gt;matching&lt;/h3&gt;
-
-&lt;p&gt;Acts like all other matchers and expects a Query object. Only Documents matching the Query will be removed.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove(matching: &amp;quot;first_name&amp;quot; == &amp;quot;Joannis&amp;quot;) // Returns 1, only one user named &amp;quot;Joannis&amp;quot; exists
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;limitedto-2&#34;&gt;limitedTo&lt;/h3&gt;
-
-&lt;p&gt;Will not return more than X Documents from the collection, even if more Documents match. Will return the first created Documents first.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove(limitedTo: 3) // returns 3, even if 5 or more Documents exist
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
     <item>
-      <title>Collections</title>
+      <title>Collections Administration</title>
       <link>http://docs.openkitten.org/tutorials/collections/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
@@ -942,6 +679,58 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
     </item>
     
     <item>
+      <title>Count</title>
+      <link>http://docs.openkitten.org/tutorials/crud/count/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/crud/count/</guid>
+      <description>
+
+&lt;h1 id=&#34;counting&#34;&gt;Counting&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;count&lt;/code&gt; can be used on a collection to count all Documents matching the provided requirements. If no requirements are provided, all documents will be counted.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;count&lt;/code&gt; will return the amount of matches.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count() // returns 5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Count also accepts the parameter &lt;code&gt;matching&lt;/code&gt; which requires &lt;a href=&#34;http://docs.openkitten.org/tutorials/QueryBuilder/&#34;&gt;a Query&lt;/a&gt; to be provided.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count(matching: &amp;quot;first_name&amp;quot; == &amp;quot;Joannis&amp;quot;) // returns 1 if only one user is named Joannis
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://mongokitten.openkitten.org/Classes/Collection.html#/s:FC11MongoKitten10Collection5countFzT8matchingGSqVS_5Query_9limitedToGSqVs5Int32_8skippingGSqS2__11readConcernGSqOS_11ReadConcern_9collationGSqVS_9Collation__Si&#34;&gt;For more information about counting documents, click here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Create/Insert</title>
+      <link>http://docs.openkitten.org/tutorials/crud/create/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/crud/create/</guid>
+      <description>
+
+&lt;h1 id=&#34;creation&#34;&gt;Creation&lt;/h1&gt;
+
+&lt;p&gt;You can create an entry in MongoDB by &lt;code&gt;insert&lt;/code&gt;ing a Document into a Collection.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;let identifier = try collection.insert(document)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The returned identifier is the &lt;code&gt;_id&lt;/code&gt; field in the Document. If no &lt;code&gt;_id&lt;/code&gt; exists in the provided Document parameter an ObjectId will be generated. The &lt;code&gt;_id&lt;/code&gt; field can be of almost any value.&lt;/p&gt;
+
+&lt;p&gt;ObjectId keeps track of the creation date and is unique. Int32 and Int64 can be used incrementally like is usual in SQL. Strings can also be used. When you&amp;rsquo;re inserting a Document which primarily contains a unique String (like a database migration&amp;rsquo;s description) this description can be the &lt;code&gt;_id&lt;/code&gt; of the Document.&lt;/p&gt;
+
+&lt;p&gt;No two Documents can exist in the same collection with the same &lt;code&gt;_id&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can also insert an array of Documents which will all be inserted. MongoKitten will return an array of identifiers for each inserted Document.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;let identifiers = try collection.insert([document0, document1, document2])&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Cursor</title>
       <link>http://docs.openkitten.org/tutorials/Cursor/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
@@ -986,122 +775,33 @@ let usersCursor = Cursor(basicDocumentCursor) { document in
     </item>
     
     <item>
-      <title>Frequently Asked Questions</title>
-      <link>http://docs.openkitten.org/reference/faq/</link>
+      <title>Delete/Remove</title>
+      <link>http://docs.openkitten.org/tutorials/crud/delete/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/reference/faq/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>GridFS</title>
-      <link>http://docs.openkitten.org/tutorials/gridfs/</link>
-      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
-      
-      <guid>http://docs.openkitten.org/tutorials/gridfs/</guid>
+      <guid>http://docs.openkitten.org/tutorials/crud/delete/</guid>
       <description>
 
-&lt;h1 id=&#34;gridfs&#34;&gt;GridFS&lt;/h1&gt;
+&lt;h1 id=&#34;removing-documents&#34;&gt;Removing documents&lt;/h1&gt;
 
-&lt;p&gt;GridFS is a standard for using MongoDB as file storage through the MongoDB binary type. MongoDB allows you to store documents up to 16MB in size, which is useful for storing PDFs, profile pictures and other binary data. But if you want to store bigger data than 16MB you&amp;rsquo;ll need to store it over multiple documents. GridFS fulfills that task.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;remove&lt;/code&gt; removes all Documents (matching the query) but can be limited in the amount of removals. It will return the amount of objects that have been removed.&lt;/p&gt;
 
-&lt;h3 id=&#34;setup&#34;&gt;Setup&lt;/h3&gt;
-
-&lt;p&gt;GridFS is a bucket consisting of two collections. This means that two collections have the same prefix separating their own bucket name with a dot (&lt;code&gt;.&lt;/code&gt;).&lt;/p&gt;
-
-&lt;p&gt;GridFS uses the &lt;code&gt;fs&lt;/code&gt; prefix by default and then appends the bucket names &lt;code&gt;files&lt;/code&gt; and &lt;code&gt;chunks&lt;/code&gt; to create a &lt;code&gt;fs.files&lt;/code&gt; collection and &lt;code&gt;fs.chunks&lt;/code&gt; collection. Files stores the metadata, chunks stores the binary information for the files.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;let fs = db.makeGridFS()&lt;/code&gt; will get you the GridFS instance.&lt;/p&gt;
-
-&lt;h2 id=&#34;using-gridfs&#34;&gt;Using GridFS&lt;/h2&gt;
-
-&lt;p&gt;MongoKitten&amp;rsquo;s GridFS supports three methods of mutation.&lt;/p&gt;
-
-&lt;p&gt;Create/store, Read/find and Remove/delete.&lt;/p&gt;
-
-&lt;h3 id=&#34;storing-files&#34;&gt;Storing files&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let data: [UInt8] = []
-let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove() // returns 5
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;removing-files&#34;&gt;Removing files&lt;/h3&gt;
+&lt;p&gt;The above example will remove all Documents.&lt;/p&gt;
 
-&lt;p&gt;Files can only be removed by their identifier because you wouldn&amp;rsquo;t want to remove all files accidentally. For that we have &lt;code&gt;try fs.drop()&lt;/code&gt; which drops the collections.&lt;/p&gt;
+&lt;p&gt;You can specify requirements for the documents that will be removed by adding a &lt;code&gt;matching:&lt;/code&gt; parameter. &lt;a href=&#34;http://docs.openkitten.org/tutorials/QueryBuilder/&#34;&gt;In there you must provide a Query.&lt;/a&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try fs.remove(byId: fileID)
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove(matching: &amp;quot;first_name&amp;quot; == &amp;quot;Joannis&amp;quot;) // Returns 1, only one user named &amp;quot;Joannis&amp;quot; exists
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;finding-files&#34;&gt;Finding files&lt;/h3&gt;
+&lt;p&gt;If you only want to remove one matching document:&lt;/p&gt;
 
-&lt;p&gt;This functions similarly to Collection. But instead of returning a cursor containing Documents it returns a &lt;code&gt;GridFS.File&lt;/code&gt; cursor.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let allFiles = try fs.find()
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove(limitedTo: 1) // returns 1, only one Document may be removed. Any document will do because there is no matching filter
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;You can find single files using findOne similarly to Collection.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let file: GridFS.File? = try fs.findOne(byID: fileID)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;reading-files&#34;&gt;Reading files&lt;/h3&gt;
-
-&lt;p&gt;Once you&amp;rsquo;ve obtained an instance of &lt;code&gt;GridFS.File&lt;/code&gt; you&amp;rsquo;ve only fetched the metadata. Meaning the filename, mime type, MD5 checksum and any other metadata that this file contains.&lt;/p&gt;
-
-&lt;p&gt;You can use this file instance to fetch either all or specific sets of bytes. In the case of a smaller download, or a download that&amp;rsquo;ll need to be served in it&amp;rsquo;s entirely.&lt;/p&gt;
-
-&lt;p&gt;To fetch all bytes you&amp;rsquo;ll need to iterate over the chunks and send those chunks over the socket stream chunk-by-chunk.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;for chunk in file {
-  socket.send(chunk.data)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can interrupt this process at any time efficiently without fetching extra data from MongoDB.&lt;/p&gt;
-
-&lt;p&gt;MongoKitten will not throw an error when an error occurs when iterating over the file chunks using this method and will instead return no (additional) chunks. This may not always cause harm. In some situations it will result in an aborted or corrupted download which may or may not be a problem. In an image it&amp;rsquo;ll result in a partially loaded image, in a video it&amp;rsquo;ll result in the inability to load some parts of the movie and some file formats like PDF may be unable to open and need to be re-downloaded.&lt;/p&gt;
-
-&lt;p&gt;If you want to set up a failsafe for these scenarios you&amp;rsquo;ll need to use the &lt;code&gt;try file.chunked()&lt;/code&gt; method.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;for chunk in try file.chunked() {
-  socket.send(chunk.data)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;By default most frameworks will be unable to serve the file properly which results in the same situation as above. But if you catch the error manually you may be able to fetch the remaining data by re-trying to fetch the remaining chunks. This can be useful when the used replica set or sharded cluster has had a failure because it&amp;rsquo;s been disabled for maintainance or another reason, or simply to log the problem.&lt;/p&gt;
-
-&lt;h3 id=&#34;resumed-downloads&#34;&gt;Resumed downloads&lt;/h3&gt;
-
-&lt;p&gt;Some larger files and web-browsers may use a functionality that allows resuming downloads. Videos use them for buffering, by downloading the relevant parts of the videos when required allowing you to start watching the first bit whilst the rest is still buffering. Other big files may use this web-feature for resuming big downloads after a connection problem has occurred. Or you may have another use case scenario.&lt;/p&gt;
-
-&lt;p&gt;MongoKitten allows you to fetch specific subsets of information from GridFS.&lt;/p&gt;
-
-&lt;p&gt;You can request all bytes after byte 1 million (1MB) for example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try file.read(from: 1_000_000)`
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can request a limited subset of bytes:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try file.read(from: 1_000_000, to: 2_500_000)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This would fetch 1.5MB of data starting after 1MB.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Installation Guide</title>
-      <link>http://docs.openkitten.org/installation-guide/installation-guide/</link>
-      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
-      
-      <guid>http://docs.openkitten.org/installation-guide/installation-guide/</guid>
-      <description>
-
-&lt;h1 id=&#34;installation&#34;&gt;Installation&lt;/h1&gt;
-
-&lt;p&gt;The recommended way to get started using the Swift driver is by using &lt;code&gt;SPM&lt;/code&gt; (Swift Package Manager) to install the dependency in your project.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://mongokitten.openkitten.org/Classes/Collection.html#/s:FC11MongoKitten10Collection6removeFzT8matchingGSaT6filterVS_5Query5limitVs5Int32__12writeConcernGSqOS_12WriteConcern_15stoppingOnErrorGSqSb__Si&#34;&gt;For more information about removing documents, click here&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

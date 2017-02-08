@@ -58,7 +58,7 @@
       <div class="ssidebarwrapper">
         <h3>
           <a class="index-link" href="https://github.com/OpenKitten/MongoKitten">MongoDB Swift Driver</a>
-          <a class="version pull-right" href="http://docs.openkitten.org">3.0.0</a>
+          <a class="version pull-right" href="http://docs.openkitten.org">3.1.0</a>
         </h3>
 
         
@@ -229,6 +229,28 @@
 
 
   
+    
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
 
 
         
@@ -337,6 +359,44 @@
 
 
   
+
+
+        
+          
+        
+      
+    
+    
+      
+    
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
   
   
   
@@ -359,6 +419,18 @@
       
       
         
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
       
     
       
@@ -681,10 +753,37 @@
 
 
 
-    <li class="toctree-l2">
-    <a href="/tutorials/collections/">
+<li class="toctree-l2 ">
+  <a href="/tutorials/crud/" class="">
+      <i class='fa'></i>
+      <span>Collection CRUD Operations</span>
+      
+  </a>
+    <ul >
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/crud/create/">
         <i class='fa'></i>
-        Collections
+        Create/Insert
     </a>
   </li>
 
@@ -710,10 +809,10 @@
 
 
 
-    <li class="toctree-l2">
-    <a href="/tutorials/crud/">
+    <li class="toctree-l3">
+    <a href="/tutorials/crud/read/">
         <i class='fa'></i>
-        CRUD Operations
+        Read/Find
     </a>
   </li>
 
@@ -739,10 +838,10 @@
 
 
 
-    <li class="toctree-l2">
-    <a href="/tutorials/Cursor/">
+    <li class="toctree-l3">
+    <a href="/tutorials/crud/update/">
         <i class='fa'></i>
-        Cursor
+        Update
     </a>
   </li>
 
@@ -768,11 +867,46 @@
 
 
 
-    <li class="toctree-l2">
-    <a href="/tutorials/aggregation/">
+    <li class="toctree-l3">
+    <a href="/tutorials/crud/delete/">
         <i class='fa'></i>
-        Aggregation
+        Delete/Remove
     </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/crud/count/">
+        <i class='fa'></i>
+        Count
+    </a>
+  </li>
+
+
+        
+        
+    </ul>
   </li>
 
 
@@ -829,9 +963,96 @@
 
 
     <li class="toctree-l2">
-    <a href="/tutorials/gridfs/">
+    <a href="/tutorials/aggregation/">
         <i class='fa'></i>
-        GridFS
+        Aggregation
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/tutorials/Indexes/">
+        <i class='fa'></i>
+        Indexes
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/tutorials/Cursor/">
+        <i class='fa'></i>
+        Cursor
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/tutorials/collections/">
+        <i class='fa'></i>
+        Collections Administration
     </a>
   </li>
 
@@ -861,6 +1082,35 @@
     <a href="/tutorials/Administration/">
         <i class='fa'></i>
         Administration
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/tutorials/gridfs/">
+        <i class='fa'></i>
+        GridFS
     </a>
   </li>
 
@@ -1290,7 +1540,7 @@
 
 
 
-<h1 id="querybuilder">QueryBuilder</h1>
+<h1 id="query">Query</h1>
 
 <p>Query is the object that will find data for you. It&rsquo;s used in all CRUD operations except insert. It&rsquo;s used for finding the Document you want to fetch/modify/delete.</p>
 
@@ -1305,7 +1555,26 @@ let query: Query = &quot;name_first&quot; == firstName
 try usersCollection.findOne(matching: &quot;name_first&quot; == firstName &amp;&amp; &quot;name_last&quot; == surName &amp;&amp; &quot;age&quot; &lt; 24)
 </code></pre>
 
-<p>If you&rsquo;re in need for more advanced MongoDB queries you can create one from a Document.</p>
+<p>From here on we&rsquo;ll only define the Query, and we&rsquo;ll leave it up to you to put it in a matching parameter of a Count/Read/Update/Delete operation.</p>
+
+<h2 id="helpers">Helpers</h2>
+
+<p>QueryBuilder has a few build-in helpers.</p>
+
+<h3 id="text-searching">$text searching</h3>
+
+<p>If you&rsquo;re looking for a piece of text in a document you can use <code>.textSearch</code> like this:</p>
+
+<pre><code class="language-swift">let query: Query = .textSearch(forString: &quot;cookie&quot;)
+</code></pre>
+
+<p>This will match any documents in the collection where the text index has indexed a field in the Document to contain &ldquo;cookie&rdquo;.</p>
+
+<p>This will require you to create a <a href="/tutorials/Indexes/#text">text index</a>.</p>
+
+<h2 id="raw">Raw</h2>
+
+<p>If you&rsquo;re in need for more raw MongoDB queries you can create one from a Document.</p>
 
 <pre><code class="language-swift">let document: Document = [
   &quot;name_first&quot;: firstName,
@@ -1316,6 +1585,15 @@ try usersCollection.findOne(matching: &quot;name_first&quot; == firstName &amp;&
 try usersCollection.findOne(matching: Query(document))
 </code></pre>
 
+<p>Or you can use a Document literal for a Query:</p>
+
+<pre><code class="language-swift">try usersCollection.findOne(matching: [
+  &quot;name_first&quot;: firstName,
+  &quot;name_last&quot;: surName,
+  &quot;age&quot;: [ &quot;$lt&quot;: 24]
+])
+</code></pre>
+
 
 
 
@@ -1324,15 +1602,15 @@ try usersCollection.findOne(matching: Query(document))
 <div id="btnv">
   
   <div class="pull-left">
-  <a class="navigation prev" href="/tutorials/aggregation/">
-      <i class="fa fa-long-arrow-left"> </i> Aggregation
+  <a class="navigation prev" href="/tutorials/crud/">
+      <i class="fa fa-long-arrow-left"> </i> Collection CRUD Operations
   </a>
   </div>
   
   
   <div class="pull-right">
-  <a class="navigation next" href="/tutorials/gridfs/">
-    GridFS <i class="fa fa-long-arrow-right"> </i>
+  <a class="navigation next" href="/tutorials/aggregation/">
+    Aggregation <i class="fa fa-long-arrow-right"> </i>
   </a>
   
 </div>
@@ -1346,7 +1624,14 @@ try usersCollection.findOne(matching: Query(document))
     <span class="toc-header">On this page</span>
     <nav id="TableOfContents">
 <ul>
-<li><a href="#querybuilder">QueryBuilder</a></li>
+<li><a href="#query">Query</a>
+<ul>
+<li><a href="#helpers">Helpers</a>
+<ul>
+<li><a href="#text-searching">$text searching</a></li>
+</ul></li>
+<li><a href="#raw">Raw</a></li>
+</ul></li>
 </ul>
 </nav>
   </div>
@@ -1366,7 +1651,7 @@ try usersCollection.findOne(matching: Query(document))
 <script type="text/javascript">
   var DOCUMENTATION_OPTIONS = {
    URL_ROOT:    "http://docs.openkitten.org",
-   VERSION:     "3.0.0",
+   VERSION:     "3.1.0",
    COLLAPSE_INDEX: false,
    FILE_SUFFIX: '.html',
    HAS_SOURCE:  true
