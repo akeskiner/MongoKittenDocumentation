@@ -17,10 +17,11 @@ information on updating your code to MongoKitten 3.
 
 * [Installing the driver]({{< relref "installation-guide/index.md" >}})
 * [Quick start]({{< relref "quick-start/index.md" >}})
-* [CRUD operations]({{< relref "tutorials/crud.md" >}})
+* [Collection CRUD operations]({{< relref "tutorials/crud.md" >}})
 
 ## Next steps
 
+* [Indexes]({{< relref "tutorials/Indexes.md" >}})
 * [Grid FS]({{< relref "tutorials/gridfs/index.md" >}})
 
 ## Advanced topics

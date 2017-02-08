@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Upgrade-migration-rsses on MongoDB Swift Driver</title>
+    <link>http://docs.openkitten.org/upgrade-migration/index.xml</link>
+    <description>Recent content in Upgrade-migration-rsses on MongoDB Swift Driver</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 14 Dec 2016 12:36:56 +0000</lastBuildDate>
+    <atom:link href="http://docs.openkitten.org/upgrade-migration/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Upgrade Guide</title>
+      <link>http://docs.openkitten.org/upgrade-migration/upgrade-migration/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/upgrade-migration/upgrade-migration/</guid>
+      <description>
+
+&lt;h1 id=&#34;migrating-to-mongokitten-3&#34;&gt;Migrating to MongoKitten 3&lt;/h1&gt;
+
+&lt;p&gt;This guide will help users of MongoKitten 1.x and 2.x to migrate to MongoKitten 3.&lt;/p&gt;
+
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;The setup for Connection URLs stays mostly the same. But the parameter is now named &amp;ldquo;mongoURL&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;let server = try Server(&amp;quot;mongodb://...&amp;quot;)&lt;/code&gt; becomes &lt;code&gt;let server = try Server(mongoURL: &amp;quot;mongodb://...&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The connection URL supports &lt;code&gt;authSource&lt;/code&gt;, &lt;code&gt;authMechanism&lt;/code&gt;, &lt;code&gt;ssl&lt;/code&gt;, Replica Sets and Sharded Clusters. But if you prefer not using an URL you still can.&lt;/p&gt;
+
+&lt;p&gt;MongoKitten 3 has an object &amp;ldquo;ClientSettings&amp;rdquo; which separates out the settings from the server.&lt;/p&gt;
+
+&lt;p&gt;ClientSettings accepts one or more hosts. Multiple hosts should only be used for replica sets and sharded databases.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ClientSettings(host: ...)&lt;/code&gt; accepts a MongoHost. Which is manually creatable but is initializable using a String (literal).&lt;/p&gt;
+
+&lt;p&gt;The String needs to be formatted like this:
+&lt;code&gt;subdomain.example.com:12345&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The ClientSettings then accepts &lt;code&gt;sslSettings&lt;/code&gt;. sslSettings is an object that has 3 values. One for enabling or disabling SSL. The other 2 are for certificate and host validation.&lt;/p&gt;
+
+&lt;p&gt;SSLSettings is ExpressibleByBooleanLiteral, so &lt;code&gt;true&lt;/code&gt; will enable SSL with secure defaults. &lt;code&gt;false&lt;/code&gt; will not use SSL.&lt;/p&gt;
+
+&lt;p&gt;Last but not least ClientSettings accepts login details in the form of &lt;code&gt;MongoCredentials&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This accepts a username, password and database. If you don&amp;rsquo;t know the authentication database (it&amp;rsquo;s not always the same database as the one you&amp;rsquo;re trying to access) you can leave it empty wil &lt;code&gt;nil&lt;/code&gt; here.&lt;/p&gt;
+
+&lt;h3 id=&#34;connecting&#34;&gt;Connecting&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;automatically&lt;/code&gt; parameter has been removed. MongoKitten will always connect automatically now and will always attempt to reconnect.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;server.connect()&lt;/code&gt; has been removed for the same reason.&lt;/p&gt;
+
+&lt;h2 id=&#34;documents-and-values&#34;&gt;Documents and Values&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;~&lt;/code&gt; operator has been removed because Values are now directly embeddable inside Documents/Dictionary literals.&lt;/p&gt;
+
+&lt;p&gt;However, all Documents need to have their type explicitely defined now. This would look like the following&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let name = &amp;quot;Joannis&amp;quot;
+
+let doc: Document = [
+  &amp;quot;name&amp;quot; ~name,
+  &amp;quot;name2&amp;quot;: &amp;quot;Joannis&amp;quot;
+  &amp;quot;subDoc&amp;quot;: [
+    &amp;quot;name&amp;quot;: ~name
+  ]
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Will become&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let name = &amp;quot;Joannis&amp;quot;
+
+let doc: Document = [
+  &amp;quot;name&amp;quot; name,
+  &amp;quot;name2&amp;quot;: &amp;quot;Joannis&amp;quot;
+  &amp;quot;subDoc&amp;quot;: [
+    &amp;quot;name&amp;quot;: name
+  ] as Document
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;subscripting&#34;&gt;Subscripting&lt;/h3&gt;
+
+&lt;p&gt;Subscripting has changed quite a bit. We&amp;rsquo;ve moved from succeeding subscripts to variadic subscripts because we feel that it better serves our purpose.&lt;/p&gt;
+
+&lt;p&gt;The variadic subscripts come in two forms: a type inferred and a raw getter.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;doc[&amp;quot;subDoc&amp;quot;][&amp;quot;name&amp;quot;]&lt;/code&gt; will become &lt;code&gt;doc[raw: &amp;quot;subDoc&amp;quot;, &amp;quot;name&amp;quot;]&lt;/code&gt; and will return an optional generic Value.
+&lt;code&gt;Value&lt;/code&gt; has been removed entirely, including &lt;code&gt;.nothing&lt;/code&gt;. Checks for &lt;code&gt;Value.nothing&lt;/code&gt; need to be replaced with &lt;code&gt;nil&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The raw subscript will get the object as you present it. Which can be any ValueConvertible including all BSON types.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;doc[&amp;quot;subdoc&amp;quot;, &amp;quot;boolean&amp;quot;] as Bool?&lt;/code&gt; will get the value called &amp;ldquo;boolean&amp;rdquo; inside &amp;ldquo;subdoc&amp;rdquo; and will return a boolean if it&amp;rsquo;s representable as one.
+&lt;code&gt;doc[&amp;quot;_id&amp;quot;] as String?&lt;/code&gt; will try to convert the value to a String. So &lt;code&gt;Int64(3)&lt;/code&gt; will become &lt;code&gt;&amp;quot;3&amp;quot;&lt;/code&gt;. A String will stay a String, and ObjectIds will represent themselves as a hexadecimal String.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;doc[&amp;quot;_id&amp;quot;] as String?&lt;/code&gt; is exactly equal to &lt;code&gt;doc[raw: &amp;quot;_id&amp;quot;]?.string&lt;/code&gt;. Both will now return an optional.&lt;/p&gt;
+
+&lt;p&gt;If you want to know the type of the data, always use raw subscripting. If you prefer a specific type like a String, use &lt;code&gt;as String?&lt;/code&gt; or &lt;code&gt;raw: ...]?.string&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;extraction-getters&#34;&gt;Extraction getters&lt;/h3&gt;
+
+&lt;p&gt;Previous versions of BSON and MongoKitten allowed you to get a default value using &lt;code&gt;.string&lt;/code&gt;, &lt;code&gt;.int&lt;/code&gt;, &lt;code&gt;.int32&lt;/code&gt;, etc. This doesn&amp;rsquo;t work anymore. Extracting Strings with &lt;code&gt;.string&lt;/code&gt; will only return a String if it&amp;rsquo;s clearly representable as a String. Bool represents true or false. But converting it backwards isn&amp;rsquo;t possible since you don&amp;rsquo;t know the type. Integers will be converted to a String and backwards. If a String like &lt;code&gt;&amp;quot;3.14&amp;quot;&lt;/code&gt; is requested as a Double, BSON will return the value &lt;code&gt;3.14&lt;/code&gt; as a Double, instead of nil.&lt;/p&gt;
+
+&lt;h3 id=&#34;optional-chaining&#34;&gt;Optional chaining&lt;/h3&gt;
+
+&lt;p&gt;Because of the vast use of optionals in the new Documents you&amp;rsquo;ll have to set the default values yourself.
+Where you would use &lt;code&gt;doc[&amp;quot;stringKey&amp;quot;].string&lt;/code&gt; for getting a &lt;code&gt;String&lt;/code&gt; you will now receive an optional that will need to be unwrapped or chained.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let doc: Document = [
+  &amp;quot;stringKey&amp;quot;: &amp;quot;Hello World!&amp;quot;
+]
+
+print(doc[&amp;quot;stringKey&amp;quot;].string) // Prints &amp;quot;Hello World!&amp;quot; unless we can&#39;t find a String. Then it will print &amp;quot;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Will become&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let doc: Document = [
+  &amp;quot;stringKey&amp;quot;: &amp;quot;Hello World!&amp;quot;
+]
+
+print(doc[&amp;quot;stringKey&amp;quot;] as String? ?? &amp;quot;&amp;quot;) // Prints &amp;quot;Hello World!&amp;quot; unless we can&#39;t find a String. Then it will print &amp;quot;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or &lt;code&gt;print(doc[&amp;quot;stringKey&amp;quot;].string ?? &amp;quot;&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://docs.openkitten.org/</loc>
+    <lastmod>2016-12-26T12:14:08+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/bson/Document/</loc>
+    <lastmod>2016-12-26T12:14:08+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/bson/ObjectId/</loc>
+    <lastmod>2016-12-26T12:13:13+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/bson/ValueConvertible/</loc>
+    <lastmod>2016-12-26T12:11:57+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/bson/BSONPrimitive/</loc>
+    <lastmod>2016-12-26T12:09:53+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/bson/BSON/</loc>
+    <lastmod>2016-12-26T12:07:42+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/aggregation/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/connect/authenticating/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/crud/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/collections/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/connect/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/reference/connecting/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/crud/count/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/crud/create/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/Cursor/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/crud/delete/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/reference/faq/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/gridfs/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/Indexes/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/installation-guide/installation-guide/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/issues-help/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/QueryBuilder/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/quick-start/quick-start/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/crud/read/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/reference/reference/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/connect/ssl/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/tutorials/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/crud/update/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/upgrade-migration/upgrade-migration/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/Administration/</loc>
+    <lastmod>2016-12-14T12:57:41+01:00</lastmod>
+  </url>
+  
+</urlset>

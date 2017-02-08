@@ -4,7 +4,7 @@ title = "Connect to MongoDB"
 [menu.main]
   parent = "Tutorials"
   identifier = "Connect to MongoDB"
-  weight = 25
+  weight = 0
   pre = "<i class='fa'></i>"
 +++
 

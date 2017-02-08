@@ -4,7 +4,7 @@ date = "2016-12-14T12:57:41+01:00"
 [menu.main]
   parent = "Tutorials"
   identifier = "Administration"
-  weight = 81
+  weight = 55
   pre = "<i class='fa'></i>"
 +++
 

@@ -14,15 +14,14 @@ The tutorials in this section provide examples of some frequently used operation
 
 [Connect to MongoDB]({{< relref "tutorials/connect/index.md" >}})
 
-[Collections]({{< relref "tutorials/collections.md" >}})
-
-[CRUD Operations]({{< relref "tutorials/crud.md" >}})
+[Collection CRUD Operations]({{< relref "tutorials/crud.md" >}})
 
 [Query Builder]({{< relref "tutorials/QueryBuilder.md" >}})
 
 [Aggregation]({{< relref "tutorials/aggregation.md" >}})
 
-[Administration]({{< relref "tutorials/Administration.md" >}})
+[Collection Administration]({{< relref "tutorials/collections.md" >}})
+
+[Database and Server Administration]({{< relref "tutorials/Administration.md" >}})
 
 [GridFS]({{< relref "tutorials/gridfs/index.md" >}})
-

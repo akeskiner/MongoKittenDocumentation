@@ -1,10 +1,10 @@
 +++
 date = "2016-12-14T12:36:56Z"
-title = "CRUD Operations"
+title = "Cursor"
 [menu.main]
   parent = "Tutorials"
   identifier = "Cursor"
-  weight = 40
+  weight = 20
   pre = "<i class='fa'></i>"
 +++
 
