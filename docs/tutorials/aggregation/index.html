@@ -718,7 +718,7 @@
     <li class="toctree-l2">
     <a href="/tutorials/Cursor/">
         <i class='fa'></i>
-        CRUD Operations
+        Cursor
     </a>
   </li>
 
@@ -868,7 +868,7 @@
 
 <li class="toctree-l1 ">
   <a href="/bson/BSON/" class="">
-      <i class='fa fa-thumb-tack'></i>
+      <i class='fa fa-th'></i>
       <span>BSON</span>
       <span class="menu-arrow fa fa-angle-right"></span>
   </a>
@@ -1266,6 +1266,59 @@
 
 
 
+<h1 id="aggregation">Aggregation</h1>
+
+<h2 id="overview">Overview</h2>
+
+<p>Aggregation operations process data records and return
+computed results. Aggregation operations group values from
+multiple documents together, and can perform a variety of
+operations on the grouped data to return a single result.</p>
+
+<h2 id="the-aggregation-pipeline">The Aggregation Pipeline</h2>
+
+<p>The aggregation pipeline is a framework for data aggregation
+modeled on the concept of data processing pipelines. Documents
+enter a multi-stage pipeline that transforms the documents into
+aggregated results.</p>
+
+<p>For a full explanation and a complete list of pipeline stages
+and operators, see the <a href="https://docs.mongodb.com/manual/core/aggregation-pipeline/">manual:</a></p>
+
+<p>The following example uses the aggregation pipeline on the
+<a href="https://raw.githubusercontent.com/OpenKitten/Mongo-Assets/master/restaurants.json">restaurants</a>
+sample dataset.</p>
+
+<p>In the following example, the aggregation pipeline</p>
+
+<ul>
+<li>first use a <code>$match</code> stage to filter for documents whose <code>categories</code> array field contains the element <code>Bakery</code>.
+The example uses <a href="http://mongokitten.openkitten.org/Structs/AggregationPipeline/Stage.html#/s:ZFVV11MongoKitten19AggregationPipeline5Stage8matchingFVS_5QueryS1_"><code>AggregationPipeline.Stage.matching</code></a> to build the <code>$match</code> stage.</li>
+<li>Then, uses a <code>$group</code> stage to group the matching documents by the starts field, accumulating a count of documents for
+each distinct value of <code>stars</code>. The example uses <a href="http://mongokitten.openkitten.org/Structs/AggregationPipeline/Stage.html#/s:ZFVV11MongoKitten19AggregationPipeline5Stage8groupingFTPS_23ExpressionRepresentable_8computedGVs10DictionarySSOS_26AccumulatedGroupExpression__S1_"><code>AggregationPipeline.Stage.grouping</code></a> to build the <code>$group</code> stage
+and <a href="http://mongokitten.openkitten.org/Enums/AccumulatedGroupExpression.html#/s:ZFO11MongoKitten26AccumulatedGroupExpression5sumOfFtGSaPS_23ExpressionRepresentable___S0_"><code>AccumulatedGroupExpression.sumOf</code></a> to build the accumulator expression.</li>
+</ul>
+
+<pre><code class="language-swift">import MongoKitten
+
+let server = try Server(mongoURL: &quot;mongodb://localhost:27017&quot;)
+let database = server[&quot;tutorial&quot;]
+
+let restaurants = database[&quot;restaurants&quot;]
+
+let matchStage = AggregationPipeline.Stage.matching(&quot;categories&quot; == &quot;Bakery&quot;)
+let groupStage = AggregationPipeline.Stage.grouping(&quot;$stars&quot;, computed: [&quot;count&quot;: .sumOf(1)])
+
+let pipeline: AggregationPipeline = [matchStage, groupStage]
+
+let results = try restaurants.aggregate(pipeline: pipeline)
+
+let _ = results.map {
+    print($0.dictionaryValue)
+}
+</code></pre>
+
+
 
 
 
@@ -1274,7 +1327,7 @@
   
   <div class="pull-left">
   <a class="navigation prev" href="/tutorials/Cursor/">
-      <i class="fa fa-long-arrow-left"> </i> CRUD Operations
+      <i class="fa fa-long-arrow-left"> </i> Cursor
   </a>
   </div>
   
@@ -1293,7 +1346,15 @@
   
   <div class="toc">
     <span class="toc-header">On this page</span>
-    
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#aggregation">Aggregation</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#the-aggregation-pipeline">The Aggregation Pipeline</a></li>
+</ul></li>
+</ul>
+</nav>
   </div>
   
 </div>

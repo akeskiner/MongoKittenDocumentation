@@ -4,7 +4,11 @@ title = "Cursor"
 [menu.main]
   parent = "Tutorials"
   identifier = "Cursor"
+<<<<<<< HEAD
+  weight = 20
+=======
   weight = 41
+>>>>>>> 8774903a73fa8a67d7b59fff0de968e9707813e0
   pre = "<i class='fa'></i>"
 +++
 

@@ -4,7 +4,7 @@ title = "BSON"
 [menu.main]
   identifier = "BSON"
   weight = 21
-  pre = "<i class='fa fa-thumb-tack'></i>"
+  pre = "<i class='fa fa-th'></i>"
 +++
 
 ## A native, fast BSON library for Swift, written in Swift.

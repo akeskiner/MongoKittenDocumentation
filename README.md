@@ -7,7 +7,7 @@
  3. Create content
 
 ## Requirements
-Hugo version 0.17 (```brew install hugo```)
+Hugo version 0.18 (```brew install hugo```)
 <br>
 Check out the hugo [quickstart guide](http://gohugo.io/overview/quickstart/).
 
@@ -26,6 +26,10 @@ To run the server call the hugo command:
 
 All generated content will appear in the `./public` folder, so you can also check the filesystem and browse it locally.<br>
 For more hugo server options run: `hugo --help`
+
+### Generate the website
+
+    hugo -d docs
 
 ### Data
 

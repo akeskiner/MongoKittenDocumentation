@@ -533,7 +533,7 @@
     <li class="toctree-l2">
     <a href="/tutorials/Cursor/">
         <i class='fa'></i>
-        CRUD Operations
+        Cursor
     </a>
   </li>
 
@@ -681,7 +681,7 @@
 
 <li class="toctree-l1 ">
   <a href="/bson/BSON/" class="">
-      <i class='fa fa-thumb-tack'></i>
+      <i class='fa fa-th'></i>
       <span>BSON</span>
       <span class="menu-arrow fa fa-angle-right"></span>
   </a>
@@ -1099,17 +1099,21 @@ cd myproject
 
 <p>Next, install the driver dependency.</p>
 
-<p>Add this to your <code>Package.swift</code> for the stable</p>
+<p>Add this to your <code>Package.swift</code> for the stable version</p>
 
-<p><code>.Package(url: &quot;https://github.com/OpenKitten/MongoKitten.git&quot;, majorVersion: 2)</code></p>
+<p><code>.Package(url: &quot;https://github.com/OpenKitten/MongoKitten.git&quot;, majorVersion: 3)</code></p>
 
-<p>Or add this to your <code>Package.swift</code> for the beta of MongoKitten 3</p>
+<p>Fetch the dependencies</p>
 
-<p><code>.Package(url: &quot;https://github.com/OpenKitten/MongoKitten.git&quot;, &quot;3.0.0-beta&quot;)</code></p>
-
-<p>And <code>import MongoKitten</code> in your project.</p>
+<p><code>swift package fetch</code></p>
 
 <p>You should see <strong>SPM</strong> download a lot of files. Once it&rsquo;s done you&rsquo;ll find all the downloaded packages under the <strong>Packages</strong> directory.</p>
+
+<p>To generate Xcode project</p>
+
+<p><code>swift package generate-xcodeproj</code></p>
+
+<p>And <code>import MongoKitten</code> in your project.</p>
 
 <h2 id="start-a-mongodb-server">Start a MongoDB Server</h2>
 
@@ -1125,6 +1129,30 @@ cd myproject
 </code></pre>
 
 <p>You should see the <strong>mongod</strong> process start up and print some status information.</p>
+
+<h2 id="connect-to-mongodb">Connect to MongoDB</h2>
+
+<p>Add code to connect to the server and the database <strong>tutorial</strong></p>
+
+<pre><code class="language-swift">let server = try Server(mongoURL: &quot;mongodb://localhost:27017&quot;)
+let database = server[&quot;tutorial&quot;]
+
+if server.isConnected {
+    print(&quot;Connected successfully to server&quot;)
+}
+</code></pre>
+
+<p>Build your app from the command line with :</p>
+
+<pre><code class="language-sh">swift build
+</code></pre>
+
+<p>Run your app from the command line with :</p>
+
+<pre><code class="language-sh">./.build/debug/myproject
+</code></pre>
+
+<p>The application should print <strong>Connected successfully to server</strong></p>
 
 
 
@@ -1149,6 +1177,7 @@ cd myproject
 <ul>
 <li><a href="#create-the-package-swift-file">Create the package.swift file</a></li>
 <li><a href="#start-a-mongodb-server">Start a MongoDB Server</a></li>
+<li><a href="#connect-to-mongodb">Connect to MongoDB</a></li>
 </ul></li>
 </ul>
 </nav>

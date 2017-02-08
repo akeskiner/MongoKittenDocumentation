@@ -2,11 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://docs.openkitten.org/</loc>
-    <lastmod>2016-12-26T12:14:08+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://docs.openkitten.org/bson/Document/</loc>
     <lastmod>2016-12-26T12:14:08+01:00</lastmod>
   </url>
@@ -42,11 +37,6 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/Cursor/</loc>
-    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://docs.openkitten.org/tutorials/crud/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
@@ -63,6 +53,11 @@
   
   <url>
     <loc>http://docs.openkitten.org/reference/connecting/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/Cursor/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -124,6 +119,48 @@
   <url>
     <loc>http://docs.openkitten.org/tutorials/Administration/</loc>
     <lastmod>2016-12-14T12:57:41+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/bson/</loc>
+    <lastmod>2016-12-26T12:14:08+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/installation-guide/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/</loc>
+    <lastmod>2016-12-26T12:14:08+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/quick-start/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/reference/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/upgrade-migration/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>
