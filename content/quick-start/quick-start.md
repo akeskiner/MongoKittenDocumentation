@@ -9,7 +9,7 @@ title = "Quick Start"
 
 # Quick Start
 
-This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the [tutorials]({{< relref "tutorials/index.md" >}}).
+This guide will show you how to set up a simple application using Swift Package Manager and MongoDB. Its scope is only how to set up the driver and perform the simple CRUD operations. For more in-depth coverage, see the [tutorials]({{< relref "tutorials/mongokitten/index.md" >}}).
 
 ## Create the package.swift file
 
@@ -30,7 +30,7 @@ Next, install the driver dependency.
 
 Add this to your `Package.swift` for the stable version
 
-`.Package(url: "https://github.com/OpenKitten/MongoKitten.git", majorVersion: 3)`
+`.Package(url: "https://github.com/OpenKitten/MongoKitten.git", majorVersion: 4)`
 
 Fetch the dependencies
 
@@ -65,7 +65,7 @@ You should see the **mongod** process start up and print some status information
 Add code to connect to the server and the database **tutorial**
 
 ```swift
-let server = try Server(mongoURL: "mongodb://localhost:27017")
+let server = try Server("mongodb://localhost:27017")
 let database = server["tutorial"]
 
 if server.isConnected {
@@ -80,7 +80,7 @@ swift build
 ```
 
 Run your app from the command line with :
-```sh 
+```sh
 ./.build/debug/myproject
 ```
 

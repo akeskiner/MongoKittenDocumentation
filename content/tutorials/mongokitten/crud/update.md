@@ -10,9 +10,9 @@ title = "Update"
 
 # Updating
 
-Updates are usually formed using ([a filter Query]({{< relref "tutorials/QueryBuilder.md" >}}) object) and an update document.
+Updates are usually formed using ([a filter Query]({{< relref "tutorials/mongokitten/QueryBuilder.md" >}}) object) and an update document.
 
-[Queries are covered here.]({{< relref "tutorials/QueryBuilder.md" >}})
+[Queries are covered here.]({{< relref "tutorials/mongokitten/QueryBuilder.md" >}})
 
 Update finds already existing Documents in the collection that match the query/filter and updates them to the `to` Document and will overwrite the existing Document with the new Document.
 

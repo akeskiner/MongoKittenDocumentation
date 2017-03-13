@@ -29,7 +29,7 @@ let objectId = try ObjectId(hexString)
 
 In some cases you might want to know the ObjectIds creation date. You can fetch a `Foundation.Date` from the ObjectId using `let objectIdCreationDate = myObjectId.epoch`
 
-Last but not least, ObjectIds are hashable, so they're usable for a key in a Dictionary.
+Last but not least, ObjectIds are hashable, so they're usable for a key in a Dictionary, but not a Document.
 
 ```swift
 let dictionary: [ObjectId: Document] = [

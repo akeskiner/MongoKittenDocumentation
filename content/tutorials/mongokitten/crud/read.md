@@ -12,7 +12,7 @@ title = "Read/Find"
 
 `find` can be ran without arguments to fetch every Document in the collection.
 
-`try collection.find()` will return a [Cursor]({{< relref "tutorials/Cursor.md" >}}) containing all Documents. Cursors are an important part of the MongoKitten flow but we'll cover them in short here.
+`try collection.find()` will return a [Cursor]({{< relref "tutorials/mongokitten/Cursor.md" >}}) containing all Documents. Cursors are an important part of the MongoKitten flow but we'll cover them in short here.
 
 `try collection.findOne()` will return a single `Document?`. Which is nil if no Document could be found.
 
@@ -25,13 +25,12 @@ let documentArray = Array(try collection.find())
 
 You can specify 6 parameters which we'll all cover underneath which, of course, can be combined.
 
-`find` accepts [a Query]({{< relref "tutorials/QueryBuilder.md" >}}) that Documents are matched against. You can create a Query from a Document or using operators.
+`find` accepts [a Query]({{< relref "tutorials/mongokitten/QueryBuilder.md" >}}) that Documents are matched against. You can create a Query from a Document or using operators.
 
 ```swift
-let document = [
+let query: Query = [
   "username": "bob"
 ]
-let query = Query(document)
 
 try collection.find(matching: query)
 ```

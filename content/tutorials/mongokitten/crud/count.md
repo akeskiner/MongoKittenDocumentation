@@ -18,10 +18,10 @@ title = "Count"
 try collection.count() // returns 5
 ```
 
-Count also accepts the parameter `matching` which requires [a Query]({{< relref "tutorials/QueryBuilder.md" >}}) to be provided.
+Count also accepts the parameter `matching` which requires [a Query]({{< relref "tutorials/mongokitten/QueryBuilder.md" >}}) to be provided.
 
 ```swift
-try collection.count(matching: "first_name" == "Joannis") // returns 1 if only one user is named Joannis
+try collection.count("first_name" == "Joannis") // returns 1 if only one user is named Joannis
 ```
 
 [For more information about counting documents, click here](http://mongokitten.openkitten.org/Classes/Collection.html#/s:FC11MongoKitten10Collection5countFzT8matchingGSqVS_5Query_9limitedToGSqVs5Int32_8skippingGSqS2__11readConcernGSqOS_11ReadConcern_9collationGSqVS_9Collation__Si)

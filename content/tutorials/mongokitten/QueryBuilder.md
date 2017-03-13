@@ -40,7 +40,7 @@ let query: Query = .textSearch(forString: "cookie")
 
 This will match any documents in the collection where the text index has indexed a field in the Document to contain "cookie".
 
-This will require you to create a [text index]({{< relref "tutorials/Indexes.md#text" >}}).
+This will require you to create a [text index]({{< relref "tutorials/mongokitten/Indexes.md#text" >}}).
 
 ## Raw
 

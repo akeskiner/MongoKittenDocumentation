@@ -8,7 +8,7 @@ title = "BSONPrimitive"
   pre = "<i class='fa'></i>"
 +++
 
-# BSONPrimitive
+# BSON Primitive
 
 BSON is based upon a set of primitive types. These are described [here](http://bsonspec.org/spec.html).
 
@@ -26,11 +26,11 @@ The list of BSON Primitives:
 
 - Double
 - String
-- [Document]({{< relref "bson/Document.md" >}}) (Array and Dictionary)
-- [ObjectId]({{< relref "bson/ObjectId.md" >}})
+- [Document]({{< relref "tutorials/bsonDocument.md" >}}) (Array and Dictionary)
+- [ObjectId]({{< relref "tutorials/bsonObjectId.md" >}})
 - Bool
 - Int32
-- Int64
+- Int (Int64)
 - Binary
 - Decimal128
 - JavascriptCode
@@ -39,3 +39,25 @@ The list of BSON Primitives:
 - MinKey
 - MaxKey
 - NSRegularExpression (or RegularExpression on Linux)
+
+## Conversion
+
+All BSON Primitive types can be used as the value in a Document. If you want to extract a value from a Document you'll need to subscript the Document and initialize the expected type with the subscript outcome:
+
+```swift
+let doc: Document = [
+  "food": "cheese",
+  "age": 3,
+  "favouriteNumber": "3",
+  "male": true
+]
+
+String(doc["food"]) // "cheese"
+Int(doc["food"]) // nil
+Int(doc["age"]) // 3
+String(doc["age"]) // "3"
+Int(doc["favouriteNumber"]) // 3
+String(doc["favouriteNumber"]) // "3"
+Bool(doc["male"]) // true
+Bool(doc["nonExistentKey"]) // nil
+```

@@ -101,8 +101,8 @@ for (key, value) in document {
 	guard key == "hey" || key == "hello" else {
 		fatalError("Impossible!")
 	}
-	
-	guard value as? Bool == true || value as? Double == 3.33 else {
+
+  guard Bool(value) == true || Double(value) == 3.33 else {
 		fatalError("Impossible!")
 	}
 }
@@ -129,12 +129,12 @@ var document = [
 	"subdoc": [
 		"subsubdoc": [
 			"array": [0, false, true, "henk"]
-		] as Document
-	] as Document
-] as Document
+		]
+	]
+]
 
 // Get element position 2 from array in subsubdoc in subdoc in document
-document["subdoc", "subsubdoc", "array", 2] // true
+let trueBoolean = document["subdoc"]["subsubdoc"]["array"][2] // true
 ```
 
 Document also provides some extra features that are commonly used with BSON:
@@ -144,7 +144,7 @@ var document: Document = [
 	"key": true,
 	"subdoc": [
 	  "value": 3
-	] as Document
+	]
 ]
 
 document[dotNotated: "subdoc.value"] // 3
