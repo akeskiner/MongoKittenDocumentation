@@ -65,4 +65,17 @@ let license = String(object["details"]["license"])
 
 ## Parsing
 
-Serialization:
+```swift
+let jsonString: String = ...
+let jsonBytes: [UInt8] = ...
+
+let jsonObject1 = JSONObject(from: jsonString)
+let jsonObject2 = JSONObject(from: jsonBytes)
+``` 
+
+## Serialization
+
+```swift
+let jsonBinary: [UInt8] = object.serialized()
+let jsonText: String = object.serializedString()
+```
