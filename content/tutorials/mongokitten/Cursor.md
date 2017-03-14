@@ -2,7 +2,7 @@
 date = "2016-12-14T12:36:56Z"
 title = "Cursor"
 [menu.main]
-  parent = "Tutorials"
+  parent = "MongoKitten"
   identifier = "Cursor"
   weight = 41
   pre = "<i class='fa'></i>"

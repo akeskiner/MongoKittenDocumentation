@@ -2,7 +2,7 @@
 date = "2016-12-14T12:36:56Z"
 title = "Collection CRUD Operations"
 [menu.main]
-  parent = "Tutorials"
+  parent = "MongoKitten"
   identifier = "CRUD"
   weight = 10
   pre = "<i class='fa'></i>"

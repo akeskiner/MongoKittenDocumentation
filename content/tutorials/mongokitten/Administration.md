@@ -2,7 +2,7 @@
 title = "Administration"
 date = "2016-12-14T12:57:41+01:00"
 [menu.main]
-  parent = "Tutorials"
+  parent = "MongoKitten"
   identifier = "Administration"
   weight = 55
   pre = "<i class='fa'></i>"

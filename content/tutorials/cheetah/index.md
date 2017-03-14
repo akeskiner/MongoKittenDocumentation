@@ -4,8 +4,7 @@ title = "Cheetah"
 [menu.main]
   parent = "Tutorials"
   identifier = "cheetah"
-  weight = 11
-  pre = "<i class='fa'></i>"
+  weight = 20
 +++
 
 # Cheetah - JSON
@@ -71,7 +70,7 @@ let jsonBytes: [UInt8] = ...
 
 let jsonObject1 = JSONObject(from: jsonString)
 let jsonObject2 = JSONObject(from: jsonBytes)
-``` 
+```
 
 ## Serialization
 

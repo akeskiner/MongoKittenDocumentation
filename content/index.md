@@ -27,11 +27,13 @@ MongoKitten is the fastest, and only native Swift MongoDB driver.
 It works like you'd expect from familiar Swift types and protocols.
 
 Not only is it the fastest Swift MongoDB driver but is on-par with popular drivers like the ones in:
+
 - Ruby
 - NodeJS
 - Java
 
 And outperforms drivers like the ones in:
+
 - Go
 - Dart
 
