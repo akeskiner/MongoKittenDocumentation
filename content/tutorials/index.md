@@ -4,7 +4,7 @@ title = "Tutorials"
 [menu.main]
   identifier = "Tutorials"
   weight = 20
-  pre = "<i class='fa fa-thumb-tack'></i>"
+  pre = "<i class='fa fa-info'></i>"
 +++
 
 # Tutorials

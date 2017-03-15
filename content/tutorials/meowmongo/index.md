@@ -25,6 +25,18 @@ And include this in your Package.swift
   ]
 ```
 
+## Setting up your database connection
+
+We've made this really easy. All you have to do is call `Meow.init` with your MongoDB connection string.
+Please note, `Meow.init` needs to be spelled out *fully*. `Meow("mongodb://localhost")` *will not* work.
+
+```swift
+import MeowMongo
+
+// TODO: Replace with MongoDB URL
+try Meow.init("mongodb://localhost")
+```
+
 ## Generating the rest with Sourcery
 
 Assuming your terminal's PWD is the project root where `Package.swift` resides:
