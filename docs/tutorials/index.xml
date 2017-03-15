@@ -11,10 +11,10 @@
     
     <item>
       <title>Aggregation</title>
-      <link>http://docs.openkitten.org/tutorials/aggregation/</link>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/aggregation/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/tutorials/aggregation/</guid>
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/aggregation/</guid>
       <description>
 
 &lt;h1 id=&#34;aggregation&#34;&gt;Aggregation&lt;/h1&gt;
@@ -73,10 +73,10 @@ let _ = results.map {
     
     <item>
       <title>Authentication</title>
-      <link>http://docs.openkitten.org/tutorials/connect/authenticating/</link>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/connect/authenticating/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/tutorials/connect/authenticating/</guid>
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/connect/authenticating/</guid>
       <description>
 
 &lt;h1 id=&#34;authentication&#34;&gt;Authentication&lt;/h1&gt;
@@ -87,26 +87,112 @@ let _ = results.map {
 
 &lt;p&gt;Authentication via a connection String requires the username and password on the left side of the hostname like so:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(mongoURL: &amp;quot;mongodb://user:password@hostname&amp;quot;)
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(&amp;quot;mongodb://user:password@hostname&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The username and password need to be URL percent encoded.&lt;/p&gt;
 
 &lt;h3 id=&#34;query-parameters&#34;&gt;Query Parameters&lt;/h3&gt;
 
-&lt;p&gt;You can enable SSL with the query parameter &lt;code&gt;ssl&lt;/code&gt; as described &lt;a href=&#34;http://docs.openkitten.org/tutorials/connect/ssl/&#34;&gt;here.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You can enable SSL with the query parameter &lt;code&gt;ssl&lt;/code&gt; as described &lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/connect/ssl/&#34;&gt;here.&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;If you need to authenticate to a specific database other than &amp;ldquo;admin&amp;rdquo; you can provide an &amp;ldquo;authSource&amp;rdquo;:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(mongoURL: &amp;quot;mongodb://user:password@hostname?authSource=myauthdb&amp;quot;)
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(&amp;quot;mongodb://user:password@hostname?authSource=myauthdb&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;And if you need an authentication mechanism other than SCRAM you can select one using:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(mongoURL: &amp;quot;mongodb://user:password@hostname?authMechanism=SCRAM_SHA_1&amp;quot;)
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(&amp;quot;mongodb://user:password@hostname?authMechanism=SCRAM_SHA_1&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;We currently only support &amp;ldquo;SCRAM_SHA_1&amp;rdquo; and &amp;ldquo;MONGODB-CR&amp;rdquo;. Although other mechanisms can be implemented in the future.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Cheetah (JSON)</title>
+      <link>http://docs.openkitten.org/tutorials/cheetah/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/cheetah/</guid>
+      <description>
+
+&lt;h1 id=&#34;cheetah-json&#34;&gt;Cheetah - JSON&lt;/h1&gt;
+
+&lt;p&gt;Cheetah is a JSON library that is really performant and easy to use at the same time.&lt;/p&gt;
+
+&lt;p&gt;It provides an API similar to BSON which makes it feel part of the ecosystem.
+Using KittenCore, Cheetah and BSON objects can be converted to the other.&lt;/p&gt;
+
+&lt;p&gt;It is both performant and unicode compliant.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;Add this line to your dependencies and rebuild your .xcodeproj file file using &lt;code&gt;swift package generate-xcodeproj&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;.Package(url: &amp;quot;https://github.com/OpenKitten/Cheetah.git&amp;quot;, majorVersion: 0, minor: 3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;instantiation-of-jsonobjects&#34;&gt;Instantiation of JSONObjects&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;names&amp;quot;: [&amp;quot;Joannis&amp;quot;, &amp;quot;Laurent&amp;quot;, &amp;quot;Robbert&amp;quot;],
+  &amp;quot;awesomeNumber&amp;quot;: 3,
+  &amp;quot;OpenKitten approved&amp;quot;: true,
+  &amp;quot;bignum&amp;quot;: 13.37e+100,
+  &amp;quot;smallnum&amp;quot;: -1,
+  &amp;quot;project&amp;quot;: &amp;quot;Cheetah&amp;quot;,
+  &amp;quot;details&amp;quot;: {
+    &amp;quot;open&amp;quot;: &amp;quot;Kitten&amp;quot;,
+    &amp;quot;license&amp;quot;: &amp;quot;MIT&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This works out in Cheetah like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let object: JSONObject = [
+  &amp;quot;names&amp;quot;: [&amp;quot;Joannis&amp;quot;, &amp;quot;Laurent&amp;quot;, &amp;quot;Robbert&amp;quot;],
+  &amp;quot;awesomeNumber&amp;quot;: 3,
+  &amp;quot;OpenKitten approved&amp;quot;: true,
+  &amp;quot;bignum&amp;quot;: 13.37e+100,
+  &amp;quot;smallnum&amp;quot;: -1,
+  &amp;quot;project&amp;quot;: &amp;quot;Cheetah&amp;quot;,
+  &amp;quot;details&amp;quot;: [
+    &amp;quot;open&amp;quot;: &amp;quot;Kitten&amp;quot;,
+    &amp;quot;license&amp;quot;: &amp;quot;MIT&amp;quot;
+  ]
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;extraction&#34;&gt;Extraction&lt;/h2&gt;
+
+&lt;p&gt;Whenever you want to extract values you can subscript it painlessly:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let project = String(object[&amp;quot;project&amp;quot;])
+let bignum = Double(object[&amp;quot;bignum&amp;quot;])
+let smallnum = Int(object[&amp;quot;smallnum&amp;quot;])
+let approved = Bool(object[&amp;quot;OpenKitten approved&amp;quot;])
+let license = String(object[&amp;quot;details&amp;quot;][&amp;quot;license&amp;quot;])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;parsing&#34;&gt;Parsing&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let jsonString: String = ...
+let jsonBytes: [UInt8] = ...
+
+let jsonObject1 = JSONObject(from: jsonString)
+let jsonObject2 = JSONObject(from: jsonBytes)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;serialization&#34;&gt;Serialization&lt;/h2&gt;
+
+&lt;p&gt;Serialization works to strings and bytes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let jsonBinary: [UInt8] = object.serialized()
+let jsonText: String = object.serializedString()
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
@@ -120,8 +206,24 @@ let _ = results.map {
 
 &lt;h1 id=&#34;crud&#34;&gt;CRUD&lt;/h1&gt;
 
-&lt;p&gt;In &lt;a href=&#34;No page found with path or logical name &#34;tutorials/connect.md&#34;.
-&#34;&gt;the setup guide&lt;/a&gt; we&amp;rsquo;ve covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.&lt;/p&gt;
+&lt;p&gt;In &lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/connect/&#34;&gt;the setup guide&lt;/a&gt; we&amp;rsquo;ve covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.&lt;/p&gt;
+
+&lt;p&gt;From a collection object we can start interacting with our data. From here we&amp;rsquo;ll cover all parts of CRUD.
+(Create, Read, Update, Delete). And we&amp;rsquo;ll assume you have a Collection available as the variable &lt;code&gt;collection&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Collection CRUD Operations</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/crud/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/crud/</guid>
+      <description>
+
+&lt;h1 id=&#34;crud&#34;&gt;CRUD&lt;/h1&gt;
+
+&lt;p&gt;In &lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/connect/&#34;&gt;the setup guide&lt;/a&gt; we&amp;rsquo;ve covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.&lt;/p&gt;
 
 &lt;p&gt;From a collection object we can start interacting with our data. From here we&amp;rsquo;ll cover all parts of CRUD.
 (Create, Read, Update, Delete). And we&amp;rsquo;ll assume you have a Collection available as the variable &lt;code&gt;collection&lt;/code&gt;.&lt;/p&gt;
@@ -130,19 +232,19 @@ let _ = results.map {
     
     <item>
       <title>Collections Administration</title>
-      <link>http://docs.openkitten.org/tutorials/collections/</link>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/collections/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/tutorials/collections/</guid>
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/collections/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Connect to MongoDB</title>
-      <link>http://docs.openkitten.org/tutorials/connect/</link>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/connect/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/tutorials/connect/</guid>
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/connect/</guid>
       <description>
 
 &lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
@@ -153,17 +255,17 @@ let _ = results.map {
 
 &lt;p&gt;You can instantiate a Server using a MongoDB connection URL/String:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let server = try Server(mongoURL: &amp;quot;mongodb://localhost&amp;quot;)
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let server = try Server(&amp;quot;mongodb://localhost&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The database also has two initializers. One accepts a connection URL as String. The database which is accessed is equal to the authentication database in this case.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(mongoURL: &amp;quot;mongodb://user:password@ds12345-a0.domain.com:25078,ds12345-a1.domain.com:25078/kitten?replicaSet=rs-ds125078&amp;quot;)
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(&amp;quot;mongodb://user:password@ds12345-a0.domain.com:25078,ds12345-a1.domain.com:25078/kitten?replicaSet=rs-ds125078&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Alternatively you can create a server object and select the database from there:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let server = try Server(mongoURL: &amp;quot;mongodb://localhost&amp;quot;)
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let server = try Server(&amp;quot;mongodb://localhost&amp;quot;)
 
 let database = server[&amp;quot;my-database-name&amp;quot;]
 let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: server)
@@ -180,10 +282,10 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
     
     <item>
       <title>Count</title>
-      <link>http://docs.openkitten.org/tutorials/crud/count/</link>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/crud/count/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/tutorials/crud/count/</guid>
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/crud/count/</guid>
       <description>
 
 &lt;h1 id=&#34;counting&#34;&gt;Counting&lt;/h1&gt;
@@ -195,9 +297,9 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
 &lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count() // returns 5
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Count also accepts the parameter &lt;code&gt;matching&lt;/code&gt; which requires &lt;a href=&#34;http://docs.openkitten.org/tutorials/QueryBuilder/&#34;&gt;a Query&lt;/a&gt; to be provided.&lt;/p&gt;
+&lt;p&gt;Count also accepts the parameter &lt;code&gt;matching&lt;/code&gt; which requires &lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/QueryBuilder/&#34;&gt;a Query&lt;/a&gt; to be provided.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count(matching: &amp;quot;first_name&amp;quot; == &amp;quot;Joannis&amp;quot;) // returns 1 if only one user is named Joannis
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count(&amp;quot;first_name&amp;quot; == &amp;quot;Joannis&amp;quot;) // returns 1 if only one user is named Joannis
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://mongokitten.openkitten.org/Classes/Collection.html#/s:FC11MongoKitten10Collection5countFzT8matchingGSqVS_5Query_9limitedToGSqVs5Int32_8skippingGSqS2__11readConcernGSqOS_11ReadConcern_9collationGSqVS_9Collation__Si&#34;&gt;For more information about counting documents, click here&lt;/a&gt;&lt;/p&gt;
@@ -206,10 +308,10 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
     
     <item>
       <title>Create/Insert</title>
-      <link>http://docs.openkitten.org/tutorials/crud/create/</link>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/crud/create/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/tutorials/crud/create/</guid>
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/crud/create/</guid>
       <description>
 
 &lt;h1 id=&#34;creation&#34;&gt;Creation&lt;/h1&gt;
@@ -220,55 +322,70 @@ let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: s
 
 &lt;p&gt;The returned identifier is the &lt;code&gt;_id&lt;/code&gt; field in the Document. If no &lt;code&gt;_id&lt;/code&gt; exists in the provided Document parameter an ObjectId will be generated. The &lt;code&gt;_id&lt;/code&gt; field can be of almost any value.&lt;/p&gt;
 
-&lt;p&gt;ObjectId keeps track of the creation date and is unique. Int32 and Int64 can be used incrementally like is usual in SQL. Strings can also be used. When you&amp;rsquo;re inserting a Document which primarily contains a unique String (like a database migration&amp;rsquo;s description) this description can be the &lt;code&gt;_id&lt;/code&gt; of the Document.&lt;/p&gt;
+&lt;p&gt;ObjectId keeps track of the creation date and is unique. Int32 and Int can be used incrementally like is usual in SQL. Strings can also be used. When you&amp;rsquo;re inserting a Document which primarily contains a unique String (like a database migration&amp;rsquo;s description) this description can be the &lt;code&gt;_id&lt;/code&gt; of the Document.&lt;/p&gt;
 
 &lt;p&gt;No two Documents can exist in the same collection with the same &lt;code&gt;_id&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;You can also insert an array of Documents which will all be inserted. MongoKitten will return an array of identifiers for each inserted Document.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;let identifiers = try collection.insert([document0, document1, document2])&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;let identifiers = try collection.insert(contentsOf: [document0, document1, document2])&lt;/code&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Cursor</title>
-      <link>http://docs.openkitten.org/tutorials/Cursor/</link>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/Cursor/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/tutorials/Cursor/</guid>
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/Cursor/</guid>
       <description>
 
 &lt;h1 id=&#34;cursor&#34;&gt;Cursor&lt;/h1&gt;
 
-&lt;p&gt;All larger result sets in MongoKitten are encapsulated in a Cursor.&lt;/p&gt;
+&lt;p&gt;Cursors are a selector for a subset of data in MongoDB. It can be queried again to extract a subset and most operations can be executed on it. Count, Read, Update, Remove.&lt;/p&gt;
 
-&lt;p&gt;Cursors are a pointer to a set of data on the MongoDB instance, not locally in-memory.
-When looped over the cursor&amp;rsquo;s contents the Cursor will fetch a batch X Documents from the server and make them available to the user. Whenever more are requested the Cursor will fetch the next batch of Documents. The amount of Documents fetched at a time is configurable in most commands with a &lt;code&gt;withBatchSize&lt;/code&gt; parameter.&lt;/p&gt;
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
 
-&lt;p&gt;A big amount of Documents could benefit enormously from &lt;code&gt;withBatchSize&lt;/code&gt; at 1000 but the Document grouped together may not be bigger than 48MB. Luckily, this rarely happens unless you store binary data like images inside the Documents. A batchSize of 1000 would still leave 48KB of data per Document.&lt;/p&gt;
-
-&lt;h2 id=&#34;mapping-transforming&#34;&gt;Mapping/Transforming&lt;/h2&gt;
-
-&lt;p&gt;When you&amp;rsquo;re executing a &lt;code&gt;find&lt;/code&gt; command on a Collection, it&amp;rsquo;s likely this collection stores data of a certain type. Like all users, all articles etc. For this purpose Cursor has a mechanism to map incoming Documents to other types or even those other types to more specialized types.&lt;/p&gt;
-
-&lt;p&gt;Assuming you have stored &lt;code&gt;Cursor&amp;lt;Document&amp;gt;&lt;/code&gt; received from calling a &lt;code&gt;find&lt;/code&gt; method on Collection:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import BSON
-import MongoKitten
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let childrenDocuments: Cursor&amp;lt;Document&amp;gt; = Cursor&amp;lt;Document&amp;gt;(in: database[&amp;quot;users&amp;quot;], where: &amp;quot;age&amp;quot; &amp;lt; 18)
 
 struct User {
-  let username: String
-  init?(fromDocument document: Document) {
-    guard let username = document[&amp;quot;username&amp;quot;] as String? else {
-      return nil
-    }
+  ...
 
-    self.username = username
+  init?(userDocument: Document) throws {
+    ...
   }
 }
 
-let usersCursor = Cursor(basicDocumentCursor) { document in
-  return User(fromDocument: document)
+// flatmaps all results
+let childrenUserObjects: Cursor&amp;lt;User&amp;gt; = Cursor(in: database[&amp;quot;users&amp;quot;], where: &amp;quot;age&amp;quot; &amp;lt; 18) { document in
+  return try User.init(userDocument: document)
+}
+
+// puts all users that are under 18 in an Array
+let users: [User] = Array(childrenUserObjects)
+
+let transformedChildrenUserObjects: Cursor&amp;lt;User&amp;gt; = childrenDocuments.flatMap { document in
+  return try User.init(userDocument: document)
+}
+
+// Sets &amp;quot;child&amp;quot; to `true` for all children
+try transformedChildrenUserObjects.update(to: [
+  &amp;quot;$set&amp;quot;: [
+    &amp;quot;isChild&amp;quot;: true
+  ]
+])
+
+for child in transformedChildrenUserObjects {
+  print(Int(child[&amp;quot;age&amp;quot;])) // prints their age
+}
+
+// removes all selected users
+try childrenUserObjects.remove()
+
+// All children have been removed, doesn&#39;t return any results
+
+for user in try childrenUserObjects.find() {
+  // never runs
 }
 &lt;/code&gt;&lt;/pre&gt;
 </description>
@@ -276,10 +393,10 @@ let usersCursor = Cursor(basicDocumentCursor) { document in
     
     <item>
       <title>Delete/Remove</title>
-      <link>http://docs.openkitten.org/tutorials/crud/delete/</link>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/crud/delete/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/tutorials/crud/delete/</guid>
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/crud/delete/</guid>
       <description>
 
 &lt;h1 id=&#34;removing-documents&#34;&gt;Removing documents&lt;/h1&gt;
@@ -291,14 +408,14 @@ let usersCursor = Cursor(basicDocumentCursor) { document in
 
 &lt;p&gt;The above example will remove all Documents.&lt;/p&gt;
 
-&lt;p&gt;You can specify requirements for the documents that will be removed by adding a &lt;code&gt;matching:&lt;/code&gt; parameter. &lt;a href=&#34;http://docs.openkitten.org/tutorials/QueryBuilder/&#34;&gt;In there you must provide a Query.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You can specify requirements for the documents that will be removed by adding a &lt;code&gt;matching:&lt;/code&gt; parameter. &lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/QueryBuilder/&#34;&gt;In there you must provide a Query.&lt;/a&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove(matching: &amp;quot;first_name&amp;quot; == &amp;quot;Joannis&amp;quot;) // Returns 1, only one user named &amp;quot;Joannis&amp;quot; exists
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove(&amp;quot;first_name&amp;quot; == &amp;quot;Joannis&amp;quot;) // Returns 1, only one user named &amp;quot;Joannis&amp;quot; exists
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;If you only want to remove one matching document:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove(limitedTo: 1) // returns 1, only one Document may be removed. Any document will do because there is no matching filter
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove(limiting: 1) // returns 1, only one Document may be removed. Any document will do because there is no matching filter
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://mongokitten.openkitten.org/Classes/Collection.html#/s:FC11MongoKitten10Collection6removeFzT8matchingGSaT6filterVS_5Query5limitVs5Int32__12writeConcernGSqOS_12WriteConcern_15stoppingOnErrorGSqSb__Si&#34;&gt;For more information about removing documents, click here&lt;/a&gt;&lt;/p&gt;
@@ -307,10 +424,10 @@ let usersCursor = Cursor(basicDocumentCursor) { document in
     
     <item>
       <title>GridFS</title>
-      <link>http://docs.openkitten.org/tutorials/gridfs/</link>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/gridfs/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/tutorials/gridfs/</guid>
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/gridfs/</guid>
       <description>
 
 &lt;h1 id=&#34;gridfs&#34;&gt;GridFS&lt;/h1&gt;
@@ -423,7 +540,7 @@ let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
 &lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.createIndex(withParameters: .text([&amp;quot;keys&amp;quot;, &amp;quot;in&amp;quot;, &amp;quot;document&amp;quot;]))
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;a href=&#34;No page found with path or logical name &#34;tutorials/QueryBuilder/&#34;.
+&lt;p&gt;&lt;a href=&#34;No page found with path or logical name &#34;tutorials/QueryBuilder.md&#34;.
 &#34;&gt;Querying text indexes using the query builder is simple.&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;unique&#34;&gt;Unique&lt;/h2&gt;
@@ -439,227 +556,106 @@ let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
     </item>
     
     <item>
-      <title>QueryBuilder</title>
-      <link>http://docs.openkitten.org/tutorials/QueryBuilder/</link>
+      <title>Indexes</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/Indexes/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
-      <guid>http://docs.openkitten.org/tutorials/QueryBuilder/</guid>
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/Indexes/</guid>
       <description>
 
-&lt;h1 id=&#34;query&#34;&gt;Query&lt;/h1&gt;
+&lt;h1 id=&#34;indexes&#34;&gt;Indexes&lt;/h1&gt;
 
-&lt;p&gt;Query is the object that will find data for you. It&amp;rsquo;s used in all CRUD operations except insert. It&amp;rsquo;s used for finding the Document you want to fetch/modify/delete.&lt;/p&gt;
+&lt;p&gt;Indexes allow you to quickly search for specific information. When you&amp;rsquo;re frequently querying the same information it is recommended to create an index for this field. Do &lt;em&gt;not&lt;/em&gt; index all your fields, this will actually reduce the performance of your application rather than increasing it.&lt;/p&gt;
 
-&lt;p&gt;There are two method of creating a Query. You can create a Query manually from a Document or you can use the operators. Operator based queries are means for simple queries only.&lt;/p&gt;
+&lt;h2 id=&#34;text&#34;&gt;Text&lt;/h2&gt;
 
-&lt;p&gt;This would be an example of an operator based query&lt;/p&gt;
+&lt;p&gt;Text indexes are used by MongoDB to allow you to query a collection for Documents matching the text. Like a search engine.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let firstName = &amp;quot;Bob&amp;quot;
-let surName = &amp;quot;de Boer&amp;quot;
-let query: Query = &amp;quot;name_first&amp;quot; == firstName
+&lt;p&gt;They are easily created like this:&lt;/p&gt;
 
-try usersCollection.findOne(matching: &amp;quot;name_first&amp;quot; == firstName &amp;amp;&amp;amp; &amp;quot;name_last&amp;quot; == surName &amp;amp;&amp;amp; &amp;quot;age&amp;quot; &amp;lt; 24)
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.createIndex(withParameters: .text([&amp;quot;keys&amp;quot;, &amp;quot;in&amp;quot;, &amp;quot;document&amp;quot;]))
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;From here on we&amp;rsquo;ll only define the Query, and we&amp;rsquo;ll leave it up to you to put it in a matching parameter of a Count/Read/Update/Delete operation.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/QueryBuilder/#text-searching&#34;&gt;Querying text indexes using the query builder is simple.&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;helpers&#34;&gt;Helpers&lt;/h2&gt;
+&lt;h2 id=&#34;unique&#34;&gt;Unique&lt;/h2&gt;
 
-&lt;p&gt;QueryBuilder has a few build-in helpers.&lt;/p&gt;
+&lt;p&gt;Unique indexes require any documents inserted in the collection to have a unique value for this key.&lt;/p&gt;
 
-&lt;h3 id=&#34;text-searching&#34;&gt;$text searching&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.createIndex(withParameters: .unique, .compound(fields: [
+    &amp;quot;uniqueKey&amp;quot;: 1,
+    &amp;quot;otherUniqueKey&amp;quot;: 1
+]))
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>KittenTemplating</title>
+      <link>http://docs.openkitten.org/tutorials/kittentemplating/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/kittentemplating/</guid>
+      <description>
 
-&lt;p&gt;If you&amp;rsquo;re looking for a piece of text in a document you can use &lt;code&gt;.textSearch&lt;/code&gt; like this:&lt;/p&gt;
+&lt;h1 id=&#34;kittentemplating&#34;&gt;KittenTemplating&lt;/h1&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let query: Query = .textSearch(forString: &amp;quot;cookie&amp;quot;)
+&lt;p&gt;KittenTemplating is a bitcode format and runtime for Swift templates. Currently it only supports parsing Leaf syntax.&lt;/p&gt;
+
+&lt;p&gt;The goal of KittenTemplating is to provide high performance for existing templates.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;And include this in your Package.swift and rebuild your .xcodeproj file using &lt;code&gt;swift package generate-xcodeproj&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  dependencies: [
+    .Package(url: &amp;quot;https://github.com/OpenKitten/KittenTemplating.git&amp;quot;, majorVersion: 0, minor: 6)
+  ]
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;This will match any documents in the collection where the text index has indexed a field in the Document to contain &amp;ldquo;cookie&amp;rdquo;.&lt;/p&gt;
+&lt;h2 id=&#34;parsing-compiling-leaf-templates&#34;&gt;Parsing/Compiling leaf templates&lt;/h2&gt;
 
-&lt;p&gt;This will require you to create a &lt;a href=&#34;http://docs.openkitten.org/tutorials/Indexes/#text&#34;&gt;text index&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Before being able to use a library, you&amp;rsquo;ll need to convert your template(s) to bitcode.
+This works similar to Leaf. You have a &amp;ldquo;Stem&amp;rdquo;, which is a directory of Leafs (templates).&lt;/p&gt;
 
-&lt;h2 id=&#34;raw&#34;&gt;Raw&lt;/h2&gt;
+&lt;p&gt;In the same fashion, we use a &amp;ldquo;path&amp;rdquo; (directory) that contains Leaf templates.&lt;/p&gt;
 
-&lt;p&gt;If you&amp;rsquo;re in need for more raw MongoDB queries you can create one from a Document.&lt;/p&gt;
+&lt;p&gt;Compiling a template is necessary before running.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
-  &amp;quot;name_first&amp;quot;: firstName,
-  &amp;quot;name_last&amp;quot;: surName,
-  &amp;quot;age&amp;quot;: [ &amp;quot;$lt&amp;quot;: 24]
-]
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import KittenTemplating
 
-try usersCollection.findOne(matching: Query(document))
+let homePage = try LeafSyntax.compile(&amp;quot;index.leaf&amp;quot;, atPath: &amp;quot;/path/to/templates/&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Or you can use a Document literal for a Query:&lt;/p&gt;
+&lt;p&gt;At this point, your &lt;code&gt;homePage&lt;/code&gt; variable contains all the information the templates need to start rendering.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try usersCollection.findOne(matching: [
-  &amp;quot;name_first&amp;quot;: firstName,
-  &amp;quot;name_last&amp;quot;: surName,
-  &amp;quot;age&amp;quot;: [ &amp;quot;$lt&amp;quot;: 24]
+&lt;h2 id=&#34;running-the-templates&#34;&gt;Running the templates&lt;/h2&gt;
+
+&lt;p&gt;Rendering a template is simple. All you need to do is call the &lt;code&gt;run()&lt;/code&gt; function on your template object to start rendering.&lt;/p&gt;
+
+&lt;p&gt;The output is &lt;code&gt;[UInt8]&lt;/code&gt; bytes. This can be returned via the preferred route, usually HTTP.&lt;/p&gt;
+
+&lt;p&gt;For integration with other (HTTP) frameworks &lt;a href=&#34;http://docs.openkitten.org/frameworks/Frameworks/&#34;&gt;click here.&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let renderedTemplate = try homePage.run()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;providing-some-context&#34;&gt;Providing some context&lt;/h2&gt;
+
+&lt;p&gt;Most templates require some form of context. Either the user (username, email, fullName, &amp;hellip;), or the information for usage in a table.&lt;/p&gt;
+
+&lt;p&gt;You can provide a context to &lt;code&gt;run()&lt;/code&gt; which will work like a Dictionary.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let renderedTemplate = try homePage.run(inContext: [
+  &amp;quot;user&amp;quot;: [
+    &amp;quot;username&amp;quot;: &amp;quot;JoannisO&amp;quot;,
+    &amp;quot;email&amp;quot;: &amp;quot;joannis@orlandos.nl&amp;quot;
+  ],
+  &amp;quot;numbers&amp;quot;: [
+    0, 2, 4, 8, 16, 15, 13, 11
+  ]
 ])
 &lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Read/Find</title>
-      <link>http://docs.openkitten.org/tutorials/crud/read/</link>
-      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
-      
-      <guid>http://docs.openkitten.org/tutorials/crud/read/</guid>
-      <description>
-
-&lt;h1 id=&#34;reading-finding&#34;&gt;Reading/finding&lt;/h1&gt;
-
-&lt;p&gt;&lt;code&gt;find&lt;/code&gt; can be ran without arguments to fetch every Document in the collection.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;try collection.find()&lt;/code&gt; will return a &lt;a href=&#34;http://docs.openkitten.org/tutorials/Cursor/&#34;&gt;Cursor&lt;/a&gt; containing all Documents. Cursors are an important part of the MongoKitten flow but we&amp;rsquo;ll cover them in short here.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;try collection.findOne()&lt;/code&gt; will return a single &lt;code&gt;Document?&lt;/code&gt;. Which is nil if no Document could be found.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code&gt;Array&lt;/code&gt; initializer can be used on the Cursor to create an &lt;code&gt;Array&amp;lt;Document&amp;gt;&lt;/code&gt; containing all results.
-This is recommended when you definitely need all results. Looping over a Cursor is recommended when you don&amp;rsquo;t necessarily need all results and might stop in the middle of the process. &lt;code&gt;Array&lt;/code&gt; isn&amp;rsquo;t any better than Cursor other than providing the ability to count the results without an extra query. However, it does use more RAM.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let documentArray = Array(try collection.find())
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can specify 6 parameters which we&amp;rsquo;ll all cover underneath which, of course, can be combined.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;find&lt;/code&gt; accepts &lt;a href=&#34;http://docs.openkitten.org/tutorials/QueryBuilder/&#34;&gt;a Query&lt;/a&gt; that Documents are matched against. You can create a Query from a Document or using operators.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document = [
-  &amp;quot;username&amp;quot;: &amp;quot;bob&amp;quot;
-]
-let query = Query(document)
-
-try collection.find(matching: query)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let query: Query = &amp;quot;username&amp;quot; == &amp;quot;bob&amp;quot;
-
-try collection.find(matching: query)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If the order of the results matters, for example, when presenting your user a table of results based on their preference. Alphabetically, numerically or otherwise, you can specify a &lt;code&gt;Sort&lt;/code&gt; order where you can specify per-field the order in which the fields must be sorted.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let sort: Sort = [
-  &amp;quot;integer&amp;quot;: .ascending,
-  &amp;quot;date&amp;quot;: .descending
-]
-
-try collection.find(sortedBy: sort)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you don&amp;rsquo;t need all information from the Document you can more efficiently fetch data by providing a projection. The &lt;code&gt;_id&lt;/code&gt; key will be included unless specifically disabled.&lt;/p&gt;
-
-&lt;p&gt;Suppose the following Document resides in the database:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
-  &amp;quot;_id&amp;quot;: try ObjectId(&amp;quot;abcdefabcdefabcdefabcdef&amp;quot;),
-  &amp;quot;key0&amp;quot;: &amp;quot;henk&amp;quot;,
-  &amp;quot;key1&amp;quot;: true,
-  &amp;quot;key2&amp;quot;: 3,
-  &amp;quot;key3&amp;quot;: [
-    &amp;quot;key4&amp;quot;: &amp;quot;value0&amp;quot;
-  ]
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The following projection will return the keys &lt;code&gt;_id&lt;/code&gt;, &lt;code&gt;key1&lt;/code&gt; and &lt;code&gt;key2&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let projection: Projection = [&amp;quot;key1&amp;quot;, &amp;quot;key2&amp;quot;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The following projections will return &lt;code&gt;key2&lt;/code&gt; and &lt;code&gt;key3&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let projection0: Projection = [
-  &amp;quot;_id&amp;quot;: false,
-  &amp;quot;key2&amp;quot;: true,
-  &amp;quot;key3&amp;quot;: true
-]
-
-let projection1: Projection = [
-  &amp;quot;_id&amp;quot;: .excluded,
-  &amp;quot;key2&amp;quot;: .included,
-  &amp;quot;key3&amp;quot;: .included
-]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Applying this projection to limit the returned fields is simple:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.find(projecting: projection0)
-try collection.find(projecting: projection1)
-try collection.find(projecting: [&amp;quot;_id&amp;quot;: false, &amp;quot;key0&amp;quot;: .included])
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If you don&amp;rsquo;t want the first X results you can skip those. If 5 documents match the find query and the skip is set so 4, the last Document is returned. If the skip is set to 2, the last 3 documents will be returned. If the skip is set to 5, no Documents will be returned.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.find(skipping: 3)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And if you don&amp;rsquo;t want more than X results you can specify a limit. If 5 documents match the find query and the limit is set to 7, 5 Documents will be returned. If the limit is set to 3, the first 3 Documents will be returned.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.find(limitedTo: 3)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Find queries also accept a batchSize.&lt;/p&gt;
-
-&lt;p&gt;The batch size is important with respect to efficiency and performance. Cursors return &lt;code&gt;batchSize&lt;/code&gt; of Documents with every fetch. And a fetch is done whenever more Documents are required. When looping over a cursor containing 100 Documents with a batchSize of 10, 10 queries will be done to fetch all results. The default value is 100 Documents per query. A Document can be up to 16 MB and MongoDB usually only communicates 48 MB per message.&lt;/p&gt;
-
-&lt;p&gt;If you&amp;rsquo;re fetching a lot of small Documents a higher batchSize is useful. If you&amp;rsquo;re fetching a lot of big Documents, a smaller batchSize is necessary. And if you&amp;rsquo;re fetching and processing all Documents like &lt;code&gt;Array(collection.find(...))&lt;/code&gt; or a &lt;code&gt;for document in collection.find(...)&lt;/code&gt; that doesn&amp;rsquo;t break out of the loop it&amp;rsquo;s generally better to fetch more Documents per query to reduce the amount of communication and delay.&lt;/p&gt;
-
-&lt;p&gt;Most MongoDB servers don&amp;rsquo;t accept values over 1000.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>SSL Settings</title>
-      <link>http://docs.openkitten.org/tutorials/connect/ssl/</link>
-      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
-      
-      <guid>http://docs.openkitten.org/tutorials/connect/ssl/</guid>
-      <description>
-
-&lt;h1 id=&#34;tls-ssl&#34;&gt;TLS/SSL&lt;/h1&gt;
-
-&lt;p&gt;MongoKitten supports TLS/SSL connections to MongoDB that support TLS/SSL support.&lt;/p&gt;
-
-&lt;p&gt;You can add the query parameter &amp;ldquo;ssl&amp;rdquo; to your connection string &lt;code&gt;mongodb://.....?ssl&lt;/code&gt; or enable SSL in the ClientSettings when initializing a Server. SSLSettings are an immutable part of the ClientSettings, so any configuration will have to be done prior to initializing a ClientSettings object with SSLSettings. SSL configuration be done using secure defaults by initializing it with a &lt;code&gt;true&lt;/code&gt; literal.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;var sslSettings: SSLSettings = true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;These sslSettings can then be modified to accept a specific certificate or even allow unverified hostnames and/or certificates.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Tutorials</title>
-      <link>http://docs.openkitten.org/tutorials/tutorials/</link>
-      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
-      
-      <guid>http://docs.openkitten.org/tutorials/tutorials/</guid>
-      <description>
-
-&lt;h1 id=&#34;tutorials&#34;&gt;Tutorials&lt;/h1&gt;
-
-&lt;p&gt;The tutorials in this section provide examples of some frequently used operations. This section is not meant to be an exhaustive list of all operations available in the Node.js driver.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/connect/&#34;&gt;Connect to MongoDB&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;No page found with path or logical name &#34;tutorials/crud.md&#34;.
-&#34;&gt;Collection CRUD Operations&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/QueryBuilder/&#34;&gt;Query Builder&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/aggregation/&#34;&gt;Aggregation&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/collections/&#34;&gt;Collection Administration&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/Administration/&#34;&gt;Database and Server Administration&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/gridfs/&#34;&gt;GridFS&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

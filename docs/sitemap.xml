@@ -12,12 +12,7 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/bson/ValueConvertible/</loc>
-    <lastmod>2016-12-26T12:11:57+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://docs.openkitten.org/bson/BSONPrimitive/</loc>
+    <loc>http://docs.openkitten.org/bson/Primitive/</loc>
     <lastmod>2016-12-26T12:09:53+01:00</lastmod>
   </url>
   
@@ -27,12 +22,17 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/aggregation/</loc>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/aggregation/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/connect/authenticating/</loc>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/connect/authenticating/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/cheetah/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -42,12 +42,17 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/collections/</loc>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/crud/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/connect/</loc>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/collections/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/connect/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -57,22 +62,27 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/crud/count/</loc>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/crud/count/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/crud/create/</loc>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/crud/create/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/Cursor/</loc>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/Cursor/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/crud/delete/</loc>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/crud/delete/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/frameworks/Frameworks/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -82,12 +92,17 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/gridfs/</loc>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/gridfs/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://docs.openkitten.org/tutorials/Indexes/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/Indexes/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -102,7 +117,27 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/QueryBuilder/</loc>
+    <loc>http://docs.openkitten.org/tutorials/kittentemplating/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/meowmongo/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/meowmongo/Models/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/tutorials/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/QueryBuilder/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -112,7 +147,7 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/crud/read/</loc>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/crud/read/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -122,7 +157,17 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/connect/ssl/</loc>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/connect/ssl/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/meowmongo/Types/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -132,7 +177,12 @@
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/crud/update/</loc>
+    <loc>http://docs.openkitten.org/tutorials/meowmongo/TypeSafeQueries/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/crud/update/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -142,18 +192,29 @@
   </url>
   
   <url>
+    <loc>http://docs.openkitten.org/frameworks/vapor/Vapor/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://docs.openkitten.org/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.openkitten.org/tutorials/Administration/</loc>
+    <loc>http://docs.openkitten.org/tutorials/mongokitten/Administration/</loc>
     <lastmod>2016-12-14T12:57:41+01:00</lastmod>
   </url>
   
   <url>
     <loc>http://docs.openkitten.org/bson/</loc>
     <lastmod>2016-12-26T12:14:08+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/frameworks/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
     <priority>0</priority>
   </url>
   

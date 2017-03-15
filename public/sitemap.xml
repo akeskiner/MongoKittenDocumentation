@@ -37,6 +37,11 @@
   </url>
   
   <url>
+    <loc>http://docs.openkitten.org/tutorials/crud/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://docs.openkitten.org/tutorials/mongokitten/crud/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
@@ -77,12 +82,22 @@
   </url>
   
   <url>
+    <loc>http://docs.openkitten.org/frameworks/Frameworks/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://docs.openkitten.org/reference/faq/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://docs.openkitten.org/tutorials/mongokitten/gridfs/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/Indexes/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -102,7 +117,17 @@
   </url>
   
   <url>
+    <loc>http://docs.openkitten.org/tutorials/kittentemplating/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://docs.openkitten.org/tutorials/meowmongo/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/meowmongo/Models/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -137,7 +162,22 @@
   </url>
   
   <url>
+    <loc>http://docs.openkitten.org/tutorials/meowmongo/Types/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://docs.openkitten.org/tutorials/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/tutorials/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/tutorials/meowmongo/TypeSafeQueries/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -148,6 +188,11 @@
   
   <url>
     <loc>http://docs.openkitten.org/upgrade-migration/upgrade-migration/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/frameworks/vapor/Vapor/</loc>
     <lastmod>2016-12-14T12:36:56+00:00</lastmod>
   </url>
   
@@ -164,6 +209,12 @@
   <url>
     <loc>http://docs.openkitten.org/bson/</loc>
     <lastmod>2016-12-26T12:14:08+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://docs.openkitten.org/frameworks/</loc>
+    <lastmod>2016-12-14T12:36:56+00:00</lastmod>
     <priority>0</priority>
   </url>
   

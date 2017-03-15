@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Frameworks on MongoDB Swift Driver</title>
+    <link>http://docs.openkitten.org/frameworks/index.xml</link>
+    <description>Recent content in Frameworks on MongoDB Swift Driver</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 14 Dec 2016 12:36:56 +0000</lastBuildDate>
+    <atom:link href="http://docs.openkitten.org/frameworks/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Frameworks</title>
+      <link>http://docs.openkitten.org/frameworks/Frameworks/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/frameworks/Frameworks/</guid>
+      <description>
+
+&lt;h1 id=&#34;tutorials&#34;&gt;Tutorials&lt;/h1&gt;
+
+&lt;p&gt;This section contains all information about using these libraries in combination with popular frameworks.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.openkitten.org/frameworks/vapor/Vapor/&#34;&gt;Vapor&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Vapor</title>
+      <link>http://docs.openkitten.org/frameworks/vapor/Vapor/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/frameworks/vapor/Vapor/</guid>
+      <description>
+
+&lt;h1 id=&#34;vapor&#34;&gt;Vapor&lt;/h1&gt;
+
+&lt;p&gt;Vapor is the most popular Swift web framework. Many people use it happily.
+It has a highly readable API and is written in the same language you use to interact with it, Swift.&lt;/p&gt;
+
+&lt;p&gt;For each library there are different possible integrations that can be created. Some overlap.&lt;/p&gt;
+
+&lt;h2 id=&#34;mongokitten&#34;&gt;MongoKitten&lt;/h2&gt;
+
+&lt;p&gt;When you&amp;rsquo;re using one of the above three libraries, one of the types you&amp;rsquo;ll often use is ObjectId. It is a lightweight unique identifier that is easily representable as a String due to it&amp;rsquo;s relatively small binary size.&lt;/p&gt;
+
+&lt;p&gt;ObjectIds are often expressed as a 24-character hexadecimal string. No wonder that it&amp;rsquo;s often used in URLs to identify an article, user profile or other database entity.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import Vapor
+import BSON
+
+extension ObjectId : StringInitializable {
+  public init?(from string: String) throws {
+    try self.init(string)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This makes ObjectId usable within Vapor&amp;rsquo;s type-safe routes as shown in the example underneath, allowing you to fetch database entities more easily.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import Vapor
+import MongoKitten
+
+let drop = Droplet()
+let db = Database(&amp;quot;mongodb://localhost&amp;quot;)
+
+drop.get(&amp;quot;articles&amp;quot;, ObjectId.self) { request, articleId in
+  guard let article = try db[&amp;quot;articles&amp;quot;].findOne(&amp;quot;_id&amp;quot; == articleId) else {
+    // TODO: Article not found
+  }
+
+  // TODO: Present article
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;meowmongo&#34;&gt;MeowMongo&lt;/h2&gt;
+
+&lt;p&gt;Like MongoKitten users, MeowMongo users also store their entities in the database, usually with an ObjectId. This means you could apply roughly the same trick on Models.&lt;/p&gt;
+
+&lt;p&gt;Assuming the model specified below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;struct Article : Model {
+  var id = ObjectId()
+  var title: String
+  var text: String
+  var author: Reference&amp;lt;User&amp;gt;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This model doesn&amp;rsquo;t conform to StringInitializable, yes. But this is easily added in an extension.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;extension Article : StringInitializable {
+  public init?(from string: String) throws {
+    guard let me = try Article.findOne(&amp;quot;_id&amp;quot; == try ObjectId(string)) else {
+      return nil
+    }
+
+    self = me
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;From here on you can fetch the Article in your Vapor routes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import Vapor
+import Meow
+
+let drop = Droplet()
+Meow.init(&amp;quot;mongodb://localhost&amp;quot;)
+
+drop.get(&amp;quot;articles&amp;quot;, Article.self) { request, article in
+  // TODO: Present article
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
