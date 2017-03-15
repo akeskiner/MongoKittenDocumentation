@@ -16,7 +16,15 @@ Using KittenCore, Cheetah and BSON objects can be converted to the other.
 
 It is both performant and unicode compliant.
 
-## Initialization
+## Installation
+
+Add this line to your dependencies and rebuild your .xcodeproj file file using `swift package generate-xcodeproj`.
+
+```swift
+.Package(url: "https://github.com/OpenKitten/Cheetah.git", majorVersion: 0, minor: 3)
+```
+
+## Instantiation of JSONObjects
 
 ```json
 {
@@ -73,6 +81,8 @@ let jsonObject2 = JSONObject(from: jsonBytes)
 ```
 
 ## Serialization
+
+Serialization works to strings and bytes.
 
 ```swift
 let jsonBinary: [UInt8] = object.serialized()

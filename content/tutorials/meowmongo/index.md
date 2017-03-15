@@ -17,11 +17,11 @@ It's USPs are a type-safe query language, type-safe index builder and a easy set
 
 [Install Sourcery](https://github.com/krzysztofzablocki/Sourcery#installing) to get access to the main USPs of this ORM.
 
-And include this in your Package.swift
+And include this in your Package.swift and rebuild your .xcodeproj file using `swift package generate-xcodeproj`.
 
 ```
   dependencies: [
-    .Package(url: "https://github.com/OpenKitten/MeowMongo.git", majorVersion: 1)
+    .Package(url: "https://github.com/OpenKitten/MeowMongo.git", majorVersion: 0, minor: 3)
   ]
 ```
 

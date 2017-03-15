@@ -38,7 +38,7 @@ The list of BSON Primitives:
 - Date (from Foundation)
 - MinKey
 - MaxKey
-- NSRegularExpression (or RegularExpression on Linux)
+- RegularExpression (BSON Type)
 
 ## Conversion
 
