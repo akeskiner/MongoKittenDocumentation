@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tutorials on MongoDB Swift Driver</title>
+    <link>http://docs.openkitten.org/tutorials/index.xml</link>
+    <description>Recent content in Tutorials on MongoDB Swift Driver</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 14 Dec 2016 12:36:56 +0000</lastBuildDate>
+    <atom:link href="http://docs.openkitten.org/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Aggregation</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/aggregation/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/aggregation/</guid>
+      <description>
+
+&lt;h1 id=&#34;aggregation&#34;&gt;Aggregation&lt;/h1&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;Aggregation operations process data records and return
+computed results. Aggregation operations group values from
+multiple documents together, and can perform a variety of
+operations on the grouped data to return a single result.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-aggregation-pipeline&#34;&gt;The Aggregation Pipeline&lt;/h2&gt;
+
+&lt;p&gt;The aggregation pipeline is a framework for data aggregation
+modeled on the concept of data processing pipelines. Documents
+enter a multi-stage pipeline that transforms the documents into
+aggregated results.&lt;/p&gt;
+
+&lt;p&gt;For a full explanation and a complete list of pipeline stages
+and operators, see the &lt;a href=&#34;https://docs.mongodb.com/manual/core/aggregation-pipeline/&#34;&gt;manual:&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The following example uses the aggregation pipeline on the
+&lt;a href=&#34;https://raw.githubusercontent.com/OpenKitten/Mongo-Assets/master/restaurants.json&#34;&gt;restaurants&lt;/a&gt;
+sample dataset.&lt;/p&gt;
+
+&lt;p&gt;In the following example, the aggregation pipeline&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;first use a &lt;code&gt;$match&lt;/code&gt; stage to filter for documents whose &lt;code&gt;categories&lt;/code&gt; array field contains the element &lt;code&gt;Bakery&lt;/code&gt;.
+The example uses &lt;a href=&#34;http://mongokitten.openkitten.org/Structs/AggregationPipeline/Stage.html#/s:ZFVV11MongoKitten19AggregationPipeline5Stage8matchingFVS_5QueryS1_&#34;&gt;&lt;code&gt;AggregationPipeline.Stage.matching&lt;/code&gt;&lt;/a&gt; to build the &lt;code&gt;$match&lt;/code&gt; stage.&lt;/li&gt;
+&lt;li&gt;Then, uses a &lt;code&gt;$group&lt;/code&gt; stage to group the matching documents by the starts field, accumulating a count of documents for
+each distinct value of &lt;code&gt;stars&lt;/code&gt;. The example uses &lt;a href=&#34;http://mongokitten.openkitten.org/Structs/AggregationPipeline/Stage.html#/s:ZFVV11MongoKitten19AggregationPipeline5Stage8groupingFTPS_23ExpressionRepresentable_8computedGVs10DictionarySSOS_26AccumulatedGroupExpression__S1_&#34;&gt;&lt;code&gt;AggregationPipeline.Stage.grouping&lt;/code&gt;&lt;/a&gt; to build the &lt;code&gt;$group&lt;/code&gt; stage
+and &lt;a href=&#34;http://mongokitten.openkitten.org/Enums/AccumulatedGroupExpression.html#/s:ZFO11MongoKitten26AccumulatedGroupExpression5sumOfFtGSaPS_23ExpressionRepresentable___S0_&#34;&gt;&lt;code&gt;AccumulatedGroupExpression.sumOf&lt;/code&gt;&lt;/a&gt; to build the accumulator expression.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import MongoKitten
+
+let server = try Server(mongoURL: &amp;quot;mongodb://localhost:27017&amp;quot;)
+let database = server[&amp;quot;tutorial&amp;quot;]
+
+let restaurants = database[&amp;quot;restaurants&amp;quot;]
+
+let matchStage = AggregationPipeline.Stage.matching(&amp;quot;categories&amp;quot; == &amp;quot;Bakery&amp;quot;)
+let groupStage = AggregationPipeline.Stage.grouping(&amp;quot;$stars&amp;quot;, computed: [&amp;quot;count&amp;quot;: .sumOf(1)])
+
+let pipeline: AggregationPipeline = [matchStage, groupStage]
+
+let results = try restaurants.aggregate(pipeline: pipeline)
+
+let _ = results.map {
+    print($0.dictionaryValue)
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Authentication</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/connect/authenticating/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/connect/authenticating/</guid>
+      <description>
+
+&lt;h1 id=&#34;authentication&#34;&gt;Authentication&lt;/h1&gt;
+
+&lt;p&gt;Authentication is done using by either providing a MongoDB connection string or a ClientSettings object.&lt;/p&gt;
+
+&lt;h2 id=&#34;mongodb-connection-string&#34;&gt;MongoDB connection String&lt;/h2&gt;
+
+&lt;p&gt;Authentication via a connection String requires the username and password on the left side of the hostname like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(&amp;quot;mongodb://user:password@hostname&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The username and password need to be URL percent encoded.&lt;/p&gt;
+
+&lt;h3 id=&#34;query-parameters&#34;&gt;Query Parameters&lt;/h3&gt;
+
+&lt;p&gt;You can enable SSL with the query parameter &lt;code&gt;ssl&lt;/code&gt; as described &lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/connect/ssl/&#34;&gt;here.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you need to authenticate to a specific database other than &amp;ldquo;admin&amp;rdquo; you can provide an &amp;ldquo;authSource&amp;rdquo;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(&amp;quot;mongodb://user:password@hostname?authSource=myauthdb&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And if you need an authentication mechanism other than SCRAM you can select one using:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(&amp;quot;mongodb://user:password@hostname?authMechanism=SCRAM_SHA_1&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We currently only support &amp;ldquo;SCRAM_SHA_1&amp;rdquo; and &amp;ldquo;MONGODB-CR&amp;rdquo;. Although other mechanisms can be implemented in the future.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Cheetah</title>
+      <link>http://docs.openkitten.org/tutorials/cheetah/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/cheetah/</guid>
+      <description>
+
+&lt;h1 id=&#34;cheetah-json&#34;&gt;Cheetah - JSON&lt;/h1&gt;
+
+&lt;p&gt;Cheetah is a JSON library that is really performant and easy to use at the same time.&lt;/p&gt;
+
+&lt;p&gt;It provides an API similar to BSON which makes it feel part of the ecosystem.
+Using KittenCore, Cheetah and BSON objects can be converted to the other.&lt;/p&gt;
+
+&lt;p&gt;It is both performant and unicode compliant.&lt;/p&gt;
+
+&lt;h2 id=&#34;initialization&#34;&gt;Initialization&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;names&amp;quot;: [&amp;quot;Joannis&amp;quot;, &amp;quot;Laurent&amp;quot;, &amp;quot;Robbert&amp;quot;],
+  &amp;quot;awesomeNumber&amp;quot;: 3,
+  &amp;quot;OpenKitten approved&amp;quot;: true,
+  &amp;quot;bignum&amp;quot;: 13.37e+100,
+  &amp;quot;smallnum&amp;quot;: -1,
+  &amp;quot;project&amp;quot;: &amp;quot;Cheetah&amp;quot;,
+  &amp;quot;details&amp;quot;: {
+    &amp;quot;open&amp;quot;: &amp;quot;Kitten&amp;quot;,
+    &amp;quot;license&amp;quot;: &amp;quot;MIT&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This works out in Cheetah like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let object: JSONObject = [
+  &amp;quot;names&amp;quot;: [&amp;quot;Joannis&amp;quot;, &amp;quot;Laurent&amp;quot;, &amp;quot;Robbert&amp;quot;],
+  &amp;quot;awesomeNumber&amp;quot;: 3,
+  &amp;quot;OpenKitten approved&amp;quot;: true,
+  &amp;quot;bignum&amp;quot;: 13.37e+100,
+  &amp;quot;smallnum&amp;quot;: -1,
+  &amp;quot;project&amp;quot;: &amp;quot;Cheetah&amp;quot;,
+  &amp;quot;details&amp;quot;: [
+    &amp;quot;open&amp;quot;: &amp;quot;Kitten&amp;quot;,
+    &amp;quot;license&amp;quot;: &amp;quot;MIT&amp;quot;
+  ]
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;extraction&#34;&gt;Extraction&lt;/h2&gt;
+
+&lt;p&gt;Whenever you want to extract values you can subscript it painlessly:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let project = String(object[&amp;quot;project&amp;quot;])
+let bignum = Double(object[&amp;quot;bignum&amp;quot;])
+let smallnum = Int(object[&amp;quot;smallnum&amp;quot;])
+let approved = Bool(object[&amp;quot;OpenKitten approved&amp;quot;])
+let license = String(object[&amp;quot;details&amp;quot;][&amp;quot;license&amp;quot;])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;parsing&#34;&gt;Parsing&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let jsonString: String = ...
+let jsonBytes: [UInt8] = ...
+
+let jsonObject1 = JSONObject(from: jsonString)
+let jsonObject2 = JSONObject(from: jsonBytes)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;serialization&#34;&gt;Serialization&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let jsonBinary: [UInt8] = object.serialized()
+let jsonText: String = object.serializedString()
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Collection CRUD Operations</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/crud/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/crud/</guid>
+      <description>
+
+&lt;h1 id=&#34;crud&#34;&gt;CRUD&lt;/h1&gt;
+
+&lt;p&gt;In &lt;a href=&#34;No page found with path or logical name &#34;tutorials/mongokitten/connect.md&#34;.
+&#34;&gt;the setup guide&lt;/a&gt; we&amp;rsquo;ve covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.&lt;/p&gt;
+
+&lt;p&gt;From a collection object we can start interacting with our data. From here we&amp;rsquo;ll cover all parts of CRUD.
+(Create, Read, Update, Delete). And we&amp;rsquo;ll assume you have a Collection available as the variable &lt;code&gt;collection&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Collections Administration</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/collections/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/collections/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Connect to MongoDB</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/connect/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/connect/</guid>
+      <description>
+
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;MongoKitten is initializable on Server or Database level. Server objects allow access to every database - if the account you use to authenticate has the permissions to - and is generally not used.&lt;/p&gt;
+
+&lt;p&gt;Database is initializable separately and allows access to a single database on a MongoDB server. You can still access the server object from the Database and access other parts of the server via there if this is necessary.&lt;/p&gt;
+
+&lt;p&gt;You can instantiate a Server using a MongoDB connection URL/String:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let server = try Server(&amp;quot;mongodb://localhost&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The database also has two initializers. One accepts a connection URL as String. The database which is accessed is equal to the authentication database in this case.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let database = try Database(&amp;quot;mongodb://user:password@ds12345-a0.domain.com:25078,ds12345-a1.domain.com:25078/kitten?replicaSet=rs-ds125078&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternatively you can create a server object and select the database from there:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let server = try Server(&amp;quot;mongodb://localhost&amp;quot;)
+
+let database = server[&amp;quot;my-database-name&amp;quot;]
+let database = Database(named: &amp;quot;my-database-name&amp;quot;, atServer: server)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Last but not least you can select a collection/table within a database:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let usersCollection = database[&amp;quot;users&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;From here you can interact with every part of MongoKitten.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Count</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/crud/count/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/crud/count/</guid>
+      <description>
+
+&lt;h1 id=&#34;counting&#34;&gt;Counting&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;count&lt;/code&gt; can be used on a collection to count all Documents matching the provided requirements. If no requirements are provided, all documents will be counted.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;count&lt;/code&gt; will return the amount of matches.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count() // returns 5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Count also accepts the parameter &lt;code&gt;matching&lt;/code&gt; which requires &lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/QueryBuilder/&#34;&gt;a Query&lt;/a&gt; to be provided.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.count(&amp;quot;first_name&amp;quot; == &amp;quot;Joannis&amp;quot;) // returns 1 if only one user is named Joannis
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://mongokitten.openkitten.org/Classes/Collection.html#/s:FC11MongoKitten10Collection5countFzT8matchingGSqVS_5Query_9limitedToGSqVs5Int32_8skippingGSqS2__11readConcernGSqOS_11ReadConcern_9collationGSqVS_9Collation__Si&#34;&gt;For more information about counting documents, click here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Create/Insert</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/crud/create/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/crud/create/</guid>
+      <description>
+
+&lt;h1 id=&#34;creation&#34;&gt;Creation&lt;/h1&gt;
+
+&lt;p&gt;You can create an entry in MongoDB by &lt;code&gt;insert&lt;/code&gt;ing a Document into a Collection.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;let identifier = try collection.insert(document)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The returned identifier is the &lt;code&gt;_id&lt;/code&gt; field in the Document. If no &lt;code&gt;_id&lt;/code&gt; exists in the provided Document parameter an ObjectId will be generated. The &lt;code&gt;_id&lt;/code&gt; field can be of almost any value.&lt;/p&gt;
+
+&lt;p&gt;ObjectId keeps track of the creation date and is unique. Int32 and Int can be used incrementally like is usual in SQL. Strings can also be used. When you&amp;rsquo;re inserting a Document which primarily contains a unique String (like a database migration&amp;rsquo;s description) this description can be the &lt;code&gt;_id&lt;/code&gt; of the Document.&lt;/p&gt;
+
+&lt;p&gt;No two Documents can exist in the same collection with the same &lt;code&gt;_id&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can also insert an array of Documents which will all be inserted. MongoKitten will return an array of identifiers for each inserted Document.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;let identifiers = try collection.insert(contentsOf: [document0, document1, document2])&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Cursor</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/Cursor/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/Cursor/</guid>
+      <description>
+
+&lt;h1 id=&#34;cursor&#34;&gt;Cursor&lt;/h1&gt;
+
+&lt;p&gt;Cursors are a selector for a subset of data in MongoDB. It can be queried again to extract a subset and most operations can be executed on it. Count, Read, Update, Remove.&lt;/p&gt;
+
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let childrenDocuments: Cursor&amp;lt;Document&amp;gt; = Cursor&amp;lt;Document&amp;gt;(in: database[&amp;quot;users&amp;quot;], where: &amp;quot;age&amp;quot; &amp;lt; 18)
+
+struct User {
+  ...
+
+  init?(userDocument: Document) throws {
+    ...
+  }
+}
+
+// flatmaps all results
+let childrenUserObjects: Cursor&amp;lt;User&amp;gt; = Cursor(in: database[&amp;quot;users&amp;quot;], where: &amp;quot;age&amp;quot; &amp;lt; 18) { document in
+  return try User.init(userDocument: document)
+}
+
+// puts all users that are under 18 in an Array
+let users: [User] = Array(childrenUserObjects)
+
+let transformedChildrenUserObjects: Cursor&amp;lt;User&amp;gt; = childrenDocuments.flatMap { document in
+  return try User.init(userDocument: document)
+}
+
+// Sets &amp;quot;child&amp;quot; to `true` for all children
+try transformedChildrenUserObjects.update(to: [
+  &amp;quot;$set&amp;quot;: [
+    &amp;quot;isChild&amp;quot;: true
+  ]
+])
+
+for child in transformedChildrenUserObjects {
+  print(Int(child[&amp;quot;age&amp;quot;])) // prints their age
+}
+
+// removes all selected users
+try childrenUserObjects.remove()
+
+// All children have been removed, doesn&#39;t return any results
+
+for user in try childrenUserObjects.find() {
+  // never runs
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Delete/Remove</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/crud/delete/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/crud/delete/</guid>
+      <description>
+
+&lt;h1 id=&#34;removing-documents&#34;&gt;Removing documents&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;remove&lt;/code&gt; removes all Documents (matching the query) but can be limited in the amount of removals. It will return the amount of objects that have been removed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove() // returns 5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above example will remove all Documents.&lt;/p&gt;
+
+&lt;p&gt;You can specify requirements for the documents that will be removed by adding a &lt;code&gt;matching:&lt;/code&gt; parameter. &lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/QueryBuilder/&#34;&gt;In there you must provide a Query.&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove(&amp;quot;first_name&amp;quot; == &amp;quot;Joannis&amp;quot;) // Returns 1, only one user named &amp;quot;Joannis&amp;quot; exists
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you only want to remove one matching document:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.remove(limiting: 1) // returns 1, only one Document may be removed. Any document will do because there is no matching filter
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://mongokitten.openkitten.org/Classes/Collection.html#/s:FC11MongoKitten10Collection6removeFzT8matchingGSaT6filterVS_5Query5limitVs5Int32__12writeConcernGSqOS_12WriteConcern_15stoppingOnErrorGSqSb__Si&#34;&gt;For more information about removing documents, click here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GridFS</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/gridfs/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/gridfs/</guid>
+      <description>
+
+&lt;h1 id=&#34;gridfs&#34;&gt;GridFS&lt;/h1&gt;
+
+&lt;p&gt;GridFS is a standard for using MongoDB as file storage through the MongoDB binary type. MongoDB allows you to store documents up to 16MB in size, which is useful for storing PDFs, profile pictures and other binary data. But if you want to store bigger data than 16MB you&amp;rsquo;ll need to store it over multiple documents. GridFS fulfills that task.&lt;/p&gt;
+
+&lt;h3 id=&#34;setup&#34;&gt;Setup&lt;/h3&gt;
+
+&lt;p&gt;GridFS is a bucket consisting of two collections. This means that two collections have the same prefix separating their own bucket name with a dot (&lt;code&gt;.&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;GridFS uses the &lt;code&gt;fs&lt;/code&gt; prefix by default and then appends the bucket names &lt;code&gt;files&lt;/code&gt; and &lt;code&gt;chunks&lt;/code&gt; to create a &lt;code&gt;fs.files&lt;/code&gt; collection and &lt;code&gt;fs.chunks&lt;/code&gt; collection. Files stores the metadata, chunks stores the binary information for the files.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;let fs = db.makeGridFS()&lt;/code&gt; will get you the GridFS instance.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-gridfs&#34;&gt;Using GridFS&lt;/h2&gt;
+
+&lt;p&gt;MongoKitten&amp;rsquo;s GridFS supports three methods of mutation.&lt;/p&gt;
+
+&lt;p&gt;Create/store, Read/find and Remove/delete.&lt;/p&gt;
+
+&lt;h3 id=&#34;storing-files&#34;&gt;Storing files&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let data: [UInt8] = []
+let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;removing-files&#34;&gt;Removing files&lt;/h3&gt;
+
+&lt;p&gt;Files can only be removed by their identifier because you wouldn&amp;rsquo;t want to remove all files accidentally. For that we have &lt;code&gt;try fs.drop()&lt;/code&gt; which drops the collections.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try fs.remove(byId: fileID)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;finding-files&#34;&gt;Finding files&lt;/h3&gt;
+
+&lt;p&gt;This functions similarly to Collection. But instead of returning a cursor containing Documents it returns a &lt;code&gt;GridFS.File&lt;/code&gt; cursor.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let allFiles = try fs.find()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can find single files using findOne similarly to Collection.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let file: GridFS.File? = try fs.findOne(byID: fileID)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;reading-files&#34;&gt;Reading files&lt;/h3&gt;
+
+&lt;p&gt;Once you&amp;rsquo;ve obtained an instance of &lt;code&gt;GridFS.File&lt;/code&gt; you&amp;rsquo;ve only fetched the metadata. Meaning the filename, mime type, MD5 checksum and any other metadata that this file contains.&lt;/p&gt;
+
+&lt;p&gt;You can use this file instance to fetch either all or specific sets of bytes. In the case of a smaller download, or a download that&amp;rsquo;ll need to be served in it&amp;rsquo;s entirely.&lt;/p&gt;
+
+&lt;p&gt;To fetch all bytes you&amp;rsquo;ll need to iterate over the chunks and send those chunks over the socket stream chunk-by-chunk.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;for chunk in file {
+  socket.send(chunk.data)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can interrupt this process at any time efficiently without fetching extra data from MongoDB.&lt;/p&gt;
+
+&lt;p&gt;MongoKitten will not throw an error when an error occurs when iterating over the file chunks using this method and will instead return no (additional) chunks. This may not always cause harm. In some situations it will result in an aborted or corrupted download which may or may not be a problem. In an image it&amp;rsquo;ll result in a partially loaded image, in a video it&amp;rsquo;ll result in the inability to load some parts of the movie and some file formats like PDF may be unable to open and need to be re-downloaded.&lt;/p&gt;
+
+&lt;p&gt;If you want to set up a failsafe for these scenarios you&amp;rsquo;ll need to use the &lt;code&gt;try file.chunked()&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;for chunk in try file.chunked() {
+  socket.send(chunk.data)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By default most frameworks will be unable to serve the file properly which results in the same situation as above. But if you catch the error manually you may be able to fetch the remaining data by re-trying to fetch the remaining chunks. This can be useful when the used replica set or sharded cluster has had a failure because it&amp;rsquo;s been disabled for maintainance or another reason, or simply to log the problem.&lt;/p&gt;
+
+&lt;h3 id=&#34;resumed-downloads&#34;&gt;Resumed downloads&lt;/h3&gt;
+
+&lt;p&gt;Some larger files and web-browsers may use a functionality that allows resuming downloads. Videos use them for buffering, by downloading the relevant parts of the videos when required allowing you to start watching the first bit whilst the rest is still buffering. Other big files may use this web-feature for resuming big downloads after a connection problem has occurred. Or you may have another use case scenario.&lt;/p&gt;
+
+&lt;p&gt;MongoKitten allows you to fetch specific subsets of information from GridFS.&lt;/p&gt;
+
+&lt;p&gt;You can request all bytes after byte 1 million (1MB) for example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try file.read(from: 1_000_000)`
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can request a limited subset of bytes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try file.read(from: 1_000_000, to: 2_500_000)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This would fetch 1.5MB of data starting after 1MB.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Indexes</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/Indexes/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/Indexes/</guid>
+      <description>
+
+&lt;h1 id=&#34;indexes&#34;&gt;Indexes&lt;/h1&gt;
+
+&lt;p&gt;Indexes allow you to quickly search for specific information. When you&amp;rsquo;re frequently querying the same information it is recommended to create an index for this field. Do &lt;em&gt;not&lt;/em&gt; index all your fields, this will actually reduce the performance of your application rather than increasing it.&lt;/p&gt;
+
+&lt;h2 id=&#34;text&#34;&gt;Text&lt;/h2&gt;
+
+&lt;p&gt;Text indexes are used by MongoDB to allow you to query a collection for Documents matching the text. Like a search engine.&lt;/p&gt;
+
+&lt;p&gt;They are easily created like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.createIndex(withParameters: .text([&amp;quot;keys&amp;quot;, &amp;quot;in&amp;quot;, &amp;quot;document&amp;quot;]))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;No page found with path or logical name &#34;tutorials/mongokitten/QueryBuilder/&#34;.
+&#34;&gt;Querying text indexes using the query builder is simple.&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;unique&#34;&gt;Unique&lt;/h2&gt;
+
+&lt;p&gt;Unique indexes require any documents inserted in the collection to have a unique value for this key.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.createIndex(withParameters: .unique, .compound(fields: [
+    &amp;quot;uniqueKey&amp;quot;: 1,
+    &amp;quot;otherUniqueKey&amp;quot;: 1
+]))
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Meow Mongo</title>
+      <link>http://docs.openkitten.org/tutorials/meowmongo/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/meowmongo/</guid>
+      <description>
+
+&lt;h1 id=&#34;meow-mongo-orm&#34;&gt;(Meow)Mongo ORM&lt;/h1&gt;
+
+&lt;p&gt;MeowMongo is a MongoKitten based ORM using code generation.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s USPs are a type-safe query language, type-safe index builder and a easy set up.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/krzysztofzablocki/Sourcery#installing&#34;&gt;Install Sourcery&lt;/a&gt; to get access to the main USPs of this ORM.&lt;/p&gt;
+
+&lt;p&gt;And include this in your Package.swift&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  dependencies: [
+    .Package(url: &amp;quot;https://github.com/OpenKitten/MeowMongo.git&amp;quot;, majorVersion: 1)
+  ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;setting-up-a-basic-model&#34;&gt;Setting up a basic model&lt;/h2&gt;
+
+&lt;p&gt;After including the MeowMongo dependency you can now create a model using a class or a struct.&lt;/p&gt;
+
+&lt;p&gt;This example uses a class since I regard Users as a reference to the database entity.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;final class User : Model {
+  var id = ObjectId()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you see, we didn&amp;rsquo;t have to write any (de)-serialization code.&lt;/p&gt;
+
+&lt;h2 id=&#34;expanding-the-model&#34;&gt;Expanding the model&lt;/h2&gt;
+
+&lt;p&gt;MeowMongo works with native Swift types, which means that we can use the types we&amp;rsquo;re used to.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;final class User : Model {
+  var id = ObjectId()
+  var username: String
+  var password: String
+  var email: String
+  var favouriteNumber: Int? = nil
+  var favouriteFoods = [String]()
+
+  init(username: String, password: String) {
+    self.username = username
+    self.password = password
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you want to make use of nested/recursive structures, you can conform your structure to &lt;code&gt;Embeddable&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This also supports enums.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;final class User : Model {
+  var profile: Profile
+  /// ..., the rest of the User code like `id` and the other functions/variables
+}
+
+struct Profile : Embeddable {
+  var firstName: String
+  var lastName: String
+  var age: Int
+  var gender: Gender
+}
+
+enum Gender : String, Embeddable {
+  case male, female
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;generating-the-rest-with-sourcery&#34;&gt;Generating the rest with Sourcery&lt;/h2&gt;
+
+&lt;p&gt;Assuming your terminal&amp;rsquo;s PWD is the project root where &lt;code&gt;Package.swift&lt;/code&gt; resides:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sourcery ./Sources/ .build/checkouts/MeowMongo*/Templates ./Sources/Generated.swift
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will scan your sources and generate a new file called &lt;code&gt;Generated.swift&lt;/code&gt; in your project.&lt;/p&gt;
+
+&lt;p&gt;The first time you add this file you will need to regenerate the Xcode project:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;swift package generate-xcodeproj
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;frequently-updated-models&#34;&gt;Frequently updated models&lt;/h3&gt;
+
+&lt;p&gt;If you frequently update your models, add &lt;code&gt;--watch&lt;/code&gt; to the sourcery command to update whenever a change is detected.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sourcery ./Sources/ .build/checkouts/MeowMongo*/Templates ./Sources/Generated.swift --watch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;using-the-cool-new-query-language&#34;&gt;Using the cool new query language&lt;/h2&gt;
+
+&lt;p&gt;First, let&amp;rsquo;s try the most important part, type-safe queries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let allAdultUsers = try User.find { user in
+  return user.profile.age &amp;gt;= 18
+}
+
+let joannisUser = try User.findOne { user in
+  return user.username == &amp;quot;Joannis&amp;quot;
+}
+
+let femaleUsers = try User.findOne { user in
+  return user.profile.gender == .female
+}
+
+let gmailUsers = try User.find { user in
+  return user.hasSuffix(&amp;quot;gmail.com&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;storing-removing-users&#34;&gt;Storing/removing users&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try user.save()
+try user.delete()
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>MongoKitten</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/tutorials/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/tutorials/</guid>
+      <description>
+
+&lt;h1 id=&#34;tutorials&#34;&gt;Tutorials&lt;/h1&gt;
+
+&lt;p&gt;The tutorials in this section provide examples of some frequently used operations. This section is not meant to be an exhaustive list of all operations available in the Swift driver.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/connect/&#34;&gt;Connect to MongoDB&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;No page found with path or logical name &#34;tutorials/mongokitten/crud.md&#34;.
+&#34;&gt;Collection CRUD Operations&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/QueryBuilder/&#34;&gt;Query Builder&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/aggregation/&#34;&gt;Aggregation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/collections/&#34;&gt;Collection Administration&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/Administration/&#34;&gt;Database and Server Administration&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/gridfs/&#34;&gt;GridFS&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>QueryBuilder</title>
+      <link>http://docs.openkitten.org/tutorials/mongokitten/QueryBuilder/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/mongokitten/QueryBuilder/</guid>
+      <description>
+
+&lt;h1 id=&#34;query&#34;&gt;Query&lt;/h1&gt;
+
+&lt;p&gt;Query is the object that will find data for you. It&amp;rsquo;s used in all CRUD operations except insert. It&amp;rsquo;s used for finding the Document you want to fetch/modify/delete.&lt;/p&gt;
+
+&lt;p&gt;There are two method of creating a Query. You can create a Query manually from a Document or you can use the operators. Operator based queries are means for simple queries only.&lt;/p&gt;
+
+&lt;p&gt;This would be an example of an operator based query&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let firstName = &amp;quot;Bob&amp;quot;
+let surName = &amp;quot;de Boer&amp;quot;
+let query: Query = &amp;quot;name_first&amp;quot; == firstName
+
+try usersCollection.findOne(matching: &amp;quot;name_first&amp;quot; == firstName &amp;amp;&amp;amp; &amp;quot;name_last&amp;quot; == surName &amp;amp;&amp;amp; &amp;quot;age&amp;quot; &amp;lt; 24)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;From here on we&amp;rsquo;ll only define the Query, and we&amp;rsquo;ll leave it up to you to put it in a matching parameter of a Count/Read/Update/Delete operation.&lt;/p&gt;
+
+&lt;h2 id=&#34;helpers&#34;&gt;Helpers&lt;/h2&gt;
+
+&lt;p&gt;QueryBuilder has a few build-in helpers.&lt;/p&gt;
+
+&lt;h3 id=&#34;text-searching&#34;&gt;$text searching&lt;/h3&gt;
+
+&lt;p&gt;If you&amp;rsquo;re looking for a piece of text in a document you can use &lt;code&gt;.textSearch&lt;/code&gt; like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let query: Query = .textSearch(forString: &amp;quot;cookie&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will match any documents in the collection where the text index has indexed a field in the Document to contain &amp;ldquo;cookie&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;This will require you to create a &lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/Indexes/#text&#34;&gt;text index&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;raw&#34;&gt;Raw&lt;/h2&gt;
+
+&lt;p&gt;If you&amp;rsquo;re in need for more raw MongoDB queries you can create one from a Document.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;let document: Document = [
+  &amp;quot;name_first&amp;quot;: firstName,
+  &amp;quot;name_last&amp;quot;: surName,
+  &amp;quot;age&amp;quot;: [ &amp;quot;$lt&amp;quot;: 24]
+]
+
+try usersCollection.findOne(matching: Query(document))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or you can use a Document literal for a Query:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try usersCollection.findOne(matching: [
+  &amp;quot;name_first&amp;quot;: firstName,
+  &amp;quot;name_last&amp;quot;: surName,
+  &amp;quot;age&amp;quot;: [ &amp;quot;$lt&amp;quot;: 24]
+])
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

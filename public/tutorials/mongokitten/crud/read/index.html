@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="keyword" content="">
+
+    <link rel="shortcut icon" href="http://docs.openkitten.org/img/favicon.png">
+
+    <title>Read/Find</title>
+
+    <link rel="stylesheet" href="http://docs.openkitten.org/lib/bootstrap.css" type="text/css" />
+<link rel="stylesheet" href="http://docs.openkitten.org/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="http://docs.openkitten.org/css/mongodb-docs.css" type="text/css" />
+<link rel="stylesheet" href="http://docs.openkitten.org/css/overrides.css" type="text/css" />
+<link rel="stylesheet" href="http://docs.openkitten.org/lib/highlight/styles/idea.css" />
+<link rel="stylesheet" href="http://docs.openkitten.org/lib/bootstrap-toggle/bootstrap-toggle.min.css" type="text/css" />
+<link rel="stylesheet" href="http://docs.openkitten.org/css/java.css" type="text/css" />
+
+
+  </head>
+
+  <body>
+  
+  <section id="container" class="">
+      
+      <header id="header-db" class="row" role="navigation">
+  <div class="header-content">
+    <div class="toggle-nav pull-left">
+        <i class="fa fa-bars"></i>
+        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
+    </div>
+    
+    <div class="logo pull-left">
+      <a href="https://github.com/OpenKitten/MongoKitten">
+        <img src="https://avatars3.githubusercontent.com/u/19551949?v=3&s=200", alt="MongoKitten" />
+      </a>
+    </div>
+    
+    <div>
+<div class="nav-items pull-right">
+  <a href="http://www.mongodb.org/downloads" data-toggle="tooltip" data-placement="bottom" title="Download MongoDB">Downloads</a>
+  <a href="http://docs.mongodb.org" data-toggle="tooltip" data-placement="bottom" title="The MongoDB Documentation">Docs</a>    
+</div>
+</div>
+
+  </div>
+</header>
+
+
+      
+
+      
+<aside id="sidebar" class="sidebar">
+    <div class="ssidebar nav-collapse">
+      <div class="ssidebarwrapper">
+        <h3>
+          <a class="index-link" href="https://github.com/OpenKitten/MongoKitten">MongoDB Swift Driver</a>
+          <a class="version pull-right" href="http://docs.openkitten.org">3.1.0</a>
+        </h3>
+
+        
+        <ul class="sidebar-menu">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+    
+      
+    
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+    
+    
+    
+      
+      
+      
+        
+        
+        
+      
+      
+    
+    
+  
+  
+
+
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+    
+      
+      
+    
+    
+  
+
+
+        
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+  
+
+
+        
+      
+    
+    
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+      
+      
+    
+    
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+
+
+          
+
+          
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l1">
+    <a href="/installation-guide/installation-guide/">
+        <i class='fa fa-puzzle-piece'></i>
+        Installation Guide
+    </a>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l1">
+    <a href="/quick-start/quick-start/">
+        <i class='fa fa-road'></i>
+        Quick Start
+    </a>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<li class="toctree-l1  current">
+  <a href="/tutorials/" class="">
+      <i class='fa fa-thumb-tack'></i>
+      <span>Tutorials</span>
+      <span class="menu-arrow fa fa-angle-down"></span>
+  </a>
+    <ul  class="current">
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/tutorials/cheetah/">
+        
+        Cheetah
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/tutorials/meowmongo/">
+        
+        Meow Mongo
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<li class="toctree-l2  current">
+  <a href="/tutorials/mongokitten/tutorials/" class="">
+      
+      <span>MongoKitten</span>
+      
+  </a>
+    <ul  class="current">
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l3 ">
+  <a href="/tutorials/mongokitten/connect/" class="">
+      <i class='fa'></i>
+      <span>Connect to MongoDB</span>
+      
+  </a>
+    <ul >
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/connect/authenticating/">
+        <i class='fa'></i>
+        Authentication
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/connect/ssl/">
+        <i class='fa'></i>
+        SSL Settings
+    </a>
+  </li>
+
+
+        
+        
+    </ul>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<li class="toctree-l3  current">
+  <a href="/tutorials/mongokitten/crud/" class="">
+      <i class='fa'></i>
+      <span>Collection CRUD Operations</span>
+      
+  </a>
+    <ul  class="current">
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/crud/create/">
+        <i class='fa'></i>
+        Create/Insert
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/crud/read/">
+        <i class='fa'></i>
+        Read/Find
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/crud/update/">
+        <i class='fa'></i>
+        Update
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/crud/delete/">
+        <i class='fa'></i>
+        Delete/Remove
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/crud/count/">
+        <i class='fa'></i>
+        Count
+    </a>
+  </li>
+
+
+        
+        
+    </ul>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/QueryBuilder/">
+        <i class='fa'></i>
+        QueryBuilder
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/aggregation/">
+        <i class='fa'></i>
+        Aggregation
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/Indexes/">
+        <i class='fa'></i>
+        Indexes
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/Cursor/">
+        <i class='fa'></i>
+        Cursor
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/collections/">
+        <i class='fa'></i>
+        Collections Administration
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/Administration/">
+        <i class='fa'></i>
+        Administration
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/gridfs/">
+        <i class='fa'></i>
+        GridFS
+    </a>
+  </li>
+
+
+        
+        
+    </ul>
+  </li>
+
+
+        
+        
+    </ul>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 ">
+  <a href="/bson/BSON/" class="">
+      <i class='fa fa-th'></i>
+      <span>BSON</span>
+      <span class="menu-arrow fa fa-angle-right"></span>
+  </a>
+    <ul >
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/bson/Primitive/">
+        <i class='fa'></i>
+        BSONPrimitive
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/bson/ObjectId/">
+        <i class='fa'></i>
+        ObjectId
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/bson/Document/">
+        <i class='fa'></i>
+        Document
+    </a>
+  </li>
+
+
+        
+        
+    </ul>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 ">
+  <a href="/reference/reference/" class="">
+      <i class='fa fa-book'></i>
+      <span>Reference</span>
+      <span class="menu-arrow fa fa-angle-right"></span>
+  </a>
+    <ul >
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/reference/connecting/">
+        <i class='fa'></i>
+        Connection Options
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/reference/faq/">
+        <i class='fa'></i>
+        Frequently Asked Questions
+    </a>
+  </li>
+
+
+        
+        
+    </ul>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l1">
+    <a href="/upgrade-migration/upgrade-migration/">
+        <i class='fa fa-cog'></i>
+        Upgrade Guide
+    </a>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l1">
+    <a href="http://mongokitten.openkitten.org">
+        <i class='fa fa-file-text-o'></i>
+        API Documentation
+    </a>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l1">
+    <a href="https://github.com/OpenKitten/MongoKitten">
+        <i class='fa fa-github'></i>
+        Source Code
+    </a>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l1">
+    <a href="/issues-help/">
+        <i class='fa fa-life-ring'></i>
+        Issues &amp; Help
+    </a>
+  </li>
+
+
+          
+        </ul>
+        
+    </div>
+  </div>
+  
+</aside>
+
+<div class="option-popup closed hidden" id="optionsVersionsPopup">
+<div class="option-header">
+  <i class="fa fa-gear"></i>
+  <span>OPTIONS</span>
+  <i class="fa fa-angle-up pull-right"></i>
+</div>
+<div class="option-body">
+  <ul>
+      
+      <li>
+        <label>Version</label>
+        <div class="btn-group btn-group-xs pull-right">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Select Version <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" id="optionsVersionsMenu">
+          </ul>
+        </div>
+      </li>
+
+   
+
+
+    
+
+  </ul>
+</div>
+</div>
+
+
+
+      
+      <section id="main-content" class="content">
+          <section class="main-column pull-left">
+            <div class="document">
+              <div class="documentwrapper">
+                <div class="bodywrapper">
+                  <div class="body">
+
+
+   
+<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/tutorials/mongokitten/crud/read.md" target="_blank" title="Edit tutorials/mongokitten/crud/read.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+
+
+
+
+
+
+
+
+
+
+<div class="bc">
+<ul>
+  
+  
+  
+  <li><a href="/tutorials/">Tutorials</a> <i class="fa fa-angle-right"></i></li>
+  <li><a href="/tutorials/mongokitten/tutorials/">MongoKitten</a> <i class="fa fa-angle-right"></i></li>
+  <li><a href="/tutorials/mongokitten/crud/">Collection CRUD Operations</a> <i class="fa fa-angle-right"></i></li>
+  <li>Read/Find</li>
+</ul>
+</div>
+
+
+
+
+<h1 id="reading-finding">Reading/finding</h1>
+
+<p><code>find</code> can be ran without arguments to fetch every Document in the collection.</p>
+
+<p><code>try collection.find()</code> will return a <a href="/tutorials/mongokitten/Cursor/">Cursor</a> containing all Documents. Cursors are an important part of the MongoKitten flow but we&rsquo;ll cover them in short here.</p>
+
+<p><code>try collection.findOne()</code> will return a single <code>Document?</code>. Which is nil if no Document could be found.</p>
+
+<p>The <code>Array</code> initializer can be used on the Cursor to create an <code>Array&lt;Document&gt;</code> containing all results.
+This is recommended when you definitely need all results. Looping over a Cursor is recommended when you don&rsquo;t necessarily need all results and might stop in the middle of the process. <code>Array</code> isn&rsquo;t any better than Cursor other than providing the ability to count the results without an extra query. However, it does use more RAM.</p>
+
+<pre><code class="language-swift">let documentArray = Array(try collection.find())
+</code></pre>
+
+<p>You can specify 6 parameters which we&rsquo;ll all cover underneath which, of course, can be combined.</p>
+
+<p><code>find</code> accepts <a href="/tutorials/mongokitten/QueryBuilder/">a Query</a> that Documents are matched against. You can create a Query from a Document or using operators.</p>
+
+<pre><code class="language-swift">let query: Query = [
+  &quot;username&quot;: &quot;bob&quot;
+]
+
+try collection.find(matching: query)
+</code></pre>
+
+<pre><code class="language-swift">let query: Query = &quot;username&quot; == &quot;bob&quot;
+
+try collection.find(matching: query)
+</code></pre>
+
+<p>If the order of the results matters, for example, when presenting your user a table of results based on their preference. Alphabetically, numerically or otherwise, you can specify a <code>Sort</code> order where you can specify per-field the order in which the fields must be sorted.</p>
+
+<pre><code class="language-swift">let sort: Sort = [
+  &quot;integer&quot;: .ascending,
+  &quot;date&quot;: .descending
+]
+
+try collection.find(sortedBy: sort)
+</code></pre>
+
+<p>If you don&rsquo;t need all information from the Document you can more efficiently fetch data by providing a projection. The <code>_id</code> key will be included unless specifically disabled.</p>
+
+<p>Suppose the following Document resides in the database:</p>
+
+<pre><code class="language-swift">let document: Document = [
+  &quot;_id&quot;: try ObjectId(&quot;abcdefabcdefabcdefabcdef&quot;),
+  &quot;key0&quot;: &quot;henk&quot;,
+  &quot;key1&quot;: true,
+  &quot;key2&quot;: 3,
+  &quot;key3&quot;: [
+    &quot;key4&quot;: &quot;value0&quot;
+  ]
+]
+</code></pre>
+
+<p>The following projection will return the keys <code>_id</code>, <code>key1</code> and <code>key2</code>.</p>
+
+<pre><code class="language-swift">let projection: Projection = [&quot;key1&quot;, &quot;key2&quot;]
+</code></pre>
+
+<p>The following projections will return <code>key2</code> and <code>key3</code>.</p>
+
+<pre><code class="language-swift">let projection0: Projection = [
+  &quot;_id&quot;: false,
+  &quot;key2&quot;: true,
+  &quot;key3&quot;: true
+]
+
+let projection1: Projection = [
+  &quot;_id&quot;: .excluded,
+  &quot;key2&quot;: .included,
+  &quot;key3&quot;: .included
+]
+</code></pre>
+
+<p>Applying this projection to limit the returned fields is simple:</p>
+
+<pre><code class="language-swift">try collection.find(projecting: projection0)
+try collection.find(projecting: projection1)
+try collection.find(projecting: [&quot;_id&quot;: false, &quot;key0&quot;: .included])
+</code></pre>
+
+<p>If you don&rsquo;t want the first X results you can skip those. If 5 documents match the find query and the skip is set so 4, the last Document is returned. If the skip is set to 2, the last 3 documents will be returned. If the skip is set to 5, no Documents will be returned.</p>
+
+<pre><code class="language-swift">try collection.find(skipping: 3)
+</code></pre>
+
+<p>And if you don&rsquo;t want more than X results you can specify a limit. If 5 documents match the find query and the limit is set to 7, 5 Documents will be returned. If the limit is set to 3, the first 3 Documents will be returned.</p>
+
+<pre><code class="language-swift">try collection.find(limitedTo: 3)
+</code></pre>
+
+<p>Find queries also accept a batchSize.</p>
+
+<p>The batch size is important with respect to efficiency and performance. Cursors return <code>batchSize</code> of Documents with every fetch. And a fetch is done whenever more Documents are required. When looping over a cursor containing 100 Documents with a batchSize of 10, 10 queries will be done to fetch all results. The default value is 100 Documents per query. A Document can be up to 16 MB and MongoDB usually only communicates 48 MB per message.</p>
+
+<p>If you&rsquo;re fetching a lot of small Documents a higher batchSize is useful. If you&rsquo;re fetching a lot of big Documents, a smaller batchSize is necessary. And if you&rsquo;re fetching and processing all Documents like <code>Array(collection.find(...))</code> or a <code>for document in collection.find(...)</code> that doesn&rsquo;t break out of the loop it&rsquo;s generally better to fetch more Documents per query to reduce the amount of communication and delay.</p>
+
+<p>Most MongoDB servers don&rsquo;t accept values over 1000.</p>
+
+
+
+
+
+
+<div id="btnv">
+  
+  <div class="pull-left">
+  <a class="navigation prev" href="/tutorials/mongokitten/crud/create/">
+      <i class="fa fa-long-arrow-left"> </i> Create/Insert
+  </a>
+  </div>
+  
+  
+  <div class="pull-right">
+  <a class="navigation next" href="/tutorials/mongokitten/crud/update/">
+    Update <i class="fa fa-long-arrow-right"> </i>
+  </a>
+  
+</div>
+</div>
+
+
+<div class="right-column">
+<div class="wrapper">
+  
+  <div class="toc">
+    <span class="toc-header">On this page</span>
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#reading-finding">Reading/finding</a></li>
+</ul>
+</nav>
+  </div>
+  
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+
+</section>
+
+
+<script type="text/javascript">
+  var DOCUMENTATION_OPTIONS = {
+   URL_ROOT:    "http://docs.openkitten.org",
+   VERSION:     "3.1.0",
+   COLLAPSE_INDEX: false,
+   FILE_SUFFIX: '.html',
+   HAS_SOURCE:  true
+  };
+</script>
+<script type="text/javascript" src="http://docs.openkitten.org/js/jquery.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/lib/bootstrap.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/js/navbar.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/lib/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/js/scripts.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/lib/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/js/java.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/js/toggle-switch.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-88981449-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
+

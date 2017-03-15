@@ -1,6 +1,6 @@
 +++
 date = "2016-12-14T12:36:56Z"
-title = "MongoKitten"
+title = "MongoKitten (Driver)"
 [menu.main]
   parent = "Tutorials"
   identifier = "MongoKitten"

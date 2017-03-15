@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="keyword" content="">
+
+    <link rel="shortcut icon" href="http://docs.openkitten.org/img/favicon.png">
+
+    <title>GridFS</title>
+
+    <link rel="stylesheet" href="http://docs.openkitten.org/lib/bootstrap.css" type="text/css" />
+<link rel="stylesheet" href="http://docs.openkitten.org/lib/font-awesome/css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="http://docs.openkitten.org/css/mongodb-docs.css" type="text/css" />
+<link rel="stylesheet" href="http://docs.openkitten.org/css/overrides.css" type="text/css" />
+<link rel="stylesheet" href="http://docs.openkitten.org/lib/highlight/styles/idea.css" />
+<link rel="stylesheet" href="http://docs.openkitten.org/lib/bootstrap-toggle/bootstrap-toggle.min.css" type="text/css" />
+<link rel="stylesheet" href="http://docs.openkitten.org/css/java.css" type="text/css" />
+
+
+  </head>
+
+  <body>
+  
+  <section id="container" class="">
+      
+      <header id="header-db" class="row" role="navigation">
+  <div class="header-content">
+    <div class="toggle-nav pull-left">
+        <i class="fa fa-bars"></i>
+        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
+    </div>
+    
+    <div class="logo pull-left">
+      <a href="https://github.com/OpenKitten/MongoKitten">
+        <img src="https://avatars3.githubusercontent.com/u/19551949?v=3&s=200", alt="MongoKitten" />
+      </a>
+    </div>
+    
+    <div>
+<div class="nav-items pull-right">
+  <a href="http://www.mongodb.org/downloads" data-toggle="tooltip" data-placement="bottom" title="Download MongoDB">Downloads</a>
+  <a href="http://docs.mongodb.org" data-toggle="tooltip" data-placement="bottom" title="The MongoDB Documentation">Docs</a>    
+</div>
+</div>
+
+  </div>
+</header>
+
+
+      
+
+      
+<aside id="sidebar" class="sidebar">
+    <div class="ssidebar nav-collapse">
+      <div class="ssidebarwrapper">
+        <h3>
+          <a class="index-link" href="https://github.com/OpenKitten/MongoKitten">MongoDB Swift Driver</a>
+          <a class="version pull-right" href="http://docs.openkitten.org">3.1.0</a>
+        </h3>
+
+        
+        <ul class="sidebar-menu">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+    
+      
+    
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+    
+      
+    
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+
+
+        
+          
+        
+      
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+    
+    
+    
+      
+      
+      
+    
+    
+  
+  
+
+
+        
+      
+    
+    
+  
+
+
+        
+      
+    
+    
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+      
+    
+      
+      
+    
+    
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+  
+
+
+          
+
+          
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l1">
+    <a href="/installation-guide/installation-guide/">
+        <i class='fa fa-puzzle-piece'></i>
+        Installation Guide
+    </a>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l1">
+    <a href="/quick-start/quick-start/">
+        <i class='fa fa-road'></i>
+        Quick Start
+    </a>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<li class="toctree-l1  current">
+  <a href="/tutorials/" class="">
+      <i class='fa fa-thumb-tack'></i>
+      <span>Tutorials</span>
+      <span class="menu-arrow fa fa-angle-down"></span>
+  </a>
+    <ul  class="current">
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/tutorials/cheetah/">
+        
+        Cheetah
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/tutorials/meowmongo/">
+        
+        Meow Mongo
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+<li class="toctree-l2  current">
+  <a href="/tutorials/mongokitten/tutorials/" class="">
+      
+      <span>MongoKitten</span>
+      
+  </a>
+    <ul  class="current">
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l3 ">
+  <a href="/tutorials/mongokitten/connect/" class="">
+      <i class='fa'></i>
+      <span>Connect to MongoDB</span>
+      
+  </a>
+    <ul >
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/connect/authenticating/">
+        <i class='fa'></i>
+        Authentication
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/connect/ssl/">
+        <i class='fa'></i>
+        SSL Settings
+    </a>
+  </li>
+
+
+        
+        
+    </ul>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l3 ">
+  <a href="/tutorials/mongokitten/crud/" class="">
+      <i class='fa'></i>
+      <span>Collection CRUD Operations</span>
+      
+  </a>
+    <ul >
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/crud/create/">
+        <i class='fa'></i>
+        Create/Insert
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/crud/read/">
+        <i class='fa'></i>
+        Read/Find
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/crud/update/">
+        <i class='fa'></i>
+        Update
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/crud/delete/">
+        <i class='fa'></i>
+        Delete/Remove
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l4">
+    <a href="/tutorials/mongokitten/crud/count/">
+        <i class='fa'></i>
+        Count
+    </a>
+  </li>
+
+
+        
+        
+    </ul>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/QueryBuilder/">
+        <i class='fa'></i>
+        QueryBuilder
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/aggregation/">
+        <i class='fa'></i>
+        Aggregation
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/Indexes/">
+        <i class='fa'></i>
+        Indexes
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/Cursor/">
+        <i class='fa'></i>
+        Cursor
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/collections/">
+        <i class='fa'></i>
+        Collections Administration
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/Administration/">
+        <i class='fa'></i>
+        Administration
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+    <li class="toctree-l3">
+    <a href="/tutorials/mongokitten/gridfs/">
+        <i class='fa'></i>
+        GridFS
+    </a>
+  </li>
+
+
+        
+        
+    </ul>
+  </li>
+
+
+        
+        
+    </ul>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 ">
+  <a href="/bson/BSON/" class="">
+      <i class='fa fa-th'></i>
+      <span>BSON</span>
+      <span class="menu-arrow fa fa-angle-right"></span>
+  </a>
+    <ul >
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/bson/Primitive/">
+        <i class='fa'></i>
+        BSONPrimitive
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/bson/ObjectId/">
+        <i class='fa'></i>
+        ObjectId
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/bson/Document/">
+        <i class='fa'></i>
+        Document
+    </a>
+  </li>
+
+
+        
+        
+    </ul>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 ">
+  <a href="/reference/reference/" class="">
+      <i class='fa fa-book'></i>
+      <span>Reference</span>
+      <span class="menu-arrow fa fa-angle-right"></span>
+  </a>
+    <ul >
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/reference/connecting/">
+        <i class='fa'></i>
+        Connection Options
+    </a>
+  </li>
+
+
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l2">
+    <a href="/reference/faq/">
+        <i class='fa'></i>
+        Frequently Asked Questions
+    </a>
+  </li>
+
+
+        
+        
+    </ul>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l1">
+    <a href="/upgrade-migration/upgrade-migration/">
+        <i class='fa fa-cog'></i>
+        Upgrade Guide
+    </a>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l1">
+    <a href="http://mongokitten.openkitten.org">
+        <i class='fa fa-file-text-o'></i>
+        API Documentation
+    </a>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l1">
+    <a href="https://github.com/OpenKitten/MongoKitten">
+        <i class='fa fa-github'></i>
+        Source Code
+    </a>
+  </li>
+
+
+          
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <li class="toctree-l1">
+    <a href="/issues-help/">
+        <i class='fa fa-life-ring'></i>
+        Issues &amp; Help
+    </a>
+  </li>
+
+
+          
+        </ul>
+        
+    </div>
+  </div>
+  
+</aside>
+
+<div class="option-popup closed hidden" id="optionsVersionsPopup">
+<div class="option-header">
+  <i class="fa fa-gear"></i>
+  <span>OPTIONS</span>
+  <i class="fa fa-angle-up pull-right"></i>
+</div>
+<div class="option-body">
+  <ul>
+      
+      <li>
+        <label>Version</label>
+        <div class="btn-group btn-group-xs pull-right">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Select Version <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" id="optionsVersionsMenu">
+          </ul>
+        </div>
+      </li>
+
+   
+
+
+    
+
+  </ul>
+</div>
+</div>
+
+
+
+      
+      <section id="main-content" class="content">
+          <section class="main-column pull-left">
+            <div class="document">
+              <div class="documentwrapper">
+                <div class="bodywrapper">
+                  <div class="body">
+
+
+   
+<a class="edit-link" href="https://github.com/mongodb/MongoKitten/blob/mongokitten3/docs/reference/content/tutorials/mongokitten/gridfs/index.md" target="_blank" title="Edit tutorials/mongokitten/gridfs/index.md on GitHub"><i class="fa fa-pencil-square-o"></i></a>
+
+
+
+
+
+
+
+
+
+
+<div class="bc">
+<ul>
+  
+  
+  
+  
+  <li><a href="/tutorials/">Tutorials</a> <i class="fa fa-angle-right"></i></li>
+  <li><a href="/tutorials/mongokitten/tutorials/">MongoKitten</a> <i class="fa fa-angle-right"></i></li>
+  <li>GridFS</li>
+</ul>
+</div>
+
+
+
+
+<h1 id="gridfs">GridFS</h1>
+
+<p>GridFS is a standard for using MongoDB as file storage through the MongoDB binary type. MongoDB allows you to store documents up to 16MB in size, which is useful for storing PDFs, profile pictures and other binary data. But if you want to store bigger data than 16MB you&rsquo;ll need to store it over multiple documents. GridFS fulfills that task.</p>
+
+<h3 id="setup">Setup</h3>
+
+<p>GridFS is a bucket consisting of two collections. This means that two collections have the same prefix separating their own bucket name with a dot (<code>.</code>).</p>
+
+<p>GridFS uses the <code>fs</code> prefix by default and then appends the bucket names <code>files</code> and <code>chunks</code> to create a <code>fs.files</code> collection and <code>fs.chunks</code> collection. Files stores the metadata, chunks stores the binary information for the files.</p>
+
+<p><code>let fs = db.makeGridFS()</code> will get you the GridFS instance.</p>
+
+<h2 id="using-gridfs">Using GridFS</h2>
+
+<p>MongoKitten&rsquo;s GridFS supports three methods of mutation.</p>
+
+<p>Create/store, Read/find and Remove/delete.</p>
+
+<h3 id="storing-files">Storing files</h3>
+
+<pre><code class="language-swift">let data: [UInt8] = []
+let fileID = try fs.store(data: myData, named: &quot;data.txt&quot;)
+</code></pre>
+
+<h3 id="removing-files">Removing files</h3>
+
+<p>Files can only be removed by their identifier because you wouldn&rsquo;t want to remove all files accidentally. For that we have <code>try fs.drop()</code> which drops the collections.</p>
+
+<pre><code class="language-swift">try fs.remove(byId: fileID)
+</code></pre>
+
+<h3 id="finding-files">Finding files</h3>
+
+<p>This functions similarly to Collection. But instead of returning a cursor containing Documents it returns a <code>GridFS.File</code> cursor.</p>
+
+<pre><code class="language-swift">let allFiles = try fs.find()
+</code></pre>
+
+<p>You can find single files using findOne similarly to Collection.</p>
+
+<pre><code class="language-swift">let file: GridFS.File? = try fs.findOne(byID: fileID)
+</code></pre>
+
+<h3 id="reading-files">Reading files</h3>
+
+<p>Once you&rsquo;ve obtained an instance of <code>GridFS.File</code> you&rsquo;ve only fetched the metadata. Meaning the filename, mime type, MD5 checksum and any other metadata that this file contains.</p>
+
+<p>You can use this file instance to fetch either all or specific sets of bytes. In the case of a smaller download, or a download that&rsquo;ll need to be served in it&rsquo;s entirely.</p>
+
+<p>To fetch all bytes you&rsquo;ll need to iterate over the chunks and send those chunks over the socket stream chunk-by-chunk.</p>
+
+<pre><code class="language-swift">for chunk in file {
+  socket.send(chunk.data)
+}
+</code></pre>
+
+<p>You can interrupt this process at any time efficiently without fetching extra data from MongoDB.</p>
+
+<p>MongoKitten will not throw an error when an error occurs when iterating over the file chunks using this method and will instead return no (additional) chunks. This may not always cause harm. In some situations it will result in an aborted or corrupted download which may or may not be a problem. In an image it&rsquo;ll result in a partially loaded image, in a video it&rsquo;ll result in the inability to load some parts of the movie and some file formats like PDF may be unable to open and need to be re-downloaded.</p>
+
+<p>If you want to set up a failsafe for these scenarios you&rsquo;ll need to use the <code>try file.chunked()</code> method.</p>
+
+<pre><code class="language-swift">for chunk in try file.chunked() {
+  socket.send(chunk.data)
+}
+</code></pre>
+
+<p>By default most frameworks will be unable to serve the file properly which results in the same situation as above. But if you catch the error manually you may be able to fetch the remaining data by re-trying to fetch the remaining chunks. This can be useful when the used replica set or sharded cluster has had a failure because it&rsquo;s been disabled for maintainance or another reason, or simply to log the problem.</p>
+
+<h3 id="resumed-downloads">Resumed downloads</h3>
+
+<p>Some larger files and web-browsers may use a functionality that allows resuming downloads. Videos use them for buffering, by downloading the relevant parts of the videos when required allowing you to start watching the first bit whilst the rest is still buffering. Other big files may use this web-feature for resuming big downloads after a connection problem has occurred. Or you may have another use case scenario.</p>
+
+<p>MongoKitten allows you to fetch specific subsets of information from GridFS.</p>
+
+<p>You can request all bytes after byte 1 million (1MB) for example:</p>
+
+<pre><code class="language-swift">try file.read(from: 1_000_000)`
+</code></pre>
+
+<p>You can request a limited subset of bytes:</p>
+
+<pre><code class="language-swift">try file.read(from: 1_000_000, to: 2_500_000)
+</code></pre>
+
+<p>This would fetch 1.5MB of data starting after 1MB.</p>
+
+
+
+
+
+
+<div id="btnv">
+  
+  <div class="pull-left">
+  <a class="navigation prev" href="/tutorials/mongokitten/Administration/">
+      <i class="fa fa-long-arrow-left"> </i> Administration
+  </a>
+  </div>
+  
+  
+</div>
+</div>
+
+
+<div class="right-column">
+<div class="wrapper">
+  
+  <div class="toc">
+    <span class="toc-header">On this page</span>
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#gridfs">GridFS</a>
+<ul>
+<li>
+<ul>
+<li><a href="#setup">Setup</a></li>
+</ul></li>
+<li><a href="#using-gridfs">Using GridFS</a>
+<ul>
+<li><a href="#storing-files">Storing files</a></li>
+<li><a href="#removing-files">Removing files</a></li>
+<li><a href="#finding-files">Finding files</a></li>
+<li><a href="#reading-files">Reading files</a></li>
+<li><a href="#resumed-downloads">Resumed downloads</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+  
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+
+</section>
+
+
+<script type="text/javascript">
+  var DOCUMENTATION_OPTIONS = {
+   URL_ROOT:    "http://docs.openkitten.org",
+   VERSION:     "3.1.0",
+   COLLAPSE_INDEX: false,
+   FILE_SUFFIX: '.html',
+   HAS_SOURCE:  true
+  };
+</script>
+<script type="text/javascript" src="http://docs.openkitten.org/js/jquery.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/lib/bootstrap.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/js/navbar.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/lib/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/js/scripts.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/lib/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/js/java.js"></script>
+<script type="text/javascript" src="http://docs.openkitten.org/js/toggle-switch.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-88981449-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
+

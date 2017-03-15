@@ -1,9 +1,9 @@
 +++
 date = "2016-12-14T12:36:56Z"
-title = "Cheetah"
+title = "Cheetah (JSON)"
 [menu.main]
   parent = "Tutorials"
-  identifier = "cheetah"
+  identifier = "Cheetah"
   weight = 20
 +++
 
