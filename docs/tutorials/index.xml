@@ -198,23 +198,6 @@ let jsonText: String = object.serializedString()
     
     <item>
       <title>Collection CRUD Operations</title>
-      <link>http://docs.openkitten.org/tutorials/crud/</link>
-      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
-      
-      <guid>http://docs.openkitten.org/tutorials/crud/</guid>
-      <description>
-
-&lt;h1 id=&#34;crud&#34;&gt;CRUD&lt;/h1&gt;
-
-&lt;p&gt;In &lt;a href=&#34;http://docs.openkitten.org/tutorials/mongokitten/connect/&#34;&gt;the setup guide&lt;/a&gt; we&amp;rsquo;ve covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.&lt;/p&gt;
-
-&lt;p&gt;From a collection object we can start interacting with our data. From here we&amp;rsquo;ll cover all parts of CRUD.
-(Create, Read, Update, Delete). And we&amp;rsquo;ll assume you have a Collection available as the variable &lt;code&gt;collection&lt;/code&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Collection CRUD Operations</title>
       <link>http://docs.openkitten.org/tutorials/mongokitten/crud/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
@@ -521,42 +504,6 @@ let fileID = try fs.store(data: myData, named: &amp;quot;data.txt&amp;quot;)
     
     <item>
       <title>Indexes</title>
-      <link>http://docs.openkitten.org/tutorials/Indexes/</link>
-      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
-      
-      <guid>http://docs.openkitten.org/tutorials/Indexes/</guid>
-      <description>
-
-&lt;h1 id=&#34;indexes&#34;&gt;Indexes&lt;/h1&gt;
-
-&lt;p&gt;Indexes allow you to quickly search for specific information. When you&amp;rsquo;re frequently querying the same information it is recommended to create an index for this field. Do &lt;em&gt;not&lt;/em&gt; index all your fields, this will actually reduce the performance of your application rather than increasing it.&lt;/p&gt;
-
-&lt;h2 id=&#34;text&#34;&gt;Text&lt;/h2&gt;
-
-&lt;p&gt;Text indexes are used by MongoDB to allow you to query a collection for Documents matching the text. Like a search engine.&lt;/p&gt;
-
-&lt;p&gt;They are easily created like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.createIndex(withParameters: .text([&amp;quot;keys&amp;quot;, &amp;quot;in&amp;quot;, &amp;quot;document&amp;quot;]))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&#34;No page found with path or logical name &#34;tutorials/QueryBuilder.md&#34;.
-&#34;&gt;Querying text indexes using the query builder is simple.&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;unique&#34;&gt;Unique&lt;/h2&gt;
-
-&lt;p&gt;Unique indexes require any documents inserted in the collection to have a unique value for this key.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;try collection.createIndex(withParameters: .unique, .compound(fields: [
-    &amp;quot;uniqueKey&amp;quot;: 1,
-    &amp;quot;otherUniqueKey&amp;quot;: 1
-]))
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Indexes</title>
       <link>http://docs.openkitten.org/tutorials/mongokitten/Indexes/</link>
       <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
       
@@ -655,6 +602,142 @@ let homePage = try LeafSyntax.compile(&amp;quot;index.leaf&amp;quot;, atPath: &a
     0, 2, 4, 8, 16, 15, 13, 11
   ]
 ])
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Meow Mongo (ORM)</title>
+      <link>http://docs.openkitten.org/tutorials/meowmongo/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/meowmongo/</guid>
+      <description>
+
+&lt;h1 id=&#34;meow-mongo-orm&#34;&gt;(Meow)Mongo ORM&lt;/h1&gt;
+
+&lt;p&gt;MeowMongo is a MongoKitten based ORM using code generation.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s USPs are a type-safe query language, type-safe index builder and a easy set up.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/krzysztofzablocki/Sourcery#installing&#34;&gt;Install Sourcery&lt;/a&gt; to get access to the main USPs of this ORM.&lt;/p&gt;
+
+&lt;p&gt;And include this in your Package.swift and rebuild your .xcodeproj file using &lt;code&gt;swift package generate-xcodeproj&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  dependencies: [
+    .Package(url: &amp;quot;https://github.com/OpenKitten/MeowMongo.git&amp;quot;, majorVersion: 0, minor: 3)
+  ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;setting-up-your-database-connection&#34;&gt;Setting up your database connection&lt;/h2&gt;
+
+&lt;p&gt;We&amp;rsquo;ve made this really easy. All you have to do is call &lt;code&gt;Meow.init&lt;/code&gt; with your MongoDB connection string.
+Please note, &lt;code&gt;Meow.init&lt;/code&gt; needs to be spelled out &lt;em&gt;fully&lt;/em&gt;. &lt;code&gt;Meow(&amp;quot;mongodb://localhost&amp;quot;)&lt;/code&gt; &lt;em&gt;will not&lt;/em&gt; work.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;import MeowMongo
+
+// TODO: Replace with MongoDB URL
+try Meow.init(&amp;quot;mongodb://localhost&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;generating-the-rest-with-sourcery&#34;&gt;Generating the rest with Sourcery&lt;/h2&gt;
+
+&lt;p&gt;Assuming your terminal&amp;rsquo;s PWD is the project root where &lt;code&gt;Package.swift&lt;/code&gt; resides:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sourcery ./Sources/ .build/checkouts/MeowMongo*/Templates ./Sources/Generated.swift
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will scan your sources and generate a new file called &lt;code&gt;Generated.swift&lt;/code&gt; in your project.&lt;/p&gt;
+
+&lt;p&gt;The first time you add this file you will need to regenerate the Xcode project:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;swift package generate-xcodeproj
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;frequently-updated-models&#34;&gt;Frequently updated models&lt;/h3&gt;
+
+&lt;p&gt;If you frequently update your models (during development), add &lt;code&gt;--watch&lt;/code&gt; to the sourcery command to update whenever a change is detected.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sourcery --watch ./Sources/ .build/checkouts/MeowMongo*/Templates ./Sources/Generated.swift
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;read-more&#34;&gt;Read More&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.openkitten.org/tutorials/meowmongo/Models/&#34;&gt;Models - the most important part of an ORM&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Models</title>
+      <link>http://docs.openkitten.org/tutorials/meowmongo/Models/</link>
+      <pubDate>Wed, 14 Dec 2016 12:36:56 +0000</pubDate>
+      
+      <guid>http://docs.openkitten.org/tutorials/meowmongo/Models/</guid>
+      <description>
+
+&lt;h1 id=&#34;models&#34;&gt;Models&lt;/h1&gt;
+
+&lt;p&gt;On this page we&amp;rsquo;ll cover how to create your models&lt;/p&gt;
+
+&lt;h2 id=&#34;setting-up-a-basic-model&#34;&gt;Setting up a basic model&lt;/h2&gt;
+
+&lt;p&gt;For models you can use either a class or a struct.&lt;/p&gt;
+
+&lt;p&gt;This example uses a class since I regard Users as a reference to a singular instance of this information. There can never be two identical users unlike some other types of data like Articles. The only requirement for models of any kind is the uniqueness of the identifier. Luckily, this is handled by the ORM.&lt;/p&gt;
+
+&lt;p&gt;To prevent possible bugs from arising we suggest &lt;code&gt;var id = ObjectId()&lt;/code&gt; for the identifier. This way you know that new models always have a new unique ID whilst old models get their id overwritten by the ORM.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;final class User : Model {
+  var id = ObjectId()
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you see, we didn&amp;rsquo;t have to write any (de)-serialization code. This is taken care of by &lt;code&gt;sourcery&lt;/code&gt;, as covered in &lt;a href=&#34;http://docs.openkitten.org/tutorials/meowmongo/&#34;&gt;the overview page.&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;expanding-the-model&#34;&gt;Expanding the model&lt;/h2&gt;
+
+&lt;p&gt;MeowMongo works with native Swift types, which means that you can use the types you&amp;rsquo;re used to. For a full list of supported data types, see &lt;a href=&#34;http://docs.openkitten.org/tutorials/meowmongo/Types/&#34;&gt;the supported data types page.&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;final class User : Model {
+  var id = ObjectId()
+  var username: String
+  var password: String
+  var email: String
+  var favouriteNumber: Int? = nil
+  var favouriteFoods = [String]()
+
+  init(username: String, password: String) {
+    self.username = username
+    self.password = password
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;embeddables&#34;&gt;Embeddables&lt;/h2&gt;
+
+&lt;p&gt;Embeddables are classes, structs or enums that exist within a model or another Embeddable.&lt;/p&gt;
+
+&lt;p&gt;If you want to make use of nested/recursive structures, you can conform your structure to &lt;code&gt;Embeddable&lt;/code&gt;. The rest is taken care of when running &lt;code&gt;sourcery&lt;/code&gt;. Embeddables are queryable through the type-safe query language.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;final class User : Model {
+  var profile: Profile
+  /// ..., the rest of the User code like `id` and the other functions/variables
+}
+
+struct Profile : Embeddable {
+  var firstName: String
+  var lastName: String
+  var age: Int
+  var gender: Gender
+}
+
+enum Gender : String, Embeddable {
+  case male, female
+}
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

@@ -4,7 +4,7 @@ title = "Collection CRUD Operations"
 [menu.main]
   parent = "MongoKitten"
   identifier = "CRUD"
-  weight = 10
+  weight = 50
   pre = "<i class='fa'></i>"
 +++
 
