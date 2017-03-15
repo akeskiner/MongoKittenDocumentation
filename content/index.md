@@ -10,14 +10,14 @@ Welcome to the MongoKitten 3.x driver documentation.
 
 ## Migrating to MongoKitten 3
 
-If you are upgrading from a previous MongoKitten version (2.x or 3.x), consult the [migration guide]({{< relref "upgrade-migration/index.md" >}}) for
+If you are upgrading from a previous MongoKitten version (2.x or 3.x), consult the [migration guide]({{< relref "upgrade-migration/upgrade-migration.md" >}}) for
 information on updating your code to MongoKitten 3.
 
 ## Starting points
 
-* [Installing the driver]({{< relref "installation-guide/index.md" >}})
-* [Quick start]({{< relref "quick-start/index.md" >}})
-* [Collection CRUD operations]({{< relref "tutorials/crud.md" >}})
+* [Installing the driver]({{< relref "installation-guide/installation-guide.md" >}})
+* [Quick start]({{< relref "quick-start/quick-start.md" >}})
+* [Collection CRUD operations]({{< relref "tutorials/crud/index.md" >}})
 
 ## Next steps
 

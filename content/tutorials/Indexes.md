@@ -21,7 +21,7 @@ They are easily created like this:
 try collection.createIndex(withParameters: .text(["keys", "in", "document"]))
 ```
 
-[Querying text indexes using the query builder is simple.]({{< relref "tutorials/QueryBuilder/#text-searching" >}})
+[Querying text indexes using the query builder is simple.]({{< relref "tutorials/QueryBuilder.md#text-searching" >}})
 
 ## Unique
 

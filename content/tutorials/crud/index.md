@@ -10,7 +10,7 @@ title = "Collection CRUD Operations"
 
 # CRUD
 
-In [the setup guide]({{< relref "tutorials/connect.md" >}}) we've covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.
+In [the setup guide]({{< relref "tutorials/connect/index.md" >}}) we've covered how you can open a Database and from there a Collection. Collections are the storage place in MongoDB like tables for SQL databases.
 
 From a collection object we can start interacting with our data. From here we'll cover all parts of CRUD.
 (Create, Read, Update, Delete). And we'll assume you have a Collection available as the variable `collection`.
