@@ -14,7 +14,7 @@ The tutorials in this section provide examples of some frequently used operation
 
 [Connect to MongoDB]({{< relref "tutorials/mongokitten/connect/index.md" >}})
 
-[Collection CRUD Operations]({{< relref "tutorials/mongokitten/crud.md" >}})
+[Collection CRUD Operations]({{< relref "tutorials/mongokitten/crud/index.md" >}})
 
 [Query Builder]({{< relref "tutorials/mongokitten/QueryBuilder.md" >}})
 

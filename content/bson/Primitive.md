@@ -26,8 +26,8 @@ The list of BSON Primitives:
 
 - Double
 - String
-- [Document]({{< relref "tutorials/bsonDocument.md" >}}) (Array and Dictionary)
-- [ObjectId]({{< relref "tutorials/bsonObjectId.md" >}})
+- [Document]({{< relref "bson/Document.md" >}}) (Array and Dictionary)
+- [ObjectId]({{< relref "bson/ObjectId.md" >}})
 - Bool
 - Int32
 - Int (Int64)
