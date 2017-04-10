@@ -6,12 +6,12 @@ type = "index"
 
 # MongoKitten Documentation
 
-Welcome to the MongoKitten 3.x driver documentation.
+Welcome to the MongoKitten 4.x driver documentation.
 
-## Migrating to MongoKitten 3
+## Migrating to MongoKitten 4
 
 If you are upgrading from a previous MongoKitten version (2.x or 3.x), consult the [migration guide]({{< relref "upgrade-migration/upgrade-migration.md" >}}) for
-information on updating your code to MongoKitten 3.
+information on updating your code to MongoKitten 4.
 
 ## Starting points
 
